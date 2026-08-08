@@ -1,263 +1,272 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight, Sparkles, Layers, Cpu, Code2, Globe2, Cloud, Server, BrainCircuit, Terminal } from "lucide-react";
-import { cn } from "@/lib/utils";
+import React, { useState } from "react";
+import { DEVELOPER_INFO, INITIAL_STICKY_NOTES, StickyNote } from "@/data/portfolioData";
+import {
+  ArrowDown,
+  ArrowUpRight,
+  Code2,
+  Cpu,
+  Database,
+  FileDown,
+  Heart,
+  Plus,
+  Server,
+  ShieldCheck,
+  Sparkles,
+  Zap,
+} from "lucide-react";
+import confetti from "canvas-confetti";
 
-export function HeroSection({
-  onExploreWork,
-  onOpenContact,
-}: {
-  onExploreWork: () => void;
-  onOpenContact: () => void;
-}) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const shouldReduceMotion = useReducedMotion();
-  const [activeMetric, setActiveMetric] = useState(0);
+export function HeroSection() {
+  const [stickyNotes, setStickyNotes] = useState<StickyNote[]>(INITIAL_STICKY_NOTES);
+  const [isAddingNote, setIsAddingNote] = useState(false);
+  const [newNoteContent, setNewNoteContent] = useState("");
+  const [newNoteAuthor, setNewNoteAuthor] = useState("");
+  const [newNoteColor, setNewNoteColor] = useState<StickyNote["color"]>("lime");
+  const [activeFilter, setActiveFilter] = useState<string>("All");
 
-  // Distributed node network simulation on canvas
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  const handleLikeNote = (id: string) => {
+    setStickyNotes((prev) =>
+      prev.map((note) => (note.id === id ? { ...note, likes: note.likes + 1 } : note))
+    );
+  };
 
-    let animationFrameId: number;
-    let width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
-    let height = (canvas.height = canvas.parentElement?.clientHeight || 600);
+  const handleAddNote = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newNoteContent.trim()) return;
 
-    const handleResize = () => {
-      if (!canvas || !canvas.parentElement) return;
-      width = canvas.width = canvas.parentElement.clientWidth;
-      height = canvas.height = canvas.parentElement.clientHeight;
-    };
-    window.addEventListener("resize", handleResize);
-
-    const nodes: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      radius: number;
-      color: string;
-      alpha: number;
-    }> = [];
-
-    const colors = ["#0099ff", "#6a4cf5", "#d44df0", "#ff7a3d", "#22c55e"];
-
-    for (let i = 0; i < 46; i++) {
-      nodes.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        radius: Math.random() * 2.5 + 1.2,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        alpha: Math.random() * 0.45 + 0.25,
-      });
-    }
-
-    let mouseX = width / 2;
-    let mouseY = height / 2;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-
-    const render = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      // Subtle cloud grid mesh
-      ctx.strokeStyle = "rgba(38, 38, 38, 0.4)";
-      ctx.lineWidth = 1;
-      const gridSize = 56;
-      for (let x = 0; x < width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-        ctx.stroke();
-      }
-      for (let y = 0; y < height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-        ctx.stroke();
-      }
-
-      // Draw and connect cluster nodes
-      nodes.forEach((p, idx) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
-
-        const dx = mouseX - p.x;
-        const dy = mouseY - p.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 160) {
-          p.x += (dx / dist) * 0.5;
-          p.y += (dy / dist) * 0.5;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.fill();
-
-        for (let j = idx + 1; j < nodes.length; j++) {
-          const p2 = nodes[j];
-          const d = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (d < 110) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = p.color;
-            ctx.globalAlpha = (1 - d / 110) * 0.16;
-            ctx.stroke();
-          }
-        }
-      });
-      ctx.globalAlpha = 1;
-
-      animationFrameId = requestAnimationFrame(render);
+    const newNote: StickyNote = {
+      id: `custom-${Date.now()}`,
+      author: newNoteAuthor.trim() || "Visitor",
+      role: "Guest Reviewer",
+      content: newNoteContent.trim(),
+      color: newNoteColor,
+      rotation: (Math.random() * 6 - 3),
+      likes: 1,
+      tag: "Community",
     };
 
-    render();
+    setStickyNotes((prev) => [newNote, ...prev]);
+    setNewNoteContent("");
+    setNewNoteAuthor("");
+    setIsAddingNote(false);
 
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, [shouldReduceMotion]);
+    // Trigger confetti celebration
+    confetti({
+      particleCount: 80,
+      spread: 60,
+      origin: { y: 0.6 },
+      colors: ["#dceeb1", "#c5b0f4", "#f3c9b6", "#c8e6cd", "#ff3d8b"],
+    });
+  };
 
-  const stats = [
-    { label: "Daily Active AI Queries", value: "18.4M+", icon: BrainCircuit, accent: "text-[#6a4cf5]" },
-    { label: "P99 Global Edge Latency", value: "<8.2ms", icon: Cloud, accent: "text-[#ff7a3d]" },
-    { label: "Distributed Microservices", value: "60+ Svc", icon: Server, accent: "text-[#d44df0]" },
-    { label: "Cloud Platform Uptime", value: "99.99%", icon: Globe2, accent: "text-[#0099ff]" },
-  ];
+  const colorClasses = {
+    lime: "bg-[#dceeb1] text-[#000000] border-[#bed68b]",
+    lilac: "bg-[#c5b0f4] text-[#000000] border-[#a991de]",
+    cream: "bg-[#f4ecd6] text-[#000000] border-[#ded0b1]",
+    mint: "bg-[#c8e6cd] text-[#000000] border-[#a6ceab]",
+    pink: "bg-[#efd4d4] text-[#000000] border-[#d8b5b5]",
+    coral: "bg-[#f3c9b6] text-[#000000] border-[#d9a892]",
+  };
 
   return (
-    <section className="relative pt-24 pb-16 md:pt-28 md:pb-20 overflow-hidden border-b border-[#262626]">
-      {/* Background Interactive Cluster Layer */}
-      <div className="absolute inset-0 pointer-events-none opacity-60">
-        <canvas ref={canvasRef} className="w-full h-full" />
-      </div>
+    <section className="relative w-full bg-[#ffffff] pt-12 pb-16 lg:pt-16 lg:pb-24 border-b border-[#e6e6e6] overflow-hidden">
+      {/* Background subtle Figma Grid */}
+      <div className="absolute inset-0 bg-figma-grid opacity-60 pointer-events-none" />
 
-      {/* Atmospheric radial gradient spotlights */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[380px] bg-gradient-to-r from-[#6a4cf5]/20 via-[#d44df0]/15 to-[#ff7a3d]/20 blur-[130px] rounded-full pointer-events-none" />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Availability & Role Header Tag */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f7f7f5] border border-[#e6e6e6] text-xs font-mono tracking-mono-eyebrow text-[#000000]">
+            <span className="w-2 h-2 rounded-full bg-[#1ea64a] animate-pulse"></span>
+            <span>BACKEND SYSTEMS • JAVA SPRING BOOT • APPLIED ML • INFOSEC</span>
+          </div>
 
-      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
-          {/* Eyebrow & Status indicator */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#141414] border border-[#262626] text-xs text-[#999999] mb-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22c55e] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22c55e]" />
-            </span>
-            <span className="font-mono text-[11px] uppercase tracking-wider text-white">
-              Available for Q3/Q4 Architecture Engagements
-            </span>
-          </motion.div>
+          <div className="flex items-center gap-2 text-xs font-mono text-[#666666]">
+            <span>Jakarta, ID (Remote / Hybrid / Onsite)</span>
+          </div>
+        </div>
 
-          {/* Display Headline with aggressive negative tracking */}
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-semibold text-white tracking-[-0.04em] leading-[0.98] font-[var(--font-outfit)] max-w-4xl"
-          >
-            Full Stack Architect · Cloud &amp; AI Systems
-          </motion.h1>
+        {/* Hero Editorial Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+          {/* Main Headline & Bio Column (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-semibold tracking-[-0.04em] text-[#000000] leading-[1.05] mb-6">
+              Architecting <span className="underline decoration-[#dceeb1] decoration-wavy decoration-2">resilient backends</span> & intelligent systems.
+            </h1>
 
-          {/* Crisp Subtext */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-6 text-base sm:text-lg text-[#999999] max-w-[62ch] leading-relaxed"
-          >
-            Architecting high-throughput distributed backends, global edge cloud infrastructure, and production AI/LLM pipelines — wrapped in precision, artboard-grade user interfaces.
-          </motion.p>
+            <p className="text-lg sm:text-xl font-normal text-[#333333] leading-[1.5] max-w-2xl mb-8 tracking-[-0.01em]">
+              Hi, I'm <strong className="font-semibold text-[#000000]">Ammardito Shafaat</strong>. I build high-throughput Java & Spring Boot microservices, distributed data pipelines, and deep learning vision systems with engineering precision and design clarity.
+            </p>
 
-          {/* Dual Pill CTA Actions with tactile press */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-3.5"
-          >
-            <button
-              onClick={onExploreWork}
-              className="px-6 py-3 rounded-full text-xs font-semibold text-black bg-white hover:bg-white/90 transition-all duration-200 shadow-[0_0_30px_rgba(255,255,255,0.2)] active:scale-95 flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-[#0099ff] focus-visible:outline-none cursor-pointer"
-            >
-              <span>Explore Architecture &amp; Work</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </button>
+            {/* CTAs Pill Pair */}
+            <div className="flex flex-wrap items-center gap-4 mb-10">
+              <a
+                href="#projects"
+                className="px-7 py-3 rounded-full text-sm font-semibold text-[#ffffff] bg-[#000000] hover:bg-[#222222] active:scale-95 transition-all flex items-center gap-2 shadow-md hover:shadow-lg"
+              >
+                <span>Explore Architecture & Projects</span>
+                <ArrowDown className="w-4 h-4" />
+              </a>
 
-            <a
-              href="#lab"
-              className="px-6 py-3 rounded-full text-xs font-medium text-white bg-[#141414] hover:bg-[#1c1c1c] border border-[#262626] hover:border-[#444] transition-all duration-200 active:scale-95 flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-[#0099ff] focus-visible:outline-none"
-            >
-              <Terminal className="w-4 h-4 text-[#0099ff]" />
-              <span>Launch Architecture Lab</span>
-            </a>
-          </motion.div>
+              <a
+                href="#api-workbench"
+                className="px-6 py-3 rounded-full text-sm font-semibold text-[#000000] bg-[#ffffff] border-2 border-[#000000] hover:bg-[#f7f7f5] active:scale-95 transition-all flex items-center gap-2"
+              >
+                <span>Live API Console</span>
+                <Zap className="w-4 h-4 text-[#ff3d8b]" />
+              </a>
 
-          {/* Interactive Metric Cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-14 w-full grid grid-cols-2 md:grid-cols-4 gap-3 text-left"
-          >
-            {stats.map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.label}
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => setActiveMetric(idx)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") setActiveMetric(idx);
-                  }}
-                  className={cn(
-                    "cursor-pointer p-4 rounded-xl transition-all duration-200 border focus-visible:ring-2 focus-visible:ring-[#0099ff] focus-visible:outline-none active:scale-[0.98]",
-                    activeMetric === idx
-                      ? "bg-[#1c1c1c] border-[#0099ff]/60 shadow-[0_0_16px_rgba(0,153,255,0.18)]"
-                      : "bg-[#141414]/90 border-[#262626] hover:bg-[#1c1c1c]/80 hover:border-[#3a3a3a]"
-                  )}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[11px] font-mono text-[#999999] uppercase tracking-wider">
-                      0{idx + 1}
-                    </span>
-                    <Icon className={cn("w-4 h-4", item.accent)} />
-                  </div>
-                  <div className="text-xl sm:text-2xl font-bold font-[var(--font-outfit)] text-white tracking-tight">
-                    {item.value}
-                  </div>
-                  <div className="text-xs text-[#999999] mt-0.5 leading-snug">
-                    {item.label}
-                  </div>
+              <a
+                href="https://github.com/webdev-testa"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-3 rounded-full text-sm font-medium text-[#444444] bg-[#f7f7f5] hover:bg-[#e6e6e6] hover:text-[#000000] transition-colors flex items-center gap-1.5"
+              >
+                <span>GitHub</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+
+            {/* Architectural Metric Indicators */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-[#f7f7f5] border border-[#e6e6e6]">
+              {DEVELOPER_INFO.stats.map((stat, idx) => (
+                <div key={idx} className="flex flex-col">
+                  <span className="text-xl sm:text-2xl font-bold tracking-tight text-[#000000]">
+                    {stat.value}
+                  </span>
+                  <span className="text-xs font-mono uppercase tracking-mono-caption text-[#666666] mt-0.5">
+                    {stat.label}
+                  </span>
                 </div>
-              );
-            })}
-          </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column: Interactive FigJam Sticky Note Board (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col">
+            <div className="p-6 rounded-3xl bg-[#ffffff] border-2 border-[#e6e6e6] shadow-[0_8px_30px_rgba(0,0,0,0.06)] relative">
+              {/* Header Bar */}
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#f1f1f1]">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#ff3d8b]"></div>
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#000000]">
+                    FigJam Collaborative Board
+                  </span>
+                </div>
+
+                <button
+                  onClick={() => setIsAddingNote(!isAddingNote)}
+                  className="px-3 py-1 rounded-full bg-[#000000] text-[#ffffff] text-xs font-medium flex items-center gap-1 hover:bg-[#222222] transition-colors"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>{isAddingNote ? "Close" : "Post Note"}</span>
+                </button>
+              </div>
+
+              {/* Add Note Form */}
+              {isAddingNote && (
+                <form onSubmit={handleAddNote} className="mb-4 p-4 rounded-2xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col gap-3">
+                  <div className="text-xs font-semibold text-[#000000]">Drop a thought or review:</div>
+                  <input
+                    type="text"
+                    placeholder="Your Name / Company (e.g. Lead Engineer at Acme)"
+                    value={newNoteAuthor}
+                    onChange={(e) => setNewNoteAuthor(e.target.value)}
+                    className="w-full px-3 py-2 text-xs rounded-lg border border-[#e6e6e6] bg-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#000000]"
+                  />
+                  <textarea
+                    placeholder="Write a short message or comment..."
+                    value={newNoteContent}
+                    onChange={(e) => setNewNoteContent(e.target.value)}
+                    rows={2}
+                    className="w-full px-3 py-2 text-xs rounded-lg border border-[#e6e6e6] bg-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#000000]"
+                    required
+                  />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      {(["lime", "lilac", "mint", "coral", "pink", "cream"] as const).map((c) => (
+                        <button
+                          type="button"
+                          key={c}
+                          onClick={() => setNewNoteColor(c)}
+                          className={`w-5 h-5 rounded-full border ${
+                            newNoteColor === c ? "ring-2 ring-[#000000] scale-110" : ""
+                          }`}
+                          style={{
+                            backgroundColor:
+                              c === "lime"
+                                ? "#dceeb1"
+                                : c === "lilac"
+                                ? "#c5b0f4"
+                                : c === "mint"
+                                ? "#c8e6cd"
+                                : c === "coral"
+                                ? "#f3c9b6"
+                                : c === "pink"
+                                ? "#efd4d4"
+                                : "#f4ecd6",
+                          }}
+                        />
+                      ))}
+                    </div>
+                    <button
+                      type="submit"
+                      className="px-4 py-1.5 rounded-full bg-[#000000] text-[#ffffff] text-xs font-semibold hover:bg-[#222222]"
+                    >
+                      Stick Note
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              {/* Sticky Notes Container */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[380px] overflow-y-auto pr-1">
+                {stickyNotes.slice(0, 6).map((note) => (
+                  <div
+                    key={note.id}
+                    style={{ transform: `rotate(${note.rotation}deg)` }}
+                    className={`p-4 rounded-xl border shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer flex flex-col justify-between ${
+                      colorClasses[note.color]
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-mono text-[10px] uppercase tracking-wider font-semibold text-[#000000]/70">
+                          {note.tag}
+                        </span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleLikeNote(note.id);
+                          }}
+                          className="flex items-center gap-1 text-[11px] font-semibold text-[#000000]/80 hover:text-[#000000]"
+                        >
+                          <Heart className="w-3 h-3 fill-current text-[#ff3d8b]" />
+                          <span>{note.likes}</span>
+                        </button>
+                      </div>
+                      <p className="text-xs font-normal leading-snug text-[#000000] mb-3">
+                        "{note.content}"
+                      </p>
+                    </div>
+
+                    <div className="pt-2 border-t border-[#000000]/10 flex flex-col">
+                      <span className="text-[11px] font-bold text-[#000000]">{note.author}</span>
+                      <span className="text-[10px] text-[#000000]/70">{note.role}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Bottom indicator */}
+              <div className="mt-4 pt-3 border-t border-[#f1f1f1] flex items-center justify-between text-[11px] font-mono text-[#666666]">
+                <span>Click any note to like • Live feedback</span>
+                <span className="text-[#1ea64a] font-semibold">● Sticky Canvas Active</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

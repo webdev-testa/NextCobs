@@ -7,43 +7,51 @@
 web
 
 ## Users
-Engineering VPs, CTOs, founders, and technical design leaders looking to architect or scale mission-critical Full Stack applications, Cloud & Edge infrastructure, distributed AI/LLM pipelines, and high-performance frontend design architectures.
+
+Technical recruiters, engineering managers, CTOs, tech leads, and peer software engineers evaluating backend architecture capability, distributed systems resilience, and engineering rigor for Senior / Mid Backend & Distributed Systems roles.
 
 ## Product Purpose
-A flagship engineering portfolio demonstrating real-world Full Stack architecture, distributed cloud systems, real-time streaming telemetry, and production AI/LLM systems wrapped in an artboard-grade, dark-canvas user interface.
+
+To showcase Ammardito Shafaat's backend engineering proficiency, enterprise microservices experience (Java 21, Spring Boot 3.3, PostgreSQL), applied Machine Learning work, and Information Security automation through an interactive, high-craft portfolio that converts interest into technical interviews and high-scale roles.
 
 ## Positioning
-Bridging distributed backend architecture, cloud infrastructure, and intelligent AI pipelines with cinematic, high-performance interface engineering. Not generic boilerplates—delivering production microservices, sub-8ms vector search, serverless edge traffic meshes, and mathematical design system token compilers.
+
+An engineer who builds high-throughput, fault-tolerant backend systems, resilient microservices, and distributed data pipelines with rigorous type safety, clean hexagonal architecture, and verifiable performance metrics.
 
 ## Operating Context
-Evaluated by technical hiring managers, enterprise clients, and technical teams. Visitors interact with live multi-module engineering sandboxes: RAG vector distance calculators, multi-region edge latency routers, streaming LLM token velocity meters, Redis rate-limiters, and SQL query execution visualizers.
+
+Enterprise recruitment systems handling synchronized candidate evaluations, serverless compliance pipelines, automated policy verification against ISO 27001 standards, real-time WebSocket telemetry, and deep learning vision inference.
 
 ## Capabilities and Constraints
-- High-fidelity dark-canvas artboard interface (`#090909`, `#141414`, `#1c1c1c`)
-- Full Stack & Cloud showcase: Next.js 15 RSC, TypeScript, Node, Python, Rust, PostgreSQL, Redis, Kafka, Kubernetes, AWS, Cloudflare Workers
-- AI Engineering: Vector embeddings (pgvector / Qdrant), RAG retrieval, Multi-agent graph orchestration, Semantic caching
-- Interactive engineering lab with 5 live simulators
-- WCAG AAA compliance and token contrast verification
+
+- High-concurrency Spring Boot microservices with HikariCP connection pooling, PostgreSQL RBAC schemas, and JWT authorization.
+- Serverless ETL and LLM verification pipelines utilizing AWS Lambda and S3.
+- Deep learning bounding box classification in TensorFlow with sub-120ms inference.
+- Client-side zero-knowledge AES-256 GCM encryption where plaintext keys never reach server memory.
+- Bi-directional WebSockets with Redis Pub/Sub for real-time telemetry streaming.
 
 ## Brand Commitments
-- Identity: Alex Rivera — Full Stack Architect · Cloud & AI Systems
-- Design Language: Framer-Apple inspired dark-canvas artboard system with negative-tracked display headlines (`-0.04em`), white pill primary CTAs, and vibrant gradient atmosphere spotlight cards (Violet `#6a4cf5`, Magenta `#d44df0`, Sunset Orange `#ff7a3d`, Coral `#ff5577`)
-- Color Discipline: Pure monochrome foundation with single-shot chromatic focus (`#0099ff`) and dedicated atmospheric cards
+
+- Name: Ammardito Shafaat
+- Role: Back End Developer & Creative Systems Architect
+- Visual World: Figma-Apple Editorial Design System (crisp monochrome `#ffffff`/`#000000` canvas, oversized pastel color blocks, pill-shaped CTAs, variable typography with negative display tracking).
+- Tone: Confident, technical, rigorous, and design-literate.
 
 ## Evidence on Hand
-- Nexus Neural Vector Engine (Sub-8ms hybrid dense-sparse vector search over 50M embeddings)
-- Aether Edge Proxy & Mesh (4.8B monthly requests across 280+ POPs on Cloudflare & Kubernetes)
-- Synthex Multi-Agent Fabric (80k+ automated reasoning pipelines with 98.4% success rate)
-- Helios Real-Time Stream Engine (250k events/s ingest with Apache Kafka & ClickHouse)
-- Chroma Design System Compiler (Zero-runtime multi-framework token compiler across 42 squads)
+
+- Real work history at LG Sinar Mas (C#/.NET & Java Spring Boot Developer), Bangkit Academy by Google/GoTo/Traveloka (ML Mentor & Capstone Lead), and Mekari (InfoSec & Compliance Engineer).
+- 6 production case studies with real architectural specs: LG SM Job Portal, OpenAI Compliance Engine, CalorieLens CV Detector, Zero-Knowledge Vault, Supply Chain Radar, and FlowCluster.
+- Verified recommendations from TechFlow CTO, Lead ML Engineers, and Product Managers.
 
 ## Product Principles
-1. **Production Truth Over Mockups:** Real-world cloud architectures, distributed system metrics, and functional interactive engineering sandboxes.
-2. **End-to-End Precision:** From database indexes and Kubernetes pods up to fluid 120fps UI state machines.
-3. **No Slop, High Signal:** Dense, informative telemetry, clean architectural diagrams, and verified performance benchmarks.
-4. **Interactive by Default:** Visitors don't just read about architectures—they test rate limiters, inject cloud latency, and simulate semantic embeddings live.
+
+1. **Architecture over aesthetics**: Visuals serve the technical demonstration, never replacing technical proof.
+2. **Production truth**: Every metric, latency benchmark, and architectural trade-off is grounded in real engineering decisions.
+3. **Interactive demonstration**: Allow visitors to experience the systems live via API test workbench, system blueprints, and collaborative boards.
+4. **Immediate clarity**: Recruiters and engineering leads understand core competency within seconds of landing.
 
 ## Accessibility & Inclusion
-- Strict WCAG AA/AAA minimum contrast across all interactive states and form elements
-- Full `prefers-reduced-motion` detection disabling high-frequency canvas loops and spring transforms
-- Keyboard-accessible focus rings in high-contrast focus blue (`#0099ff`)
+
+- WCAG AA contrast compliance across all monochrome and pastel color-block surfaces.
+- Accessible keyboard navigation and visible focus states.
+- High-performance, lightweight client bundles with fast initial render and smooth transitions.

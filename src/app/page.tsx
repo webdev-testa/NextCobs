@@ -1,64 +1,62 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Navbar } from "@/components/Navbar";
+import { MarqueeStrip } from "@/components/MarqueeStrip";
 import { HeroSection } from "@/components/HeroSection";
-import { BentoGrid } from "@/components/BentoGrid";
-import { InteractiveLab } from "@/components/InteractiveLab";
-import { DesignSystemViewer } from "@/components/DesignSystemViewer";
-import { CareerTimeline } from "@/components/CareerTimeline";
+import { ProjectShowcase } from "@/components/ProjectShowcase";
+import { ApiWorkbench } from "@/components/ApiWorkbench";
+import { ArchitecturePillars } from "@/components/ArchitecturePillars";
+import { SkillsMatrix } from "@/components/SkillsMatrix";
+import { ExperienceTimeline } from "@/components/ExperienceTimeline";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
+import { InteractiveContact } from "@/components/InteractiveContact";
 import { Footer } from "@/components/Footer";
-import { ProjectModal } from "@/components/ProjectModal";
-import { ContactModal } from "@/components/ContactModal";
-import { Project } from "@/data/portfolioData";
+import { MultiplayerCursorLayer } from "@/components/MultiplayerCursorLayer";
 
 export default function Home() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [contactOpen, setContactOpen] = useState(false);
-
-  const scrollToWork = () => {
-    const el = document.getElementById("work");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const [multiplayerActive, setMultiplayerActive] = useState(true);
 
   return (
-    <main className="min-h-[100dvh] bg-[#090909] text-white selection:bg-[#0099ff] selection:text-white font-[var(--font-inter)]">
-      {/* Top Fixed Header */}
-      <Navbar onOpenContact={() => setContactOpen(true)} />
+    <main className="min-h-screen bg-[#ffffff] text-[#000000] flex flex-col relative selection:bg-[#000000] selection:text-[#ffffff]">
+      {/* Figma Multiplayer Cursor Simulation Layer */}
+      <MultiplayerCursorLayer active={multiplayerActive} />
 
-      {/* Hero Section */}
-      <HeroSection
-        onExploreWork={scrollToWork}
-        onOpenContact={() => setContactOpen(true)}
+      {/* Sticky White Editorial Navigation */}
+      <Navbar
+        multiplayerActive={multiplayerActive}
+        onToggleMultiplayer={() => setMultiplayerActive(!multiplayerActive)}
       />
 
-      {/* Selected Work Bento Grid */}
-      <BentoGrid onSelectProject={(p) => setSelectedProject(p)} />
+      {/* Thin Marquee Ribbon with Key Stacks */}
+      <MarqueeStrip />
 
-      {/* Interactive Interaction Lab */}
-      <InteractiveLab />
+      {/* Pure White Canvas Hero Section with Interactive FigJam Board */}
+      <HeroSection />
 
-      {/* Design System & Token Matrix */}
-      <DesignSystemViewer />
+      {/* Projects Showcase & Architecture Blueprints */}
+      <ProjectShowcase />
 
-      {/* Career & Accolades */}
-      <CareerTimeline />
+      {/* Signature Lime Color Block: Live API Test Console */}
+      <ApiWorkbench />
 
-      {/* Dense Footer */}
-      <Footer onOpenContact={() => setContactOpen(true)} />
+      {/* Signature Lilac Color Block: Engineering Pillars & ADRs */}
+      <ArchitecturePillars />
 
-      {/* Interactive Modals */}
-      <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
+      {/* Signature Mint Color Block: Technical Stack Matrix */}
+      <SkillsMatrix />
 
-      <ContactModal
-        isOpen={contactOpen}
-        onClose={() => setContactOpen(false)}
-      />
+      {/* Signature Coral Color Block: Experience Timeline */}
+      <ExperienceTimeline />
+
+      {/* Signature Navy Color Block: Endorsements & Peer Reviews */}
+      <TestimonialsSection />
+
+      {/* Signature Pink Color Block: Interactive Contact & Hire */}
+      <InteractiveContact />
+
+      {/* Monochrome Editorial Footer */}
+      <Footer />
     </main>
   );
 }

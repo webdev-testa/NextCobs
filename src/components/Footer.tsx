@@ -1,162 +1,170 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { ArrowUpRight, Mail, Check, Github, Twitter, Linkedin } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { DEVELOPER_INFO } from "@/data/portfolioData";
+import { ArrowUp, Github, Linkedin, Mail, Phone, Terminal } from "lucide-react";
 
-export function Footer({ onOpenContact }: { onOpenContact: () => void }) {
-  const [copiedEmail, setCopiedEmail] = useState(false);
-  const [sfTime, setSfTime] = useState("");
+export function Footer() {
+  const [currentTime, setCurrentTime] = useState("");
 
   useEffect(() => {
     const updateTime = () => {
-      const options: Intl.DateTimeFormatOptions = {
-        timeZone: "America/Los_Angeles",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true,
-      };
-      setSfTime(new Intl.DateTimeFormat("en-US", options).format(new Date()));
+      const now = new Date();
+      setCurrentTime(
+        now.toLocaleTimeString("en-US", {
+          timeZone: "Asia/Jakarta",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        })
+      );
     };
     updateTime();
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText("alex@rivera.design");
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2000);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer className="bg-[#090909] text-[#999999] py-20 px-4 sm:px-6 lg:px-8 border-t border-[#262626]">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-12 gap-10 pb-16 border-b border-[#262626]">
-          {/* Left Column: Monogram & Bio */}
-          <div className="col-span-12 lg:col-span-5 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-[#141414] border border-[#262626] flex items-center justify-center font-bold text-sm text-white">
-                AR
-              </div>
-              <span className="text-white font-semibold tracking-tight text-base font-[var(--font-outfit)]">
-                Alex Rivera
-              </span>
+    <footer className="w-full bg-[#000000] text-[#ffffff] pt-16 pb-12 border-t border-[#262626]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Top Row: Wordmark & Back to Top */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-12 border-b border-[#262626]">
+          <div>
+            <div className="text-3xl sm:text-4xl font-bold tracking-tight text-[#ffffff] mb-1">
+              Ammardito Shafaat
             </div>
-            <p className="text-xs sm:text-sm text-[#999999] max-w-sm leading-relaxed">
-              Creative technologist and interaction architect engineering dark-canvas spatial systems, GLSL shaders,
-              and artboard-grade interface architectures.
+            <p className="text-xs font-mono tracking-mono-caption text-[#888888] uppercase">
+              Backend Developer & Distributed Systems Architect • Jakarta, ID
             </p>
+          </div>
 
-            <div className="pt-2 flex items-center gap-3">
-              <button
-                onClick={handleCopyEmail}
-                aria-label="Copy email address to clipboard"
-                className="px-3.5 py-1.5 rounded-full bg-[#141414] hover:bg-[#1c1c1c] border border-[#262626] text-xs font-medium text-white flex items-center gap-2 transition-all active:scale-95 focus-visible:ring-2 focus-visible:ring-[#0099ff] focus-visible:outline-none"
-              >
-                {copiedEmail ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-[#22c55e]" />
-                    <span className="text-[#22c55e]">Email Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Mail className="w-3.5 h-3.5" />
-                    <span>alex@rivera.design</span>
-                  </>
-                )}
-              </button>
+          <button
+            onClick={scrollToTop}
+            className="px-5 py-2.5 rounded-full bg-[#141414] hover:bg-[#262626] border border-[#262626] text-xs font-mono text-[#ffffff] flex items-center gap-2 self-start md:self-auto transition-all"
+          >
+            <span>Back to Top</span>
+            <ArrowUp className="w-3.5 h-3.5" />
+          </button>
+        </div>
 
-              <button
-                onClick={onOpenContact}
-                className="px-3.5 py-1.5 rounded-full bg-white hover:bg-white/90 text-black text-xs font-semibold flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)] active:scale-95 focus-visible:ring-2 focus-visible:ring-[#0099ff] focus-visible:outline-none"
-              >
-                <span>Commission Project</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </button>
+        {/* Middle Columns: Dense Link Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 border-b border-[#262626] text-xs">
+          {/* Column 1: Core Navigation */}
+          <div className="flex flex-col gap-3">
+            <span className="font-mono uppercase font-bold text-[#888888] tracking-wider mb-1">
+              Architecture & Code
+            </span>
+            <a href="#projects" className="text-[#cccccc] hover:text-[#ffffff] transition-colors">
+              Featured Case Studies
+            </a>
+            <a href="#api-workbench" className="text-[#cccccc] hover:text-[#ffffff] transition-colors flex items-center gap-1.5">
+              <span>Live API Console</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1ea64a]"></span>
+            </a>
+            <a href="#pillars" className="text-[#cccccc] hover:text-[#ffffff] transition-colors">
+              Engineering Pillars (ADRs)
+            </a>
+            <a href="#skills" className="text-[#cccccc] hover:text-[#ffffff] transition-colors">
+              Skills & Stack Matrix
+            </a>
+          </div>
+
+          {/* Column 2: Key Projects */}
+          <div className="flex flex-col gap-3">
+            <span className="font-mono uppercase font-bold text-[#888888] tracking-wider mb-1">
+              Key Repositories
+            </span>
+            <a href="#projects" className="text-[#cccccc] hover:text-[#ffffff] transition-colors">
+              LG SM Job Portal (Spring Boot)
+            </a>
+            <a href="#projects" className="text-[#cccccc] hover:text-[#ffffff] transition-colors">
+              OpenAI Compliance Engine (AWS)
+            </a>
+            <a href="#projects" className="text-[#cccccc] hover:text-[#ffffff] transition-colors">
+              CalorieLens Vision (TensorFlow)
+            </a>
+            <a href="#projects" className="text-[#cccccc] hover:text-[#ffffff] transition-colors">
+              Zero-Knowledge AES Vault
+            </a>
+          </div>
+
+          {/* Column 3: Direct Connect */}
+          <div className="flex flex-col gap-3">
+            <span className="font-mono uppercase font-bold text-[#888888] tracking-wider mb-1">
+              Channels
+            </span>
+            <a
+              href={`mailto:${DEVELOPER_INFO.email}`}
+              className="text-[#cccccc] hover:text-[#ffffff] transition-colors flex items-center gap-1.5"
+            >
+              <Mail className="w-3.5 h-3.5" />
+              <span>{DEVELOPER_INFO.email}</span>
+            </a>
+            <a
+              href="https://wa.me/6281230126439"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#cccccc] hover:text-[#ffffff] transition-colors"
+            >
+              WhatsApp (+62 812-3012-6439)
+            </a>
+            <a
+              href={DEVELOPER_INFO.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#cccccc] hover:text-[#ffffff] transition-colors flex items-center gap-1.5"
+            >
+              <Linkedin className="w-3.5 h-3.5" />
+              <span>LinkedIn Profile</span>
+            </a>
+            <a
+              href={DEVELOPER_INFO.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#cccccc] hover:text-[#ffffff] transition-colors flex items-center gap-1.5"
+            >
+              <Github className="w-3.5 h-3.5" />
+              <span>GitHub (@webdev-testa)</span>
+            </a>
+          </div>
+
+          {/* Column 4: System Specs */}
+          <div className="flex flex-col gap-3">
+            <span className="font-mono uppercase font-bold text-[#888888] tracking-wider mb-1">
+              System Specs
+            </span>
+            <div className="flex items-center gap-2 text-[#cccccc]">
+              <span className="w-2 h-2 rounded-full bg-[#1ea64a] animate-pulse"></span>
+              <span>Available for Hire</span>
             </div>
-          </div>
-
-          {/* Nav Column 1: System */}
-          <div className="col-span-6 sm:col-span-3 lg:col-span-2 space-y-3 text-xs">
-            <div className="font-mono text-white uppercase tracking-wider text-[11px]">System</div>
-            <ul className="space-y-2">
-              <li>
-                <a href="#work" className="hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-[#0099ff] focus-visible:outline-none rounded">
-                  Selected Work
-                </a>
-              </li>
-              <li>
-                <a href="#lab" className="hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-[#0099ff] focus-visible:outline-none rounded">
-                  Interactive Lab
-                </a>
-              </li>
-              <li>
-                <a href="#design-system" className="hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-[#0099ff] focus-visible:outline-none rounded">
-                  Token Matrix
-                </a>
-              </li>
-              <li>
-                <a href="#experience" className="hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-[#0099ff] focus-visible:outline-none rounded">
-                  Accolades &amp; Career
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Nav Column 2: Tech */}
-          <div className="col-span-6 sm:col-span-3 lg:col-span-2 space-y-3 text-xs">
-            <div className="font-mono text-white uppercase tracking-wider text-[11px]">Stack</div>
-            <ul className="space-y-2 text-[#777]">
-              <li>WebGL &amp; GLSL Shaders</li>
-              <li>Next.js 15 (RSC)</li>
-              <li>Motion / React 19</li>
-              <li>Tailwind CSS v4</li>
-              <li>WebAssembly Tokens</li>
-            </ul>
-          </div>
-
-          {/* Nav Column 3: Ticker & Location */}
-          <div className="col-span-12 sm:col-span-6 lg:col-span-3 space-y-3 text-xs">
-            <div className="font-mono text-white uppercase tracking-wider text-[11px]">Studio Clock</div>
-            <div className="p-3.5 rounded-xl bg-[#141414] border border-[#262626] space-y-1">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] text-[#999999]">San Francisco, CA</span>
-                <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" />
-              </div>
-              <div className="text-lg font-bold font-mono text-white">{sfTime || "04:42:00 PM"}</div>
+            <div className="text-[#888888] font-mono text-[11px]">
+              Local Time: {currentTime || "14:45:00"} (WIB)
+            </div>
+            <div className="text-[#888888] font-mono text-[11px]">
+              Deployed on Next.js 15 & Bun
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#666666]">
-          <div>© {new Date().getFullYear()} Alex Rivera. Artboard Design System.</div>
+        {/* Bottom Row */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#888888]">
+          <div>
+            © {new Date().getFullYear()} Ammardito Shafaat. Built with the Figma-Apple Editorial Design System.
+          </div>
+
           <div className="flex items-center gap-4">
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-[#0099ff] focus-visible:outline-none rounded px-1"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-[#0099ff] focus-visible:outline-none rounded px-1"
-            >
-              Twitter / X
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-[#0099ff] focus-visible:outline-none rounded px-1"
-            >
-              LinkedIn
-            </a>
+            <span>Java 21</span>
+            <span>•</span>
+            <span>Spring Boot 3</span>
+            <span>•</span>
+            <span>TensorFlow</span>
+            <span>•</span>
+            <span>Next.js</span>
           </div>
         </div>
       </div>
