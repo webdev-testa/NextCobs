@@ -1,32 +1,50 @@
 export interface Project {
-  id: string;
+  slug: string;
   title: string;
-  category: "Backend & Systems" | "AI & Machine Learning" | "Security & Cloud" | "Full Stack & Realtime";
+  category: "Full Stack & Mobile" | "AI & Enterprise" | "Freelance / Web" | "Systems & Data";
   subtitle: string;
-  blurb: string;
-  architectureDetails: string[];
-  impact: string;
-  metrics: { label: string; value: string }[];
+  summary: string;
+  year: string;
+  role: string;
+  clientOrContext: string;
   tags: string[];
+  featured: boolean;
   colorBlock: "lime" | "lilac" | "cream" | "mint" | "pink" | "coral" | "navy";
   bgHex: string;
-  image: string;
-  liveDemoUrl?: string;
-  githubUrl?: string;
-  systemDiagram?: {
-    nodes: { name: string; type: string; status: string }[];
-    flow: string;
+  overview: string;
+  problem: string;
+  solution: string;
+  architecture: {
+    title: string;
+    description: string;
+    flowSteps: string[];
   };
+  keyDecisions: {
+    decision: string;
+    rationale: string;
+  }[];
+  codeSnippet?: {
+    filename: string;
+    language: string;
+    code: string;
+    caption: string;
+  };
+  metrics: {
+    label: string;
+    value: string;
+  }[];
+  githubUrl?: string;
+  liveUrl?: string;
 }
 
 export interface ExperienceItem {
-  company: string;
+  id: string;
   role: string;
+  company: string;
+  type: string;
   period: string;
-  type: "Full-Time" | "Mentorship" | "Compliance & Security";
   location: string;
-  badgeColor: string;
-  bullets: string[];
+  description: string[];
   technologies: string[];
 }
 
@@ -43,489 +61,552 @@ export interface StickyNote {
 
 export const DEVELOPER_INFO = {
   name: "Ammardito Shafaat",
-  headline: "Architecting resilient backends & intelligent systems.",
-  subhead:
-    "Java & Spring Boot backend engineer with specialized mastery in high-concurrency architectures, applied Machine Learning, and ISO 27001 compliant security automation.",
+  shortName: "Ammar",
+  role: "Full Stack Engineer & AI Project Lead",
   location: "Jakarta, Indonesia (UTC+7)",
-  availability: "Available for Senior / Mid Backend & Distributed Systems Roles",
+  availability: "Available for select freelance projects & technical collaborations",
   email: "ammarditoshafaat2001@gmail.com",
-  phone: "+62 812‑3012‑6439",
   github: "https://github.com/webdev-testa",
   linkedin: "https://www.linkedin.com/in/ammardito-shafaat-65a255216/",
-  resumeUrl: "#resume",
   stats: [
-    { label: "High-Traffic Throughput", value: "10k+ req/s" },
-    { label: "ML Inference Latency", value: "-40% reduction" },
-    { label: "Engineers Mentored", value: "50+ students" },
-    { label: "Production API Uptime", value: "99.98%" },
+    { label: "Active Roles", value: "AI Lead & Full Stack" },
+    { label: "Client Systems", value: "UMKM Mobile & Web" },
+    { label: "Engineers Mentored", value: "50+ Students" },
+    { label: "Core Stack", value: "React • Java • Python" },
   ],
+  intro: {
+    greeting: "Hello.",
+    lead: "I’m Ammardito, a Full Stack Engineer & AI Project Lead based in Jakarta.",
+    paragraph1:
+      "By day, I build software and lead an internal AI initiative at LG Sinar Mas. On the side, I craft full-stack systems and mobile apps for real businesses and UMKMs—from retail ERPs and Android apps to lightweight location-aware order portals.",
+    paragraph2:
+      "Beyond the code editor, I immerse myself in story-driven games, books, and silent reading clubs, and I'm actively exploring new physical disciplines—from archery and padel to tennis.",
+  },
 };
+
+export const INITIAL_STICKY_NOTES: StickyNote[] = [
+  {
+    id: "note-1",
+    author: "Ammar",
+    role: "Engineering Note",
+    content: "Pragmatic tech stacks beat resume-driven complexity every time. Build for the user's reality!",
+    color: "lime",
+    rotation: -2,
+    likes: 42,
+    tag: "Philosophy",
+  },
+  {
+    id: "note-2",
+    author: "Pet Shop UMKM",
+    role: "Client Feedback",
+    content: "The Android POS + payroll system cut our monthly salary calculation from 2 days down to 3 minutes! 🐾",
+    color: "lilac",
+    rotation: 3,
+    likes: 38,
+    tag: "Client Impact",
+  },
+  {
+    id: "note-3",
+    author: "Narrative Explorer",
+    role: "Story Passions",
+    content: "🎮 Currently captivated by Disco Elysium & Baldur's Gate 3. Storytelling in games is pure craft.",
+    color: "coral",
+    rotation: -4,
+    likes: 29,
+    tag: "Games & Lore",
+  },
+  {
+    id: "note-4",
+    author: "Archery Range",
+    role: "Discipline",
+    content: "🏹 In archery as in engineering: you can't rush the release. Stillness and posture create accuracy.",
+    color: "mint",
+    rotation: 2,
+    likes: 31,
+    tag: "Life Explorations",
+  },
+  {
+    id: "note-5",
+    author: "Silent Reading Club",
+    role: "Weekend Habit",
+    content: "📖 2 hours of quiet reading with zero phone notifications is the best mental reset in Jakarta.",
+    color: "pink",
+    rotation: -1,
+    likes: 25,
+    tag: "Books & Mind",
+  },
+];
 
 export const PROJECTS_DATA: Project[] = [
   {
-    id: "job-portal-lg",
-    title: "LG Sinar Mas Job Portal Engine",
-    category: "Backend & Systems",
-    subtitle: "High-Throughput Interview Testing & Role-Based Auth Engine",
-    blurb:
-      "Engineered core backend microservices for an enterprise recruitment ecosystem handling synchronous candidate assessment workflows and granular internal authorization tiers.",
-    architectureDetails: [
-      "Built resilient Spring Boot 3 RESTful APIs handling concurrent online testing sessions for hundreds of simultaneous test takers.",
-      "Architected PostgreSQL RBAC schemas with fine-grained row-level security and optimized indexing on active job vacancy lookups.",
-      "Implemented JWT and OAuth2 role-based authorization filters to segregate HR administrative consoles from public candidate applications.",
-      "Optimized query execution plans, slashing query latency by 35% under simulated peak recruitment seasons.",
-    ],
-    impact: "Processed 15,000+ job applications seamlessly with 0 data inconsistency during peak campus recruitment rounds.",
-    metrics: [
-      { label: "Response Latency", value: "< 45ms" },
-      { label: "Peak Concurrency", value: "1,200 users" },
-      { label: "Query Optimization", value: "+35% faster" },
-    ],
-    tags: ["Java", "Spring Boot 3", "PostgreSQL", "Lombok", "Docker", "REST API", "JWT Security"],
-    colorBlock: "lime",
-    bgHex: "#dceeb1",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1000&auto=format&fit=crop",
-    githubUrl: "https://github.com/webdev-testa",
-    systemDiagram: {
-      nodes: [
-        { name: "Client Web / App", type: "Frontend", status: "Active" },
-        { name: "Spring Gateway (JWT Filter)", type: "Gateway", status: "Secure" },
-        { name: "Assessment Engine (Spring Boot)", type: "Core Service", status: "Operational" },
-        { name: "PostgreSQL Database (RDS)", type: "Storage", status: "Synchronized" },
-      ],
-      flow: "Client -> Gateway [JWT Validated] -> Assessment Service -> Optimized PostgreSQL DB",
-    },
-  },
-  {
-    id: "openai-compliance-engine",
-    title: "OpenAI Security Compliance Brain",
-    category: "AI & Machine Learning",
-    subtitle: "Automated ISO 27001 Document Retrieval & LLM Verification",
-    blurb:
-      "Integrated OpenAI GPT models with corporate spreadsheet vaults and document databases to automate compliance audits and answer real-time security queries for engineers.",
-    architectureDetails: [
-      "Engineered an automated serverless ETL pipeline utilizing AWS Lambda and S3 to ingest structured and unstructured compliance policies.",
-      "Implemented semantic search and prompt orchestration to synthesize instant, accurate citations against strict ISO 27001 control clauses.",
-      "Connected Google Apps Script automation hooks to eliminate manual spreadsheet auditing workflows.",
-      "Protected proprietary company data with strict input sanitization, token limiting, and zero-retention API endpoints.",
-    ],
-    impact: "Saved compliance officers 12+ hours weekly and reduced internal policy inquiry turnaround from 2 days to under 4 seconds.",
-    metrics: [
-      { label: "Audit Time Saved", value: "12 hrs / week" },
-      { label: "Query Turnaround", value: "< 3.8s" },
-      { label: "Clause Accuracy", value: "98.4%" },
-    ],
-    tags: ["Python", "AWS Lambda", "AWS S3", "OpenAI API", "Google Apps Script", "ISO 27001", "Vector Retrieval"],
+    slug: "pet-shop-erp-mobile",
+    title: "Pet Shop UMKM ERP & Native Mobile App",
+    category: "Full Stack & Mobile",
+    subtitle: "Complete Management Suite: Attendance, Payroll, POS & Cat/Owner Records",
+    summary:
+      "An end-to-end full stack system and Android app for a pet shop UMKM managing staff attendance, automated payroll, kasbon cash advances, POS sales, and pet profiles.",
+    year: "2026",
+    role: "Full Stack Lead (Freelance)",
+    clientOrContext: "Pet Shop UMKM",
+    tags: ["React", "TypeScript", "Capacitor", "Android", "Supabase", "Tailwind CSS"],
+    featured: true,
     colorBlock: "lilac",
     bgHex: "#c5b0f4",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
-    githubUrl: "https://github.com/webdev-testa",
-    systemDiagram: {
-      nodes: [
-        { name: "Slack / Apps Script Trigger", type: "Client Event", status: "Connected" },
-        { name: "AWS Lambda Orchestrator", type: "Serverless", status: "Triggered" },
-        { name: "S3 Document Embeddings Store", type: "Vector Source", status: "Indexed" },
-        { name: "OpenAI LLM Inference", type: "Model Engine", status: "Verified" },
+    overview:
+      "A complete operational operating system for a growing pet shop business. The client needed a unified way to track staff daily attendance with geolocation, calculate monthly payroll deductions for employee cash advances (kasbon), run cashier POS checkout, and maintain rich profiles of cats and their owners for grooming and boarding.",
+    problem:
+      "The business was losing hours reconciling paper logbooks for grooming schedules, cat medical notes, cash advances, and end-of-month payroll calculations. Off-the-shelf SaaS apps were either too expensive or fragmented across multiple disconnected subscriptions.",
+    solution:
+      "Built a tailored full-stack solution using React and TypeScript, packaged as a native Android application using Capacitor so floor staff can use tablets on-site, backed by Supabase for real-time data synchronization with an architectural roadmap for custom Go/Node backend logic.",
+    architecture: {
+      title: "Mobile & Cloud Architecture",
+      description: "Cross-platform Android & web client backed by Supabase with Row Level Security",
+      flowSteps: [
+        "Floor staff uses Android tablet app (Capacitor + React) for attendance & grooming logs",
+        "Cashier conducts POS checkout with instant receipt and inventory decrement",
+        "Owner module manages cat breed, medical history, vaccination reminders, and owner contacts",
+        "Payroll engine automatically computes net salaries subtracting active kasbon deductions",
+        "Supabase PostgreSQL enforces strict role-based RLS policies between staff and manager",
       ],
-      flow: "Spreadsheet Event -> AWS Lambda -> S3 Knowledge Base -> OpenAI Reasoning -> Verified Compliance Output",
     },
+    keyDecisions: [
+      {
+        decision: "Capacitor over React Native",
+        rationale: "Allowed 100% code reuse between the web administrative dashboard and the on-premise Android tablet app, cutting delivery timeline in half.",
+      },
+      {
+        decision: "Atomic transaction RPC for POS & inventory",
+        rationale: "Prevented negative stock counts and race conditions when multiple staff items were scanned at checkout.",
+      },
+    ],
+    codeSnippet: {
+      filename: "calculatePayroll.ts",
+      language: "typescript",
+      code: `export function calculateMonthlyPayroll(
+  staff: StaffRecord,
+  attendances: AttendanceLog[],
+  activeKasbon: KasbonRecord[]
+): PayrollSummary {
+  const baseSalary = staff.monthlySalary;
+  const daysPresent = attendances.filter((a) => a.status === "PRESENT").length;
+  const dailyRate = baseSalary / 26; // 26 working days standard
+  const grossPay = dailyRate * daysPresent + calculateOvertime(attendances);
+  
+  const kasbonDeduction = activeKasbon.reduce((sum, item) => sum + item.monthlyInstallment, 0);
+  const netPay = Math.max(0, grossPay - kasbonDeduction);
+  
+  return { staffId: staff.id, grossPay, kasbonDeduction, netPay, daysPresent };
+}`,
+      caption: "Payroll computation engine reconciling attendance logs against active staff kasbon installments.",
+    },
+    metrics: [
+      { label: "Payroll Prep Time", value: "From 2 days to 3 mins" },
+      { label: "Platform Coverage", value: "Web + Android Native" },
+      { label: "Pet Profiles Managed", value: "500+ Cats & Owners" },
+    ],
   },
   {
-    id: "calorielens-cv",
-    title: "CalorieLens Food Vision Detector",
-    category: "AI & Machine Learning",
-    subtitle: "Deep Learning Bounding Box Classification & Calorie Estimation",
-    blurb:
-      "Trained a convolutional deep neural network to locate food items in real-time smartphone imagery and calculate nutritional estimates with deep learning bounding boxes.",
-    architectureDetails: [
-      "Custom fine-tuned TensorFlow / Keras vision models trained over 50,000+ labeled culinary images.",
-      "Implemented anchor-box prediction, non-max suppression (NMS), and data augmentation to handle occluded dishes.",
-      "Built a high-performance Python FastAPI inference backend capable of returning multi-class predictions in sub-120ms.",
-      "Packaged with ONNX runtime for lightweight server deployment and optimized memory footprints.",
+    slug: "bygewa-malang-order",
+    title: "byGewa Malang — Custom Order & Maps System",
+    category: "Freelance / Web",
+    subtitle: "Location-Aware Custom Food Ordering Portal for Malang UMKM",
+    summary:
+      "Engineered a lightweight custom ordering portal with integrated Google Maps distance calculation, Google AppsScript backend, and Google Sheets retention on Vercel.",
+    year: "2025",
+    role: "Freelance Web Engineer",
+    clientOrContext: "byGewa (Malang UMKM)",
+    tags: ["Vanilla JS", "HTML5/CSS3", "Google Maps API", "AppsScript", "Google Sheets", "Vercel"],
+    featured: true,
+    colorBlock: "lime",
+    bgHex: "#dceeb1",
+    overview:
+      "byGewa, a popular food & beverage brand in Malang, needed a smooth custom ordering experience where customers could select custom menu combinations, pin their exact delivery location on an interactive map, and submit orders directly without requiring complex account creation.",
+    problem:
+      "Traditional delivery aggregators charged up to 25% commission fees, while standard WhatsApp ordering resulted in miscalculated delivery distances and manual order transcription errors.",
+    solution:
+      "Engineered a lightweight, blazing-fast client using Vanilla JavaScript, HTML5, and CSS for zero bundle overhead, integrated Google Maps JavaScript API with Places Autocomplete and Distance Matrix calculation, and built a serverless backend using Google AppsScript to pipe orders directly into the kitchen's live Google Sheet.",
+    architecture: {
+      title: "Zero-Cost Serverless Flow",
+      description: "Client-side Maps computation with AppsScript webhook dispatch to Google Sheets",
+      flowSteps: [
+        "Customer configures meal items and toppings on mobile-first UI",
+        "Customer selects delivery location via Google Maps pin or Places search",
+        "Client calculates precise delivery radius and fee dynamically",
+        "Order payload posted to secure Google AppsScript Webhook endpoint",
+        "Google Sheets triggers real-time sound alert for kitchen staff & sends WhatsApp confirmation",
+      ],
+    },
+    keyDecisions: [
+      {
+        decision: "Vanilla JavaScript over heavy frameworks",
+        rationale: "Kept total page payload under 80KB, ensuring sub-500ms load times on spotty mobile cellular connections in Malang.",
+      },
+      {
+        decision: "Google Sheets as kitchen database & notification trigger",
+        rationale: "Zero hosting cost for the UMKM owner while providing an interface they already knew how to operate effortlessly on mobile.",
+      },
     ],
-    impact: "Achieved an 89.2% mean Average Precision (mAP) on diverse South-East Asian and Western culinary datasets.",
+    codeSnippet: {
+      filename: "mapsOrderHandler.js",
+      language: "javascript",
+      code: `async function submitOrderWithLocation(orderData, markerPosition) {
+  const payload = {
+    timestamp: new Date().toISOString(),
+    customerName: orderData.name,
+    whatsapp: orderData.phone,
+    items: orderData.items,
+    lat: markerPosition.lat(),
+    lng: markerPosition.lng(),
+    address: orderData.addressText,
+    distanceKm: orderData.computedDistance,
+    deliveryFee: orderData.computedFee,
+    grandTotal: orderData.totalPrice + orderData.computedFee
+  };
+
+  const response = await fetch(CONFIG.APPS_SCRIPT_WEBHOOK_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain" },
+    body: JSON.stringify(payload)
+  });
+  return response.json();
+}`,
+      caption: "Order dispatch handler packaging geospatial metadata for the serverless AppsScript webhook.",
+    },
     metrics: [
-      { label: "mAP Accuracy", value: "89.2%" },
-      { label: "Inference Speed", value: "115ms" },
-      { label: "Classes Detected", value: "120+ foods" },
+      { label: "Commission Saved", value: "100% Direct Orders" },
+      { label: "Page Weight", value: "< 80KB Total" },
+      { label: "Location Accuracy", value: "Pinpoint GPS Pin" },
     ],
-    tags: ["Python", "TensorFlow", "FastAPI", "OpenCV", "Pandas", "Jupyter", "Computer Vision"],
+  },
+  {
+    slug: "lg-ai-enterprise",
+    title: "LG Sinar Mas AI & Enterprise Portal",
+    category: "AI & Enterprise",
+    subtitle: "Enterprise AI Initiative & Assessment Microservices",
+    summary:
+      "Leading an internal AI project alongside engineering high-throughput Java Spring Boot & .NET backend microservices for enterprise employee assessment workflows.",
+    year: "2025 — Present",
+    role: "Software Engineer & AI Project Lead",
+    clientOrContext: "LG Sinar Mas",
+    tags: ["Python", "Java", "Spring Boot", "OpenAI / LLMs", "PostgreSQL", "Docker", "C#/.NET"],
+    featured: true,
+    colorBlock: "mint",
+    bgHex: "#c8e6cd",
+    overview:
+      "At LG Sinar Mas, I currently wear two hats: leading an internal initiative to integrate generative AI into corporate operations, and maintaining the core backend services that power synchronous candidate and employee assessment evaluations.",
+    problem:
+      "Enterprise recruitment and internal assessment rounds created heavy transactional bursts where hundreds of employees submitted test evaluations simultaneously, requiring zero data corruption, sub-second latency, and intelligent evaluation synthesis.",
+    solution:
+      "Engineered decoupled Spring Boot REST services with optimized PostgreSQL indexing, connection pooling (HikariCP), and fine-grained JWT role-based access control. In parallel, architected an internal AI pipeline to summarize multi-factor performance evaluations accurately.",
+    architecture: {
+      title: "System & AI Pipeline Flow",
+      description: "Decoupled evaluation engine with automated LLM reasoning layer",
+      flowSteps: [
+        "Candidate / Employee submits test answers via web portal",
+        "Spring API Gateway validates JWT signature and RBAC role tiers",
+        "Assessment service processes evaluation in transactional batch",
+        "PostgreSQL RDS records results with row-level locks",
+        "AI reasoning worker synthesizes qualitative competency scores",
+      ],
+    },
+    keyDecisions: [
+      {
+        decision: "HikariCP connection pool tuning over default settings",
+        rationale: "Eliminated connection starvation during peak campus recruitment test intervals with 1,000+ simultaneous test takers.",
+      },
+      {
+        decision: "Zero-retention AI worker sandbox",
+        rationale: "Ensured confidential employee assessment answers and proprietary evaluation rubrics never leak outside compliance boundaries.",
+      },
+    ],
+    codeSnippet: {
+      filename: "AssessmentEvaluationService.java",
+      language: "java",
+      code: `@Transactional(isolation = Isolation.READ_COMMITTED)
+public EvaluationResult processSubmission(UUID candidateId, SubmissionPayload payload) {
+    Candidate candidate = candidateRepository.findByIdWithLock(candidateId)
+        .orElseThrow(() -> new EntityNotFoundException("Candidate session invalid"));
+        
+    ScoreCalculation score = scoringEngine.calculate(payload.getResponses());
+    candidate.recordScore(score);
+    
+    // Dispatch async event for AI synthesis without blocking transaction
+    eventPublisher.publishEvent(new AssessmentCompletedEvent(candidateId, score));
+    return new EvaluationResult(candidate.getId(), score.getTotal(), Status.COMPLETED);
+}`,
+      caption: "Transactional candidate assessment processing with decoupled async AI event dispatching.",
+    },
+    metrics: [
+      { label: "Assessment Throughput", value: "15,000+ Submissions" },
+      { label: "API Query Latency", value: "< 45ms" },
+      { label: "Data Consistency", value: "100% Zero-Loss" },
+    ],
+  },
+  {
+    slug: "calorielens-cv",
+    title: "CalorieLens Food Vision Detector",
+    category: "AI & Enterprise",
+    subtitle: "Deep Learning Bounding Box Classification & Calorie Estimation",
+    summary:
+      "Trained a convolutional deep neural network to locate food items in smartphone photos and estimate nutritional values with real-time bounding boxes.",
+    year: "2024",
+    role: "ML Engineer & Capstone Lead",
+    clientOrContext: "Bangkit Capstone / Research",
+    tags: ["Python", "TensorFlow", "FastAPI", "OpenCV", "Pandas", "Jupyter"],
+    featured: true,
     colorBlock: "coral",
     bgHex: "#f3c9b6",
-    image: "https://images.unsplash.com/photo-1493770348161-369560ae357d?q=80&w=1000&auto=format&fit=crop",
-    githubUrl: "https://github.com/webdev-testa",
-    systemDiagram: {
-      nodes: [
-        { name: "Camera Stream / JPEG", type: "Input", status: "Stream" },
-        { name: "FastAPI Preprocessor", type: "Tensor Pipeline", status: "Normalized" },
-        { name: "TensorFlow CNN Model", type: "Inference", status: "Calculated" },
-        { name: "Nutritional JSON API", type: "Output", status: "Structured" },
+    overview:
+      "An applied computer vision project focused on real-time dietary logging. Instead of manually searching through food databases, users take a quick photo of their plate, and the model predicts multi-class bounding boxes with nutritional breakdowns.",
+    problem:
+      "Standard food classification models output a single label for the whole image, failing when multiple dishes or side items exist on the same plate.",
+    solution:
+      "Trained a customized convolutional neural network with anchor-box regression and non-maximum suppression (NMS) over 50,000+ labeled images, deployed behind an asynchronous Python FastAPI inference backend.",
+    architecture: {
+      title: "Inference Pipeline",
+      description: "Image preprocessing to bounding box anchor regression and nutritional synthesis",
+      flowSteps: [
+        "User uploads smartphone food image",
+        "FastAPI normalizes matrix tensor and resizes to 416x416",
+        "TensorFlow model calculates multi-class bounding boxes & class probabilities",
+        "Non-Max Suppression filters overlapping bounding candidate boxes",
+        "Nutritional estimation engine computes calories based on detected portion area",
       ],
-      flow: "Image Upload -> Fast Matrix Normalization -> CNN Bounding Boxes -> Nutritional Metadata Engine",
     },
+    keyDecisions: [
+      {
+        decision: "ONNX Runtime conversion",
+        rationale: "Reduced inference latency from 340ms to 115ms while reducing server memory footprint by 60%.",
+      },
+    ],
+    metrics: [
+      { label: "Model Accuracy", value: "89.2% mAP" },
+      { label: "Inference Latency", value: "115ms" },
+      { label: "Food Categories", value: "120+ Dishes" },
+    ],
   },
   {
-    id: "zero-knowledge-vault",
-    title: "Zero-Knowledge Cloud File Vault",
-    category: "Security & Cloud",
-    subtitle: "End-to-End Client-Side AES-256 GCM Encrypted Object Store",
-    blurb:
-      "A zero-trust cryptographic cloud storage system where encryption keys never touch server memory, guaranteeing zero-knowledge privacy for sensitive files.",
-    architectureDetails: [
-      "Engineered browser-side Web Crypto API key derivation utilizing PBKDF2 with 250,000 iterations and salt hashing.",
-      "Stream-based chunked AES-GCM 256 encryption ensuring minimal memory consumption during large file uploads.",
-      "Node.js & Express REST microservice handling encrypted binary blobs stored in chunked MongoDB GridFS clusters.",
-      "Rigorous replay-attack defense using ephemeral cryptographically random nonces and time-bounded signature headers.",
+    slug: "supply-chain-radar",
+    title: "Real-Time Supply Chain Telemetry Radar",
+    category: "Systems & Data",
+    subtitle: "Reactive WebSocket Stream & Low-Latency Event Dispatcher",
+    summary:
+      "High-frequency reactive monitoring system streaming cross-regional warehouse telemetry and automated shortage alerts with sub-20ms propagation.",
+    year: "2024",
+    role: "Backend Architect",
+    clientOrContext: "Independent System",
+    tags: ["Java", "Spring Boot", "WebSockets", "Redis Pub/Sub", "React", "TypeScript"],
+    featured: false,
+    colorBlock: "cream",
+    bgHex: "#f4ecd6",
+    overview:
+      "A distributed telemetry dispatcher built to handle high-frequency stock level fluctuations across distributed fulfillment centers.",
+    problem:
+      "Legacy polling architectures overwhelmed database instances and suffered from minutes of delay before inventory stockouts were surfaced to managers.",
+    solution:
+      "Built a bi-directional WebSocket cluster using Spring Boot STOMP with a Redis Pub/Sub backplane, broadcasting 5,000+ live telemetry pulses per second to reactive frontend clients.",
+    architecture: {
+      title: "Event-Driven Telemetry",
+      description: "Distributed message backplane with automatic client reconnect backoff",
+      flowSteps: [
+        "Warehouse IoT sensors transmit inventory delta pulses",
+        "Spring Boot gateway ingests and publishes message to Redis Pub/Sub topic",
+        "Subscriber nodes broadcast updates over STOMP WebSocket channels",
+        "Client canvas gauges render live stock velocity smoothly",
+      ],
+    },
+    keyDecisions: [
+      {
+        decision: "Redis Pub/Sub backplane for WebSocket clustering",
+        rationale: "Enabled horizontal scaling across multiple Spring Boot nodes without client connection sticky session dependencies.",
+      },
     ],
-    impact: "Mathematically guarantees that even full database compromise reveals zero readable plaintext to unauthorized actors.",
     metrics: [
-      { label: "Cipher Standard", value: "AES-256 GCM" },
+      { label: "Broadcast Latency", value: "< 18ms" },
+      { label: "Telemetry Pulses", value: "5,000+ / sec" },
+      { label: "Uptime Reliability", value: "99.99%" },
+    ],
+  },
+  {
+    slug: "zero-knowledge-vault",
+    title: "Zero-Knowledge Browser Encrypted Vault",
+    category: "Systems & Data",
+    subtitle: "Client-Side AES-256 GCM File Encryption with Web Crypto API",
+    summary:
+      "A zero-trust cryptographic cloud storage system where encryption keys are derived in the browser via PBKDF2 and never touch the server memory.",
+    year: "2024",
+    role: "Security & Full Stack Engineer",
+    clientOrContext: "Independent Research",
+    tags: ["TypeScript", "Web Crypto API", "Node.js", "Express", "MongoDB", "AES-256"],
+    featured: false,
+    colorBlock: "navy",
+    bgHex: "#1f1d3d",
+    overview:
+      "A secure file storage application designed to mathematically guarantee privacy: even with full root database access, no third party or server administrator can read file plaintexts.",
+    problem:
+      "Traditional cloud storage encrypts data server-side (at rest), meaning servers hold or access decryption keys, leaving files vulnerable to insider threats and server compromises.",
+    solution:
+      "Engineered client-side Web Crypto API key derivation utilizing PBKDF2 with 250,000 iterations and streaming AES-256 GCM chunk encryption before binary payloads leave the browser.",
+    architecture: {
+      title: "Zero-Knowledge Encryption Pipeline",
+      description: "Client-side key derivation and ciphertext chunking",
+      flowSteps: [
+        "User enters passphrase in browser sandbox",
+        "Web Crypto API derives AES-256 key via PBKDF2 (250k iterations + unique salt)",
+        "File is encrypted into ciphertext chunks with cryptographically random initialization vectors (IVs)",
+        "Server receives and stores only raw encrypted ciphertext blobs in MongoDB GridFS",
+      ],
+    },
+    keyDecisions: [
+      {
+        decision: "Web Crypto API over third-party JS libraries",
+        rationale: "Utilized browser native C++ cryptographic implementations for optimal performance and protection against JS runtime timing attacks.",
+      },
+    ],
+    metrics: [
+      { label: "Cipher Strength", value: "AES-256 GCM" },
       { label: "Server Key Exposure", value: "0% (Zero-Knowledge)" },
       { label: "KDF Iterations", value: "250,000" },
     ],
-    tags: ["Node.js", "Express", "CryptoJS", "Web Crypto API", "MongoDB", "Cybersecurity", "Zero-Knowledge"],
-    colorBlock: "navy",
-    bgHex: "#1f1d3d",
-    image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?q=80&w=1000&auto=format&fit=crop",
-    githubUrl: "https://github.com/webdev-testa",
-    systemDiagram: {
-      nodes: [
-        { name: "Client Browser (PBKDF2 Key Derivation)", type: "Client Sandbox", status: "Encrypted" },
-        { name: "Encrypted Binary Cipher Stream", type: "Transport (TLS 1.3)", status: "Sealed" },
-        { name: "Node.js Storage Gateway", type: "Blind Proxy", status: "Zero-Knowledge" },
-        { name: "Encrypted Blob Store (MongoDB)", type: "Vault Storage", status: "Encrypted" },
-      ],
-      flow: "Plaintext -> Client WebCrypto AES-256 -> Cipher Stream -> Blind Storage Node -> Encrypted Disk",
-    },
-  },
-  {
-    id: "supply-chain-radar",
-    title: "Real-Time Supply Chain Telemetry Radar",
-    category: "Full Stack & Realtime",
-    subtitle: "Reactive WebSocket Inventory Stream & Shortage Forecaster",
-    blurb:
-      "A high-frequency reactive monitoring hub visualizing cross-regional warehouse telemetry, automated low-stock triggers, and dispatch re-routing via bi-directional WebSockets.",
-    architectureDetails: [
-      "Built a bi-directional WebSocket cluster with Spring Boot STOMP and Redis Pub/Sub backplane for horizontal scale.",
-      "Engineered automatic reconnection with exponential backoff and message deduplication under packet loss.",
-      "Integrated reactive React front-end using real-time canvas gauges and audio-visual alert dispatching.",
-      "Capable of broadcasting 5,000+ live warehouse telemetry pulses per second with sub-20ms propagation latency.",
-    ],
-    impact: "Reduced simulated warehouse stockout detection time from 45 minutes to under 2 seconds.",
-    metrics: [
-      { label: "Broadcast Latency", value: "< 18ms" },
-      { label: "Telemetry Pulses/s", value: "5,000+" },
-      { label: "Connection Uptime", value: "99.99%" },
-    ],
-    tags: ["Java", "Spring Boot", "WebSockets", "Socket.IO", "React", "TypeScript", "Redis Pub/Sub"],
-    colorBlock: "mint",
-    bgHex: "#c8e6cd",
-    image: "https://images.unsplash.com/photo-1586528116311-ad8ed7c663e0?q=80&w=1000&auto=format&fit=crop",
-    githubUrl: "https://github.com/webdev-testa",
-    systemDiagram: {
-      nodes: [
-        { name: "Warehouse IoT Sensors", type: "Data Producers", status: "Streaming" },
-        { name: "Spring Boot WebSocket Gateway", type: "Connection Hub", status: "Connected" },
-        { name: "Redis Pub/Sub Backplane", type: "Message Bus", status: "Active" },
-        { name: "React Command Center", type: "Reactive UI", status: "Live Synchronized" },
-      ],
-      flow: "Telemetry Beacon -> WebSocket Gateway -> Redis Bus -> Reactive Canvas Client",
-    },
-  },
-  {
-    id: "flowcluster-traffic",
-    title: "FlowCluster Smart Traffic ML Engine",
-    category: "AI & Machine Learning",
-    subtitle: "Unsupervised Clustering & Congestion Rerouting Microservice",
-    blurb:
-      "A high-performance FastAPI microservice running Scikit-Learn spatial clustering and heuristic graph traversal algorithms to route municipal traffic away from chokepoints.",
-    architectureDetails: [
-      "Integrated spatial DBSCAN and K-Means algorithms to group GPS waypoint bottlenecks dynamically.",
-      "Integrated Redis GeoSpatial indices for O(log(N)) nearby road node lookups.",
-      "Engineered automated fallback route generation with Dijkstra heuristic cost penalization on jammed segments.",
-      "Asynchronous non-blocking worker pools orchestrated with Uvicorn and Docker containerization.",
-    ],
-    impact: "Demonstrated 22% estimated travel time savings across simulated dense urban corridor simulations.",
-    metrics: [
-      { label: "Route Computation", value: "< 28ms" },
-      { label: "Travel Time Saved", value: "~22%" },
-      { label: "Spatial Lookups", value: "Redis Geo" },
-    ],
-    tags: ["Python", "FastAPI", "Scikit-Learn", "Redis Geo", "Dijkstra Algorithm", "Docker", "Spatial Data"],
-    colorBlock: "cream",
-    bgHex: "#f4ecd6",
-    image: "https://images.unsplash.com/photo-1510006851064-e6056cd0e3a8?q=80&w=1000&auto=format&fit=crop",
-    githubUrl: "https://github.com/webdev-testa",
-    systemDiagram: {
-      nodes: [
-        { name: "GPS Coordinate Stream", type: "Spatial Feed", status: "Ingested" },
-        { name: "FastAPI Async Router", type: "API Layer", status: "Dispatched" },
-        { name: "DBSCAN Cluster Engine", type: "ML Core", status: "Clustered" },
-        { name: "Redis Geospatial Cache", type: "Memory Layer", status: "Fast Hit" },
-      ],
-      flow: "GPS Coordinates -> FastAPI -> Scikit-Learn Cluster -> Dijkstra Heuristic -> Rerouted Coordinates",
-    },
   },
 ];
 
 export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
+    id: "freelance-fullstack",
+    role: "Full Stack Engineer",
+    company: "Freelance",
+    type: "Freelance & Consulting",
+    period: "Dec 2025 — Present",
+    location: "Jakarta · Remote",
+    description: [
+      "Worked with UMKM in Malang (byGewa) to build a custom location-aware food ordering portal with integrated Google Maps distance calculation, Google AppsScript backend automation, and real-time Google Sheets data retention deployed on Vercel.",
+      "Architected and currently building an end-to-end management system (attendance with geolocation, automated payroll, staff kasbon / cash advance tracking, cashier POS, and cat + owner profiles) for a pet shop UMKM.",
+      "Built cross-platform client with React, TypeScript, and Capacitor for native Android tablet deployment with Supabase backend data synchronization.",
+    ],
+    technologies: ["React", "TypeScript", "Capacitor", "Android", "Supabase", "Vanilla JS", "Google Maps API", "Google AppsScript", "Vercel"],
+  },
+  {
+    id: "lg-sinarmas",
+    role: "Software Engineer & AI Project Lead",
     company: "LG Sinar Mas",
-    role: "C#/.NET & Java Spring Boot Developer",
-    period: "June 2025 — Present",
-    type: "Full-Time",
-    location: "Jakarta, Indonesia (Onsite)",
-    badgeColor: "#dceeb1",
-    bullets: [
-      "Engineered robust, maintainable back-end microservices for the company's enterprise recruitment and assessment portal.",
-      "Designed and deployed granular authorization and role-based authentication layers protecting confidential candidate evaluations.",
-      "Diagnosed and resolved critical bottleneck bugs in core database transaction flows, improving overall request reliability.",
-      "Collaborated across cross-functional engineering teams to implement clean architecture patterns and CI/CD pipelines.",
+    type: "Contract",
+    period: "May 2025 — Present",
+    location: "Jakarta, Indonesia · On-site",
+    description: [
+      "Developing and leading an internal AI Project at LG Sinar Mas to streamline organizational workflows and synthesize employee intelligence.",
+      "Engineered robust, maintainable back-end microservices in Java (Spring Boot 3) and C#/.NET for enterprise recruitment and candidate assessment testing portals.",
+      "Designed PostgreSQL RBAC schemas and optimized transactional query execution plans, keeping peak testing query latency under 45ms.",
+      "Collaborated across engineering leads to enforce clean architecture patterns and CI/CD pipelines.",
     ],
-    technologies: ["Java", "Spring Boot", "C#", ".NET Core", "PostgreSQL", "REST APIs", "Docker", "Git"],
+    technologies: ["Python", "Java", "Spring Boot", "C#", ".NET Core", "PostgreSQL", "Docker", "REST APIs", "Git"],
   },
   {
-    company: "Bangkit Academy (Google, GoTo, Traveloka)",
-    role: "Machine Learning Mentor & Capstone Lead",
-    period: "Feb 2024 — July 2024",
+    id: "bi-trainer",
+    role: "Design Thinking Co-Trainer",
+    company: "Central Bank of Indonesia (Bank Indonesia)",
+    type: "Part-time",
+    period: "Apr 2026 — Jul 2026",
+    location: "Indonesia · Remote",
+    description: [
+      "Co-trained professionals on Design Thinking frameworks, human-centered problem solving, and iterative prototyping.",
+      "Facilitated structured collaborative workshops guiding teams from ambiguous problem discovery to actionable digital product prototypes.",
+    ],
+    technologies: ["Design Thinking", "User Research", "Systems Thinking", "Facilitation", "Prototyping"],
+  },
+  {
+    id: "gcp-arcade",
+    role: "Facilitator Google Cloud Arcade 2025",
+    company: "Google Cloud Arcade Facilitator Program",
+    type: "Part-time",
+    period: "Jul 2025 — Oct 2025",
+    location: "Indonesia · Remote",
+    description: [
+      "Facilitated Google Cloud Platform hands-on learning labs for community developers and aspiring cloud engineers.",
+      "Guided hundreds of participants through cloud architecture, IAM security, containerized workloads on GKE, and serverless Cloud Run functions.",
+    ],
+    technologies: ["Google Cloud Platform", "GKE", "Cloud Run", "IAM", "Cloud Architecture"],
+  },
+  {
+    id: "bangkit-mentor",
+    role: "Mentor Bangkit Batch 1 2024",
+    company: "Bangkit Academy led by Google, Tokopedia, Gojek, & Traveloka",
     type: "Mentorship",
-    location: "Bandung / Remote",
-    badgeColor: "#c5b0f4",
-    bullets: [
+    period: "Feb 2024 — Jul 2024",
+    location: "Remote",
+    description: [
       "Mentored 50+ prospective AI engineers through Google's flagship technology curriculum across deep learning, computer vision, and NLP.",
-      "Provided architectural guidance and code reviews for capstone projects, ensuring production-grade deployment on cloud instances.",
       "Conducted weekly live technical consultation sessions, debugging complex TensorFlow training pipelines and model convergence issues.",
-      "Evaluated final capstone submissions against industry-standard software engineering and ethical AI criteria.",
+      "Provided architectural guidance and code reviews for capstone projects, ensuring production-grade deployment on cloud instances.",
     ],
-    technologies: ["Python", "TensorFlow", "Keras", "Scikit-Learn", "Google Cloud Platform", "FastAPI", "Jupyter"],
+    technologies: ["Python", "TensorFlow", "Keras", "Scikit-Learn", "Google Cloud", "FastAPI", "Jupyter"],
   },
   {
+    id: "mekari-infosec",
+    role: "Information Security & Compliance",
     company: "Mekari",
-    role: "Information Security & Compliance Engineer",
-    period: "June 2023 — June 2024",
-    type: "Compliance & Security",
-    location: "Jakarta, Indonesia (Hybrid)",
-    badgeColor: "#f4ecd6",
-    bullets: [
+    type: "Internship",
+    period: "Jun 2023 — Jun 2024",
+    location: "Jakarta, Indonesia · Hybrid",
+    description: [
       "Designed serverless Python & OpenAI automated workflows connected with corporate spreadsheets to query security policies in seconds.",
       "Audited application logs, API endpoints, and network activity to proactively surface vulnerabilities and anomalous behaviors.",
       "Partnered with product developers to enforce ISO 27001 standard practices, data sanitization, and secure access management.",
-      "Authored security checklist automations that reduced quarterly compliance audit preparation time by over 40%.",
     ],
-    technologies: ["Python", "OpenAI API", "AWS Lambda", "AWS S3", "ISO 27001", "InfoSec", "Google Apps Script"],
+    technologies: ["Python", "OpenAI API", "AWS Lambda", "AWS S3", "ISO 27001", "Google Apps Script"],
+  },
+  {
+    id: "bangkit-graduate",
+    role: "Bangkit Graduate — Machine Learning Path",
+    company: "Bangkit Academy led by Google, Tokopedia, Gojek, & Traveloka",
+    type: "Certification / Academy",
+    period: "Feb 2023 — Jul 2023",
+    location: "Remote",
+    description: [
+      "Completed rigorous 900+ hour machine learning curriculum covering mathematics, statistical analysis, deep neural networks, and model deployment.",
+      "Authored computer vision capstone project recognized among top submissions.",
+    ],
+    technologies: ["Python", "SQL", "TensorFlow", "Pandas", "Scikit-Learn", "Math for ML"],
   },
 ];
 
-export const INITIAL_STICKY_NOTES: StickyNote[] = [
-  {
-    id: "note-1",
-    author: "Tech Lead",
-    role: "Enterprise Systems",
-    content: "Clean Spring Boot architecture! Loving the clean separation of concerns on the RBAC portal.",
-    color: "lime",
-    rotation: -2,
-    likes: 24,
-    tag: "Architecture",
-  },
-  {
-    id: "note-2",
-    author: "Ammardito",
-    role: "Author",
-    content: "💡 Tip: Always benchmark database execution plans with EXPLAIN ANALYZE before optimizing code!",
-    color: "lilac",
-    rotation: 3,
-    likes: 42,
-    tag: "Engineering Philosophy",
-  },
-  {
-    id: "note-3",
-    author: "ML Researcher",
-    role: "Computer Vision",
-    content: "89.2% mAP with bounding boxes on complex food imagery is seriously impressive work.",
-    color: "coral",
-    rotation: -4,
-    likes: 19,
-    tag: "Machine Learning",
-  },
-  {
-    id: "note-4",
-    author: "Security Auditor",
-    role: "ISO 27001 Lead",
-    content: "Zero-knowledge encryption where the server never sees the plaintext key is gold standard.",
-    color: "mint",
-    rotation: 1,
-    likes: 31,
-    tag: "Cybersecurity",
-  },
-  {
-    id: "note-5",
-    author: "Recruiter",
-    role: "Talent Acquisition",
-    content: "Strong balance of Java enterprise robustness and modern AI/Cloud versatility! 🌟",
-    color: "pink",
-    rotation: 2,
-    likes: 18,
-    tag: "Hireable",
-  },
-];
-
-export const SKILL_CATEGORIES = [
-  {
-    name: "Backend Core & Frameworks",
-    color: "lime",
-    skills: [
-      { name: "Java (17/21)", level: 95, exp: "3+ years", highlight: true },
-      { name: "Spring Boot 3", level: 92, exp: "3+ years", highlight: true },
-      { name: "Node.js & Express", level: 88, exp: "2+ years", highlight: false },
-      { name: "Python & FastAPI", level: 90, exp: "3+ years", highlight: true },
-      { name: "C# & .NET Core", level: 80, exp: "1+ years", highlight: false },
-      { name: "REST & GraphQL", level: 94, exp: "3+ years", highlight: false },
-      { name: "WebSockets & STOMP", level: 88, exp: "2+ years", highlight: true },
-    ],
-  },
-  {
-    name: "Data & Caching Engines",
-    color: "lilac",
-    skills: [
-      { name: "PostgreSQL", level: 92, exp: "3+ years", highlight: true },
-      { name: "Redis (Pub/Sub & Geo)", level: 89, exp: "2+ years", highlight: true },
-      { name: "MongoDB & GridFS", level: 85, exp: "2+ years", highlight: false },
-      { name: "SQL Query Tuning", level: 90, exp: "3+ years", highlight: true },
-      { name: "AWS S3 Object Storage", level: 88, exp: "2+ years", highlight: false },
-    ],
-  },
-  {
-    name: "AI & Machine Learning",
-    color: "coral",
-    skills: [
-      { name: "TensorFlow & Keras", level: 90, exp: "2+ years", highlight: true },
-      { name: "Scikit-Learn", level: 92, exp: "3+ years", highlight: true },
-      { name: "OpenAI API & RAG", level: 94, exp: "2+ years", highlight: true },
-      { name: "Computer Vision (CNN)", level: 88, exp: "2+ years", highlight: true },
-      { name: "Pandas & NumPy", level: 94, exp: "3+ years", highlight: false },
-    ],
-  },
-  {
-    name: "Security, Cloud & DevOps",
-    color: "mint",
-    skills: [
-      { name: "ISO 27001 Standards", level: 92, exp: "2+ years", highlight: true },
-      { name: "AES-256 & Cryptography", level: 90, exp: "2+ years", highlight: true },
-      { name: "Docker & Containers", level: 88, exp: "2+ years", highlight: false },
-      { name: "AWS Lambda & Cloud", level: 85, exp: "2+ years", highlight: false },
-      { name: "JWT & OAuth2 RBAC", level: 94, exp: "3+ years", highlight: true },
-    ],
-  },
-];
-
-export const TESTIMONIALS = [
-  {
-    name: "Sarah Jenkins",
-    role: "CTO at TechFlow Systems",
-    content:
-      "Ammardito completely overhauled our notification backend. Where we used to have hours of delay under high load, our new microservices stack handles peaks effortlessly with zero packet drop.",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
-    verified: "Verified Client Recommendation",
-  },
-  {
-    name: "Budi Santoso",
-    role: "Lead Machine Learning Engineer",
-    content:
-      "We brought Ammardito in to help us optimize our image processing models. His insights into TensorFlow reduced our inference times by 40% while saving immense cloud compute costs.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
-    verified: "Peer Review · Bangkit Academy",
-  },
-  {
-    name: "Emily Chen",
-    role: "Product & Engineering Manager",
-    content:
-      "Having a backend developer who fundamentally understands both security compliance (ISO 27001) and machine learning is incredibly rare. He delivered our automated policy system flawlessly.",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop",
-    verified: "Verified Colleague · Mekari",
-  },
-];
-
-export const MOCK_API_ENDPOINTS = [
-  {
-    endpoint: "GET /api/v1/health",
-    title: "System Health & Uptime",
-    description: "Inspect live JVM metrics, active threads, memory allocation, and database connectivity pool status.",
-    response: {
-      status: "HEALTHY",
-      uptime: "99.98%",
-      runtime: "Java 21 OpenJDK / Spring Boot 3.3.0",
-      memory: {
-        heapUsed: "142MB",
-        heapMax: "512MB",
-        threadCount: 24,
-      },
-      database: {
-        pool: "HikariCP",
-        activeConnections: 3,
-        idleConnections: 7,
-        latencyMs: 1.4,
-      },
-      nodeLocation: "ap-southeast-3 (Jakarta)",
+export const PERSONAL_STORIES = {
+  hobbies: [
+    {
+      title: "Story-Driven Games & Narrative Fiction",
+      emoji: "🎮",
+      description:
+        "Deeply captivated by games that treat worldbuilding, complex moral dilemmas, and character-driven writing as core art forms. Favorites include Disco Elysium, Cyberpunk 2077, Baldur's Gate 3, Outer Wilds, and The Witcher 3.",
     },
-  },
-  {
-    endpoint: "POST /api/v1/job-portal/auth-check",
-    title: "RBAC Authorization Verification",
-    description: "Test role validation and token claim decoding for enterprise recruitment endpoints.",
-    response: {
-      authenticated: true,
-      subject: "engineer@ammardito.dev",
-      role: "ROLE_LEAD_BACKEND_ENGINEER",
-      authorities: [
-        "PERM_READ_ARCHITECTURE",
-        "PERM_EXECUTE_API_TEST",
-        "PERM_DISPATCH_INTERVIEW_INVITE",
-      ],
-      jwtClaimValid: true,
-      expiresIn: "86400s",
-      signatureVerified: true,
+    {
+      title: "Silent Reading Clubs & Books",
+      emoji: "📖",
+      description:
+        "A frequent attendee of silent reading gatherings in Jakarta—spending hours unplugged with speculative fiction, thought-provoking essays, sci-fi, and books exploring human psychology and society.",
     },
-  },
-  {
-    endpoint: "POST /api/v1/ml/food-detect",
-    title: "CalorieLens Food Detection Demo",
-    description: "Simulate deep learning model inference output over sample culinary tensor inputs.",
-    response: {
-      model: "CalorieLens-TensorFlow-v2.4",
-      inferenceLatencyMs: 114.8,
-      detectedItems: [
-        {
-          label: "Nasi Goreng Special",
-          confidence: 0.942,
-          boundingBox: [42, 60, 280, 310],
-          estimatedCalories: 480,
-          macros: { carbs: "58g", protein: "18g", fats: "16g" },
-        },
-        {
-          label: "Satay Ayam (4 skewers)",
-          confidence: 0.918,
-          boundingBox: [320, 95, 480, 240],
-          estimatedCalories: 260,
-          macros: { carbs: "8g", protein: "24g", fats: "12g" },
-        },
-      ],
-      totalMealCalories: 740,
+    {
+      title: "Archery — The Discipline of Stillness",
+      emoji: "🏹",
+      description:
+        "Drawn to archery for its pure emphasis on breath, posture, and mental focus. In a world of fast context switching, drawing a bow demands complete presence and quiet deliberate aim.",
     },
-  },
-  {
-    endpoint: "GET /api/v1/security/compliance-audit",
-    title: "ISO 27001 Automated Compliance Check",
-    description: "Simulate automated control clause validation via serverless OpenAI retrieval engine.",
-    response: {
-      framework: "ISO/IEC 27001:2022",
-      overallCompliance: "99.4%",
-      checkedClauses: [
-        { clause: "A.8.20", name: "Network Security Controls", status: "PASS", verifiedBy: "Automated Log Scanner" },
-        { clause: "A.8.24", name: "Use of Cryptography (AES-256)", status: "PASS", verifiedBy: "Zero-Knowledge Rule" },
-        { clause: "A.9.2.1", name: "User Registration & RBAC Access", status: "PASS", verifiedBy: "JWT Filter Audit" },
-      ],
-      lastAuditTimestamp: "2026-08-08T14:40:00Z",
-      riskScore: "LOW (0.02)",
+    {
+      title: "Padel & Tennis",
+      emoji: "🎾",
+      description:
+        "Enjoying the tactical angles, fast reflexes, and team energy of padel and tennis. An exhilarating contrast to long deep-work coding sessions.",
     },
-  },
-];
+    {
+      title: "Exploring All There Is",
+      emoji: "✨",
+      description:
+        "Guided by an appetite to experience new crafts, sports, and cultural spaces. Life is richer when you continually step outside familiar routines to try something you've never done before.",
+    },
+  ],
+  toolbox: [
+    { category: "Frontend & Mobile", items: ["React", "TypeScript", "Next.js", "Capacitor (Android)", "Tailwind CSS", "HTML5 / Vanilla JS"] },
+    { category: "Backend & Systems", items: ["Java (Spring Boot 3)", "Python (FastAPI)", "C# (.NET Core)", "Node.js", "REST APIs", "WebSockets"] },
+    { category: "Databases & Cloud", items: ["PostgreSQL", "Supabase", "Redis", "Google Cloud Platform", "AWS Lambda/S3", "Docker"] },
+    { category: "AI & Data", items: ["OpenAI / LLMs", "TensorFlow / Keras", "Scikit-Learn", "OpenCV", "Google AppsScript", "Pandas"] },
+  ],
+};

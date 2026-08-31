@@ -8,50 +8,28 @@ web
 
 ## Users
 
-Technical recruiters, engineering managers, CTOs, tech leads, and peer software engineers evaluating backend architecture capability, distributed systems resilience, and engineering rigor for Senior / Mid Backend & Distributed Systems roles.
+Clients looking for practical full-stack solutions and mobile apps, engineering managers, founders, and peers evaluating Ammardito Shafaat's engineering versatility, leadership on AI initiatives, and multi-disciplinary craft.
 
 ## Product Purpose
 
-To showcase Ammardito Shafaat's backend engineering proficiency, enterprise microservices experience (Java 21, Spring Boot 3.3, PostgreSQL), applied Machine Learning work, and Information Security automation through an interactive, high-craft portfolio that converts interest into technical interviews and high-scale roles.
+To showcase Ammardito Shafaat's authentic story, full-stack engineering proficiency (React, TypeScript, Capacitor, Next.js, Java Spring Boot, Python), AI project leadership at LG Sinar Mas, freelance work for real businesses/UMKMs, and multifaceted personal interests (story-driven games, books, archery, padel, silent reading club) in an understated, minimalist multi-page portfolio inspired by Toan To and Zian Tsabit.
 
 ## Positioning
 
-An engineer who builds high-throughput, fault-tolerant backend systems, resilient microservices, and distributed data pipelines with rigorous type safety, clean hexagonal architecture, and verifiable performance metrics.
-
-## Operating Context
-
-Enterprise recruitment systems handling synchronized candidate evaluations, serverless compliance pipelines, automated policy verification against ISO 27001 standards, real-time WebSocket telemetry, and deep learning vision inference.
-
-## Capabilities and Constraints
-
-- High-concurrency Spring Boot microservices with HikariCP connection pooling, PostgreSQL RBAC schemas, and JWT authorization.
-- Serverless ETL and LLM verification pipelines utilizing AWS Lambda and S3.
-- Deep learning bounding box classification in TensorFlow with sub-120ms inference.
-- Client-side zero-knowledge AES-256 GCM encryption where plaintext keys never reach server memory.
-- Bi-directional WebSockets with Redis Pub/Sub for real-time telemetry streaming.
+A pragmatic Full Stack Engineer & AI Project Lead who builds software for real people, solves real operational bottlenecks for businesses, and approaches both technology and life with curiosity and deliberate focus.
 
 ## Brand Commitments
 
-- Name: Ammardito Shafaat
-- Role: Back End Developer & Creative Systems Architect
-- Visual World: Figma-Apple Editorial Design System (crisp monochrome `#ffffff`/`#000000` canvas, oversized pastel color blocks, pill-shaped CTAs, variable typography with negative display tracking).
-- Tone: Confident, technical, rigorous, and design-literate.
+- Name: Ammardito Shafaat (Ammar)
+- Role: Full Stack Engineer & AI Project Lead
+- Visual World: Minimalist, thoughtful editorial portfolio with generous whitespace, clean sans and mono typography, and seamless 3-theme switching (Light, Dark, Rain).
+- Tone: Conversational, authentic, grounded, and curious.
 
 ## Evidence on Hand
 
-- Real work history at LG Sinar Mas (C#/.NET & Java Spring Boot Developer), Bangkit Academy by Google/GoTo/Traveloka (ML Mentor & Capstone Lead), and Mekari (InfoSec & Compliance Engineer).
-- 6 production case studies with real architectural specs: LG SM Job Portal, OpenAI Compliance Engine, CalorieLens CV Detector, Zero-Knowledge Vault, Supply Chain Radar, and FlowCluster.
-- Verified recommendations from TechFlow CTO, Lead ML Engineers, and Product Managers.
-
-## Product Principles
-
-1. **Architecture over aesthetics**: Visuals serve the technical demonstration, never replacing technical proof.
-2. **Production truth**: Every metric, latency benchmark, and architectural trade-off is grounded in real engineering decisions.
-3. **Interactive demonstration**: Allow visitors to experience the systems live via API test workbench, system blueprints, and collaborative boards.
-4. **Immediate clarity**: Recruiters and engineering leads understand core competency within seconds of landing.
-
-## Accessibility & Inclusion
-
-- WCAG AA contrast compliance across all monochrome and pastel color-block surfaces.
-- Accessible keyboard navigation and visible focus states.
-- High-performance, lightweight client bundles with fast initial render and smooth transitions.
+- Software Engineer & AI Project Lead at LG Sinar Mas (AI workflows, Spring Boot, C#/.NET).
+- Freelance Full Stack Engineer building UMKM systems (Pet Shop ERP & Android app with React + TypeScript + Capacitor + Supabase, byGewa custom order portal with Google Maps & AppsScript).
+- Design Thinking Co-Trainer at Central Bank of Indonesia (Bank Indonesia).
+- Facilitator for Google Cloud Arcade 2025.
+- Mentor at Bangkit Academy led by Google, Tokopedia, Gojek, & Traveloka.
+- Internship at Mekari (Information Security & Compliance).
