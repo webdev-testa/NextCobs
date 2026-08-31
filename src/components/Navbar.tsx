@@ -45,7 +45,7 @@ export function Navbar() {
               {DEVELOPER_INFO.name}
             </span>
             <span className="text-xs font-mono text-[#666666] hidden sm:inline">
-              Full Stack &bull; AI Lead
+              Full Stack &bull; AI/ML
             </span>
           </div>
         </Link>

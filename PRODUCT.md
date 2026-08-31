@@ -12,7 +12,7 @@ Clients looking for practical full-stack solutions and mobile apps, engineering 
 
 ## Product Purpose
 
-To showcase Ammardito Shafaat's authentic story, full-stack engineering proficiency (React, TypeScript, Capacitor, Next.js, Java Spring Boot, Python), AI project leadership at LG Sinar Mas, freelance work for real businesses/UMKMs, and multifaceted personal interests (story-driven games, books, archery, padel, silent reading club) in an understated, minimalist multi-page portfolio inspired by Toan To and Zian Tsabit.
+To showcase Ammardito Shafaat's authentic story, full-stack engineering proficiency (React, TypeScript, Capacitor, Next.js, Java Spring Boot, Python), AI project leadership at LG Sinar Mas, freelance work for real businesses/UMKMs, and multifaceted personal interests (story-driven worlds, narrative games, chess, running, gym routine, and casual sports exploration) in a clean, Figma-editorial portfolio.
 
 ## Positioning
 

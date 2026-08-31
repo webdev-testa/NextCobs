@@ -94,7 +94,7 @@ export function HeroSection() {
             </p>
 
             <p className="text-sm sm:text-base text-[#666666] leading-relaxed max-w-2xl mb-8">
-              Outside the terminal, I'm drawn to story-driven games, books, silent reading clubs, and exploring new active disciplines like archery and padel.
+              Outside the terminal, I'm drawn to story-driven worlds, narrative games, and chess. My routine exercise centers on running and the gym, balanced by a continuous curiosity for exploring sports like archery, tennis, padel, badminton, and futsal.
             </p>
 
             {/* CTAs */}

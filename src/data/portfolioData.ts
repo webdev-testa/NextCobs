@@ -61,33 +61,33 @@ export interface StickyNote {
 
 export const DEVELOPER_INFO = {
   name: "Ammardito Shafaat",
-  shortName: "Ammar",
-  role: "Full Stack Engineer & AI Project Lead",
+  shortName: "Dito",
+  role: "Full Stack Engineer & AI/ML",
   location: "Jakarta, Indonesia (UTC+7)",
   availability: "Available for select freelance projects & technical collaborations",
   email: "ammarditoshafaat2001@gmail.com",
   github: "https://github.com/webdev-testa",
   linkedin: "https://www.linkedin.com/in/ammardito-shafaat-65a255216/",
   stats: [
-    { label: "Active Roles", value: "AI Lead & Full Stack" },
+    { label: "Active Roles", value: "AI/ML & Full Stack" },
     { label: "Client Systems", value: "UMKM Mobile & Web" },
     { label: "Engineers Mentored", value: "50+ Students" },
     { label: "Core Stack", value: "React • Java • Python" },
   ],
   intro: {
     greeting: "Hello.",
-    lead: "I’m Ammardito, a Full Stack Engineer & AI Project Lead based in Jakarta.",
+    lead: "I’m Ammardito, a Full Stack Engineer & AI Project based in Jakarta.",
     paragraph1:
       "By day, I build software and lead an internal AI initiative at LG Sinar Mas. On the side, I craft full-stack systems and mobile apps for real businesses and UMKMs—from retail ERPs and Android apps to lightweight location-aware order portals.",
     paragraph2:
-      "Beyond the code editor, I immerse myself in story-driven games, books, and silent reading clubs, and I'm actively exploring new physical disciplines—from archery and padel to tennis.",
+      "Beyond the code editor, I immerse myself in story-driven media, games, and chess. My primary exercise routine centers on running and the gym, with a continuous appetite for exploring sports like archery, tennis, padel, badminton, and futsal.",
   },
 };
 
 export const INITIAL_STICKY_NOTES: StickyNote[] = [
   {
     id: "note-1",
-    author: "Ammar",
+    author: "Dito",
     role: "Engineering Note",
     content: "Pragmatic tech stacks beat resume-driven complexity every time. Build for the user's reality!",
     color: "lime",
@@ -107,33 +107,33 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
   },
   {
     id: "note-3",
-    author: "Narrative Explorer",
-    role: "Story Passions",
-    content: "🎮 Currently captivated by Disco Elysium & Baldur's Gate 3. Storytelling in games is pure craft.",
+    author: "Story & Chess",
+    role: "Core Passions",
+    content: "🎮 ♟️ Captivated by Disco Elysium, Baldur's Gate 3 & chess tactics. Deep storytelling and strategy are pure craft.",
     color: "coral",
     rotation: -4,
-    likes: 29,
-    tag: "Games & Lore",
+    likes: 35,
+    tag: "Stories & Chess",
   },
   {
     id: "note-4",
-    author: "Archery Range",
-    role: "Discipline",
-    content: "🏹 In archery as in engineering: you can't rush the release. Stillness and posture create accuracy.",
+    author: "Running & Gym",
+    role: "Daily Routine",
+    content: "🏃‍♂️ Regular running and gym sessions provide the mental clarity and energy needed for high-focus engineering.",
     color: "mint",
     rotation: 2,
     likes: 31,
-    tag: "Life Explorations",
+    tag: "Exercise Routine",
   },
   {
     id: "note-5",
-    author: "Silent Reading Club",
-    role: "Weekend Habit",
-    content: "📖 2 hours of quiet reading with zero phone notifications is the best mental reset in Jakarta.",
+    author: "Sports Explorer",
+    role: "Active Exploration",
+    content: "🎯 Trying new sports—archery, padel, tennis, badminton & futsal. Always exploring outside routine routines!",
     color: "pink",
     rotation: -1,
-    likes: 25,
-    tag: "Books & Mind",
+    likes: 27,
+    tag: "Sports Exploration",
   },
 ];
 
@@ -573,34 +573,52 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
 export const PERSONAL_STORIES = {
   hobbies: [
     {
-      title: "Story-Driven Games & Narrative Fiction",
-      emoji: "🎮",
-      description:
-        "Deeply captivated by games that treat worldbuilding, complex moral dilemmas, and character-driven writing as core art forms. Favorites include Disco Elysium, Cyberpunk 2077, Baldur's Gate 3, Outer Wilds, and The Witcher 3.",
-    },
-    {
-      title: "Silent Reading Clubs & Books",
+      title: "Story-Driven Worlds & Narrative Fiction",
       emoji: "📖",
+      tag: "Main Interest",
+      status: "Core Focus",
       description:
-        "A frequent attendee of silent reading gatherings in Jakarta—spending hours unplugged with speculative fiction, thought-provoking essays, sci-fi, and books exploring human psychology and society.",
+        "Deeply captivated by rich narrative fiction, speculative literature, and silent reading clubs in Jakarta. Examining complex worldbuilding, ethical branching, and character arcs as a fundamental art form.",
     },
     {
-      title: "Archery — The Discipline of Stillness",
-      emoji: "🏹",
+      title: "Story Games & Interactive Craft",
+      emoji: "🎮",
+      tag: "Main Interest",
+      status: "Core Focus",
       description:
-        "Drawn to archery for its pure emphasis on breath, posture, and mental focus. In a world of fast context switching, drawing a bow demands complete presence and quiet deliberate aim.",
+        "Immersing in story-driven video games that push systemic and narrative boundaries. Top influences include Disco Elysium, Baldur's Gate 3, Cyberpunk 2077, Outer Wilds, and The Witcher 3.",
     },
     {
-      title: "Padel & Tennis",
-      emoji: "🎾",
+      title: "Chess — Strategy & Calculation",
+      emoji: "♟️",
+      tag: "Main Interest",
+      status: "Core Focus",
       description:
-        "Enjoying the tactical angles, fast reflexes, and team energy of padel and tennis. An exhilarating contrast to long deep-work coding sessions.",
+        "Engaged in chess for its tactical depth, calculating deep variations, positional patience, and pattern recognition. A timeless mental arena of strategy and mental composure.",
     },
     {
-      title: "Exploring All There Is",
-      emoji: "✨",
+      title: "Running & Aerobic Discipline",
+      emoji: "🏃‍♂️",
+      tag: "Routine Exercise",
+      status: "Daily Routine",
       description:
-        "Guided by an appetite to experience new crafts, sports, and cultural spaces. Life is richer when you continually step outside familiar routines to try something you've never done before.",
+        "My primary exercise routine. Hitting the road for cardiovascular endurance, cadence, and the irreplaceable mental clarity and rhythm that resets the mind after coding.",
+    },
+    {
+      title: "Gym & Strength Training",
+      emoji: "🏋️‍♂️",
+      tag: "Routine Exercise",
+      status: "Daily Routine",
+      description:
+        "Consistent strength training and progressive overload. Building physical resilience, structural strength, and the sustained stamina required for deep engineering work.",
+    },
+    {
+      title: "Active Sports Exploration",
+      emoji: "🎯",
+      tag: "Active Exploration",
+      status: "Casual & Non-Routine",
+      description:
+        "Exploring dynamic sports whenever the chance appears—testing aim in archery, reflexes on padel, tennis, and badminton courts, or quick team flow in futsal. Pure curiosity without rigid routine pressure.",
     },
   ],
   toolbox: [

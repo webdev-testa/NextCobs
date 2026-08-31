@@ -58,7 +58,7 @@ export function InteractiveContact() {
               Let's Build Something Meaningful Together.
             </h2>
             <p className="text-sm sm:text-base text-[#333333] leading-relaxed mb-8 max-w-lg">
-              Whether you have a full-stack project for your business, want to discuss enterprise AI systems, or just want to connect over story-driven games and archery—I’d love to hear from you.
+              Whether you have a full-stack project for your business, want to discuss enterprise AI systems, or just want to connect over story-driven games, chess, or running—I’d love to hear from you.
             </p>
 
             {/* Direct Email Action */}
