@@ -73,7 +73,7 @@ export function HeroSection() {
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f7f7f5] border border-[#e6e6e6] text-xs font-mono tracking-wide text-[#000000]">
             <span className="w-2 h-2 rounded-full bg-[#1ea64a] animate-pulse"></span>
-            <span>FULL STACK ENGINEER &bull; AI PROJECT LEAD &bull; FREELANCE BUILDER</span>
+            <span>FULL STACK ENGINEER &bull; AI/ML &bull; FREELANCE BUILDER</span>
           </div>
 
           <div className="flex items-center gap-2 text-xs font-mono text-[#666666]">

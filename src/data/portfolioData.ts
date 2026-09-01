@@ -286,7 +286,7 @@ export const PROJECTS_DATA: Project[] = [
     summary:
       "Leading an internal AI project alongside engineering high-throughput Java Spring Boot & .NET backend microservices for enterprise employee assessment workflows.",
     year: "2025 — Present",
-    role: "Software Engineer & AI Project Lead",
+    role: "Software Engineer & AI/ML",
     clientOrContext: "LG Sinar Mas",
     tags: ["Python", "Java", "Spring Boot", "OpenAI / LLMs", "PostgreSQL", "Docker", "C#/.NET"],
     featured: true,
@@ -488,7 +488,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
   },
   {
     id: "lg-sinarmas",
-    role: "Software Engineer & AI Project Lead",
+    role: "Software Engineer & AI/ML",
     company: "LG Sinar Mas",
     type: "Contract",
     period: "May 2025 — Present",

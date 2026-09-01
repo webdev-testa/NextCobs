@@ -74,7 +74,6 @@ export function Footer() {
 
         <div className="mt-8 pt-4 border-t border-[#f1f1f1] flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-mono text-[#666666]">
           <span>&copy; {new Date().getFullYear()} {DEVELOPER_INFO.name}. All rights reserved.</span>
-          <span>Figma-Editorial Portfolio &bull; Next.js 15</span>
         </div>
       </div>
     </footer>
