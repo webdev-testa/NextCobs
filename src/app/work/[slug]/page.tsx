@@ -1,15 +1,23 @@
 import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PROJECTS_DATA } from "@/data/portfolioData";
+import { PROJECTS_DATA, ARCHIVED_PROJECTS } from "@/data/portfolioData";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { BackButton } from "@/components/BackButton";
 import { CodeSnippet } from "@/components/CodeSnippet";
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle2,
+  Cpu,
+  ShieldAlert,
+  Wrench,
+} from "lucide-react";
 
 export async function generateStaticParams() {
-  return PROJECTS_DATA.map((p) => ({ slug: p.slug }));
+  const all = [...PROJECTS_DATA, ...ARCHIVED_PROJECTS];
+  return all.map((p) => ({ slug: p.slug }));
 }
 
 export default async function ProjectDetailPage({
@@ -18,25 +26,26 @@ export default async function ProjectDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const projectIndex = PROJECTS_DATA.findIndex((p) => p.slug === slug);
+  const allProjects = [...PROJECTS_DATA, ...ARCHIVED_PROJECTS];
+  const projectIndex = allProjects.findIndex((p) => p.slug === slug);
 
   if (projectIndex === -1) {
     notFound();
   }
 
-  const project = PROJECTS_DATA[projectIndex];
-  const prevProject = projectIndex > 0 ? PROJECTS_DATA[projectIndex - 1] : null;
-  const nextProject = projectIndex < PROJECTS_DATA.length - 1 ? PROJECTS_DATA[projectIndex + 1] : null;
+  const project = allProjects[projectIndex];
+  const prevProject = projectIndex > 0 ? allProjects[projectIndex - 1] : null;
+  const nextProject = projectIndex < allProjects.length - 1 ? allProjects[projectIndex + 1] : null;
 
   return (
-    <div className="min-h-screen bg-[#ffffff] text-[#000000] flex flex-col">
+    <div className="min-h-screen bg-[#ffffff] text-[#000000] flex flex-col selection:bg-[#000000] selection:text-[#ffffff]">
       <Navbar />
 
       <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 w-full">
         <article className="flex flex-col gap-10">
           {/* Navigation */}
           <div>
-            <BackButton href="/#projects" label="Back to Projects" />
+            <BackButton href="/work" label="Back to Selected Work" />
           </div>
 
           {/* Header Info */}
@@ -92,13 +101,72 @@ export default async function ProjectDetailPage({
             </div>
           </header>
 
+          {/* The 4-Part Framework: Weight / Constraint / Build / Result */}
+          {project.framework && (
+            <section className="p-6 sm:p-8 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6]">
+              <h2 className="text-sm font-mono uppercase tracking-wider font-bold text-[#000000] mb-4">
+                The Operational Reality & Impact
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#f3dada]">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <ShieldAlert className="w-3.5 h-3.5 text-[#cf4444]" />
+                    <span className="text-[11px] font-mono uppercase font-bold text-[#cf4444]">
+                      Weight
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#333333] leading-relaxed">
+                    {project.framework.weight}
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#eee4ca]">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <Wrench className="w-3.5 h-3.5 text-[#b07d18]" />
+                    <span className="text-[11px] font-mono uppercase font-bold text-[#b07d18]">
+                      Constraint
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#333333] leading-relaxed">
+                    {project.framework.constraint}
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#d2e4ed]">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <Cpu className="w-3.5 h-3.5 text-[#2573a7]" />
+                    <span className="text-[11px] font-mono uppercase font-bold text-[#2573a7]">
+                      Build
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#333333] leading-relaxed">
+                    {project.framework.build}
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#cbe8d2]">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#1ea64a]" />
+                    <span className="text-[11px] font-mono uppercase font-bold text-[#1ea64a]">
+                      Result
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#333333] leading-relaxed font-medium">
+                    {project.framework.result}
+                  </p>
+                </div>
+              </div>
+            </section>
+          )}
+
           {/* Metrics Row */}
           {project.metrics && project.metrics.length > 0 && (
             <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {project.metrics.map((m, idx) => (
                 <div
                   key={idx}
-                  className="p-5 rounded-2xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col justify-between"
+                  className="p-5 rounded-2xl bg-[#ffffff] border border-[#e6e6e6] shadow-xs flex flex-col justify-between"
                 >
                   <span className="text-xs font-mono text-[#666666] uppercase tracking-wide">
                     {m.label}
@@ -121,7 +189,7 @@ export default async function ProjectDetailPage({
 
           {/* Problem & Solution */}
           <section className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="p-6 rounded-3xl bg-[#ffffff] border-2 border-[#e6e6e6] flex flex-col gap-3 shadow-sm">
+            <div className="p-6 rounded-3xl bg-[#ffffff] border-2 border-[#e6e6e6] flex flex-col gap-3 shadow-xs">
               <h3 className="text-base font-bold text-[#000000]">
                 The Challenge
               </h3>
@@ -130,7 +198,7 @@ export default async function ProjectDetailPage({
               </p>
             </div>
 
-            <div className="p-6 rounded-3xl bg-[#ffffff] border-2 border-[#e6e6e6] flex flex-col gap-3 shadow-sm">
+            <div className="p-6 rounded-3xl bg-[#ffffff] border-2 border-[#e6e6e6] flex flex-col gap-3 shadow-xs">
               <h3 className="text-base font-bold text-[#000000]">
                 The Solution
               </h3>
@@ -142,37 +210,37 @@ export default async function ProjectDetailPage({
 
           {/* Architecture Flow */}
           {project.architecture && (
-            <section className="p-6 sm:p-8 rounded-3xl bg-[#f4ecd6] border-2 border-[#ded0b1] flex flex-col gap-4">
-              <div className="flex flex-col gap-1">
-                <h2 className="text-lg sm:text-xl font-bold text-[#000000]">
+            <section className="p-6 sm:p-8 rounded-3xl bg-[#ffffff] border-2 border-[#000000] flex flex-col gap-5 shadow-sm">
+              <div className="border-b border-[#f1f1f1] pb-4">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1">
+                  Architecture & Data Flow
+                </span>
+                <h3 className="text-xl font-bold text-[#000000]">
                   {project.architecture.title}
-                </h2>
-                <p className="text-xs sm:text-sm text-[#444444]">
+                </h3>
+                <p className="text-xs sm:text-sm text-[#555555] mt-1">
                   {project.architecture.description}
                 </p>
               </div>
 
-              <div className="flex flex-col gap-2.5 pt-2">
+              <div className="flex flex-col gap-3">
                 {project.architecture.flowSteps.map((step, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[#ffffff] border border-[#ded0b1] text-xs text-[#000000] font-mono"
-                  >
-                    <span className="w-5 h-5 rounded-full bg-[#000000] text-[#ffffff] flex items-center justify-center font-bold text-xs shrink-0">
+                  <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-[#222222]">
+                    <div className="w-6 h-6 rounded-full bg-[#000000] text-[#ffffff] flex items-center justify-center font-mono text-xs shrink-0 mt-0.5">
                       {idx + 1}
-                    </span>
-                    <span className="leading-tight">{step}</span>
+                    </div>
+                    <span className="pt-0.5 leading-relaxed">{step}</span>
                   </div>
                 ))}
               </div>
             </section>
           )}
 
-          {/* Code Snippet Highlight */}
+          {/* Code Snippet */}
           {project.codeSnippet && (
-            <section className="flex flex-col gap-2">
-              <h2 className="text-lg sm:text-xl font-bold text-[#000000]">
-                Implementation Highlight
+            <section className="flex flex-col gap-3">
+              <h2 className="text-xl font-bold text-[#000000]">
+                Key Implementation Detail
               </h2>
               <CodeSnippet
                 filename={project.codeSnippet.filename}
@@ -186,22 +254,19 @@ export default async function ProjectDetailPage({
           {/* Key Decisions */}
           {project.keyDecisions && project.keyDecisions.length > 0 && (
             <section className="flex flex-col gap-4">
-              <h2 className="text-lg sm:text-xl font-bold text-[#000000]">
-                Key Architectural Decisions
+              <h2 className="text-xl font-bold text-[#000000]">
+                Engineering Trade-Offs & Decisions
               </h2>
-              <div className="flex flex-col gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {project.keyDecisions.map((kd, idx) => (
                   <div
                     key={idx}
-                    className="p-5 rounded-2xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col gap-1.5"
+                    className="p-5 rounded-2xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col gap-2"
                   >
-                    <div className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-[#1ea64a] shrink-0 mt-0.5" />
-                      <h3 className="text-sm font-bold text-[#000000]">
-                        {kd.decision}
-                      </h3>
-                    </div>
-                    <p className="text-xs text-[#555555] pl-6 leading-relaxed">
+                    <span className="text-xs font-mono font-bold text-[#000000]">
+                      {kd.decision}
+                    </span>
+                    <p className="text-xs text-[#555555] leading-relaxed">
                       {kd.rationale}
                     </p>
                   </div>
@@ -210,18 +275,17 @@ export default async function ProjectDetailPage({
             </section>
           )}
 
-          {/* Next / Prev Navigation */}
-          <nav className="flex items-center justify-between border-t border-[#e6e6e6] pt-8 mt-4">
+          {/* Next / Prev Project Navigation */}
+          <nav className="pt-8 border-t border-[#e6e6e6] flex items-center justify-between gap-4">
             {prevProject ? (
               <Link
                 href={`/work/${prevProject.slug}`}
-                className="flex flex-col gap-1 group text-left max-w-[45%]"
+                className="group flex flex-col items-start text-left"
               >
-                <span className="text-xs font-mono text-[#666666] flex items-center gap-1">
-                  <ArrowLeft className="w-3 h-3 transition-transform group-hover:-translate-x-1" />
-                  Previous Case Study
+                <span className="text-xs font-mono text-[#888888] flex items-center gap-1 group-hover:text-[#000000]">
+                  <ArrowLeft className="w-3 h-3" /> Previous Case Study
                 </span>
-                <span className="text-xs sm:text-sm font-bold text-[#000000] group-hover:underline truncate">
+                <span className="text-sm font-semibold text-[#000000] group-hover:underline mt-1">
                   {prevProject.title}
                 </span>
               </Link>
@@ -229,21 +293,18 @@ export default async function ProjectDetailPage({
               <div />
             )}
 
-            {nextProject ? (
+            {nextProject && (
               <Link
                 href={`/work/${nextProject.slug}`}
-                className="flex flex-col gap-1 group text-right max-w-[45%] ml-auto"
+                className="group flex flex-col items-end text-right"
               >
-                <span className="text-xs font-mono text-[#666666] flex items-center justify-end gap-1">
-                  Next Case Study
-                  <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
+                <span className="text-xs font-mono text-[#888888] flex items-center gap-1 group-hover:text-[#000000]">
+                  Next Case Study <ArrowRight className="w-3 h-3" />
                 </span>
-                <span className="text-xs sm:text-sm font-bold text-[#000000] group-hover:underline truncate">
+                <span className="text-sm font-semibold text-[#000000] group-hover:underline mt-1">
                   {nextProject.title}
                 </span>
               </Link>
-            ) : (
-              <div />
             )}
           </nav>
         </article>

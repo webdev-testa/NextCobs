@@ -1,38 +1,42 @@
 import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
-import { ProjectShowcase } from "@/components/ProjectShowcase";
-import { StoryAndHobbiesSection } from "@/components/StoryAndHobbiesSection";
-import { SkillsMatrix } from "@/components/SkillsMatrix";
-import { ExperienceTimeline } from "@/components/ExperienceTimeline";
-import { InteractiveContact } from "@/components/InteractiveContact";
+import { SelectedWorkSection } from "@/components/SelectedWorkSection";
+import { WhyIWorkSection } from "@/components/WhyIWorkSection";
+import { ThingsISpendTimeOnSection } from "@/components/ThingsISpendTimeOnSection";
+import { CurrentlySection } from "@/components/CurrentlySection";
+import { NotesPreviewSection } from "@/components/NotesPreviewSection";
+import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#ffffff] text-[#000000] flex flex-col relative selection:bg-[#000000] selection:text-[#ffffff]">
-      {/* Sticky Figma Editorial Navbar */}
+      {/* Editorial Navigation */}
       <Navbar />
 
-      {/* Pure White Canvas Hero with Interactive FigJam Sticky Note Board */}
+      {/* Editorial Hero with Tactile Sticky Board */}
       <HeroSection />
 
-      {/* Projects Showcase & Architecture Inspector */}
-      <ProjectShowcase />
+      {/* Selected Work (4 Key Case Studies) */}
+      <SelectedWorkSection />
 
-      {/* Signature Lilac Block: Stories, Games & Life Explorations */}
-      <StoryAndHobbiesSection />
+      {/* Why I Work Signature Manifesto Block */}
+      <WhyIWorkSection />
 
-      {/* Signature Mint Block: Technical Toolbox */}
-      <SkillsMatrix />
+      {/* Things I Spend Time On */}
+      <ThingsISpendTimeOnSection />
 
-      {/* Signature Coral Block: Career Journey & Mentorship */}
-      <ExperienceTimeline />
+      {/* Currently Dashboard */}
+      <CurrentlySection />
 
-      {/* Signature Pink Block: Interactive Contact */}
-      <InteractiveContact />
+      {/* Notes Preview */}
+      <NotesPreviewSection />
 
-      {/* Monochrome Editorial Footer */}
+      {/* Contact */}
+      <ContactSection />
+
+      {/* Footer */}
       <Footer />
     </main>
   );
