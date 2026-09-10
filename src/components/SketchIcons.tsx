@@ -217,3 +217,91 @@ export function SparkleSketchIcon({ className = "w-4 h-4" }: SketchIconProps) {
     </svg>
   );
 }
+
+/**
+ * Hand-drawn Steaming Coffee Cup sketch icon
+ */
+export function CoffeeSketchIcon({ className = "w-5 h-5" }: SketchIconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M4 8h12v6a5 5 0 01-5 5H9a5 5 0 01-5-5V8z" />
+      <path d="M16 10h2a3 3 0 010 6h-2" />
+      <path d="M2 21h17" />
+      <path d="M7 3c0 1.5 1 2 1 3" strokeWidth="1.3" />
+      <path d="M11 2c0 1.5 1 2 1 4" strokeWidth="1.3" />
+      <path d="M15 3.5c0 1.5 1 1.5 1 2.5" strokeWidth="1.3" />
+    </svg>
+  );
+}
+
+/**
+ * Hand-drawn Heart sketch doodle
+ */
+export function HeartSketchIcon({ className = "w-5 h-5" }: SketchIconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M12 20.5l-1.2-1.1C5.5 14.7 2 11.5 2 7.5 2 4.4 4.4 2 7.5 2c1.8 0 3.5.8 4.5 2.1C13 2.8 14.7 2 16.5 2 19.6 2 22 4.4 22 7.5c0 4-3.5 7.2-8.8 11.9L12 20.5z" />
+      <path d="M8 6.5c-1 0-2 .8-2 2" strokeWidth="1.2" opacity="0.6" />
+    </svg>
+  );
+}
+
+export type DoodleStampType =
+  | "sparkle"
+  | "coffee"
+  | "book"
+  | "gamepad"
+  | "chess"
+  | "code"
+  | "runner"
+  | "heart"
+  | "none";
+
+/**
+ * Helper component to render doodle stamps on sticky notes or buttons
+ */
+export function DoodleStamp({
+  stamp,
+  className = "w-4 h-4",
+}: {
+  stamp?: string;
+  className?: string;
+}) {
+  switch (stamp) {
+    case "sparkle":
+      return <SparkleSketchIcon className={className} />;
+    case "coffee":
+      return <CoffeeSketchIcon className={className} />;
+    case "book":
+      return <BookSketchIcon className={className} />;
+    case "gamepad":
+      return <GamepadSketchIcon className={className} />;
+    case "chess":
+      return <ChessKnightSketchIcon className={className} />;
+    case "code":
+      return <CodeSketchIcon className={className} />;
+    case "runner":
+      return <RunningShoeSketchIcon className={className} />;
+    case "heart":
+      return <HeartSketchIcon className={className} />;
+    default:
+      return null;
+  }
+}
+

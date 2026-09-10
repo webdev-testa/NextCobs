@@ -148,6 +148,7 @@ export interface StickyNote {
   rotation: number;
   likes: number;
   tag: string;
+  stamp?: string;
   sketchImage?: string;
   sketchCaption?: string;
 }
@@ -180,8 +181,7 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
     rotation: -2,
     likes: 58,
     tag: "Philosophy",
-    sketchImage: "/images/sketches/avatar-sketch.png",
-    sketchCaption: "Dito building & sketching",
+    stamp: "sparkle",
   },
   {
     id: "note-2",
@@ -192,6 +192,7 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
     rotation: 2.5,
     likes: 39,
     tag: "Result",
+    stamp: "code",
   },
   {
     id: "note-3",
@@ -202,6 +203,7 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
     rotation: -3,
     likes: 34,
     tag: "Automation",
+    stamp: "coffee",
   },
   {
     id: "note-4",
@@ -212,6 +214,7 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
     rotation: 1.5,
     likes: 29,
     tag: "Mindset",
+    stamp: "gamepad",
   },
 ];
 

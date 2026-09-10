@@ -12,13 +12,57 @@ import {
   Sparkles,
 } from "lucide-react";
 import confetti from "canvas-confetti";
+import { DoodleStamp, DoodleStampType } from "@/components/SketchIcons";
+
+const STAMP_OPTIONS: { id: DoodleStampType; label: string }[] = [
+  { id: "sparkle", label: "Sparkle" },
+  { id: "coffee", label: "Coffee" },
+  { id: "book", label: "Book" },
+  { id: "gamepad", label: "Game" },
+  { id: "chess", label: "Chess" },
+  { id: "code", label: "Code" },
+  { id: "runner", label: "Runner" },
+  { id: "heart", label: "Heart" },
+  { id: "none", label: "None" },
+];
 
 export function HeroSection() {
   const [stickyNotes, setStickyNotes] = useState<StickyNote[]>(INITIAL_STICKY_NOTES);
   const [isAddingNote, setIsAddingNote] = useState(false);
   const [newNoteContent, setNewNoteContent] = useState("");
   const [newNoteAuthor, setNewNoteAuthor] = useState("");
+  const [newNoteRole, setNewNoteRole] = useState("");
   const [newNoteColor, setNewNoteColor] = useState<StickyNote["color"]>("lime");
+  const [newNoteStamp, setNewNoteStamp] = useState<DoodleStampType>("sparkle");
+
+  const handleCancelNote = () => {
+    setNewNoteContent("");
+    setNewNoteAuthor("");
+    setNewNoteRole("");
+    setNewNoteStamp("sparkle");
+    setNewNoteColor("lime");
+    setIsAddingNote(false);
+  };
+
+  const handleFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      handleCancelNote();
+    }
+  };
+
+  const handleTextareaKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      handleCancelNote();
+    } else if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+      e.preventDefault();
+      if (newNoteContent.trim()) {
+        const fakeFormEvent = { preventDefault: () => {} } as React.FormEvent;
+        handleAddNote(fakeFormEvent);
+      }
+    }
+  };
 
   const handleLikeNote = (id: string) => {
     setStickyNotes((prev) =>
@@ -33,17 +77,20 @@ export function HeroSection() {
     const newNote: StickyNote = {
       id: `custom-${Date.now()}`,
       author: newNoteAuthor.trim() || "Visitor",
-      role: "Guest Note",
+      role: newNoteRole.trim() || "Guest Note",
       content: newNoteContent.trim(),
       color: newNoteColor,
       rotation: Math.random() * 6 - 3,
       likes: 1,
       tag: "Community",
+      stamp: newNoteStamp !== "none" ? newNoteStamp : undefined,
     };
 
     setStickyNotes((prev) => [newNote, ...prev]);
     setNewNoteContent("");
     setNewNoteAuthor("");
+    setNewNoteRole("");
+    setNewNoteStamp("sparkle");
     setIsAddingNote(false);
 
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -148,50 +195,206 @@ export function HeroSection() {
                 <div className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#1ea64a] animate-pulse" />
                   <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#000000]">
-                    Tactile Board
+                    Sticky Notes
                   </span>
                 </div>
 
                 <button
-                  onClick={() => setIsAddingNote(!isAddingNote)}
+                  onClick={() => {
+                    if (isAddingNote) {
+                      handleCancelNote();
+                    } else {
+                      setIsAddingNote(true);
+                    }
+                  }}
+                  aria-expanded={isAddingNote}
                   className="px-3 py-1.5 rounded-full bg-[#000000] text-[#ffffff] text-xs font-medium flex items-center gap-1.5 hover:bg-[#222222] transition-colors active:scale-95"
                 >
-                  <Plus className="w-3.5 h-3.5" />
+                  <Plus
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ease-out ${
+                      isAddingNote ? "rotate-45" : "rotate-0"
+                    }`}
+                  />
                   <span>{isAddingNote ? "Close" : "Stick a Note"}</span>
                 </button>
+              </div>
+
+              {/* Dedicated Author Polaroid Pin (Permanent Board Anchor) */}
+              <div className="mb-4 p-3 sm:p-3.5 rounded-2xl bg-[#f7f7f5] border border-[#e6e6e6] relative group">
+                {/* Tactile pushpin badge */}
+                <div className="absolute -top-2 left-5 flex items-center gap-1.5 z-10 pointer-events-none">
+                  <div className="w-3.5 h-3.5 rounded-full bg-[#ff3d8b] border-2 border-[#ffffff] shadow-xs flex items-center justify-center">
+                    <div className="w-1 h-1 rounded-full bg-[#ffffff]" />
+                  </div>
+                  <span className="text-xs font-mono uppercase tracking-wider text-[#666666] bg-[#ffffff] px-1.5 py-0.5 rounded border border-[#e6e6e6] shadow-2xs">
+                    Author Pin
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3.5 pt-1">
+                  {/* Polaroid Frame */}
+                  <div className="relative w-20 h-24 sm:w-24 sm:h-28 shrink-0 bg-[#ffffff] p-1.5 pb-4 rounded-lg shadow-sm border border-[#e6e6e6] -rotate-2 group-hover:rotate-0 transition-transform duration-200">
+                    <div className="relative w-full h-full rounded overflow-hidden bg-[#fafafa]">
+                      <Image
+                        src="/images/sketches/avatar-sketch.png"
+                        alt="Ammardito (Dito) Sketch"
+                        fill
+                        sizes="100px"
+                        className="object-contain"
+                        priority
+                      />
+                    </div>
+                    <div className="absolute bottom-1 left-0 right-0 text-center">
+                      <span className="text-xs font-mono text-[#666666] tracking-tight">
+                        dito.pen
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Author Greeting & Desk Note */}
+                  <div className="flex flex-col justify-between flex-1 min-w-0">
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="text-xs font-bold text-[#000000]">Dito</span>
+                        <span className="text-xs font-mono text-[#666666]">&bull; Founder & Dev</span>
+                      </div>
+                      <p className="text-xs text-[#333333] leading-relaxed">
+                        &ldquo;I build things so other people can carry less. Leave a thought, stick a note, or stamp a doodle below!&rdquo;
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-[#e6e6e6]">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-[#1ea64a]" />
+                        <span className="text-xs font-mono text-[#666666]">At desk</span>
+                      </div>
+                      <Link
+                        href="/about"
+                        className="text-xs font-semibold text-[#000000] hover:underline flex items-center gap-1"
+                      >
+                        <span>Story</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Add Note Form */}
               {isAddingNote && (
                 <form
                   onSubmit={handleAddNote}
+                  onKeyDown={handleFormKeyDown}
                   className="mb-4 p-4 rounded-2xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col gap-3 animate-in fade-in zoom-in-95 duration-150"
                 >
-                  <span className="text-xs font-semibold text-[#000000]">Leave a thought or feedback:</span>
-                  <div>
-                    <label htmlFor="note-author" className="sr-only">Your Name or Handle</label>
-                    <input
-                      id="note-author"
-                      type="text"
-                      placeholder="Your Name / Handle"
-                      value={newNoteAuthor}
-                      onChange={(e) => setNewNoteAuthor(e.target.value)}
-                      className="w-full px-3 py-2 text-xs rounded-lg border border-[#e6e6e6] bg-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#000000]"
-                    />
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-[#000000]">
+                      Leave a thought or feedback:
+                    </span>
+                    <span className="text-xs font-mono text-[#888888]">
+                      {newNoteContent.length}/160
+                    </span>
                   </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div>
+                      <label htmlFor="note-author" className="sr-only">Your Name or Handle</label>
+                      <input
+                        id="note-author"
+                        type="text"
+                        placeholder="Your Name / Handle"
+                        value={newNoteAuthor}
+                        onChange={(e) => setNewNoteAuthor(e.target.value)}
+                        maxLength={30}
+                        className="w-full px-3 py-2 text-xs rounded-lg border border-[#e6e6e6] bg-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#000000]"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="note-role" className="sr-only">Role or Badge (optional)</label>
+                      <input
+                        id="note-role"
+                        type="text"
+                        placeholder="Badge / Role (optional)"
+                        value={newNoteRole}
+                        onChange={(e) => setNewNoteRole(e.target.value)}
+                        maxLength={25}
+                        className="w-full px-3 py-2 text-xs rounded-lg border border-[#e6e6e6] bg-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#000000]"
+                      />
+                    </div>
+                  </div>
+
                   <div>
                     <label htmlFor="note-content" className="sr-only">Message</label>
                     <textarea
                       id="note-content"
-                      placeholder="Write a message..."
+                      placeholder="Write a message... (Press Ctrl+Enter to post, Esc to cancel)"
                       value={newNoteContent}
                       onChange={(e) => setNewNoteContent(e.target.value)}
+                      onKeyDown={handleTextareaKeyDown}
+                      maxLength={160}
                       rows={2}
                       className="w-full px-3 py-2 text-xs rounded-lg border border-[#e6e6e6] bg-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#000000]"
                       required
                     />
                   </div>
-                  <div className="flex items-center justify-between">
+
+                  {/* Doodle Stamp Selector */}
+                  <div>
+                    <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1.5">
+                      Stamp a Doodle (optional):
+                    </span>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      {STAMP_OPTIONS.map((stamp) => (
+                        <button
+                          key={stamp.id}
+                          type="button"
+                          onClick={() => setNewNoteStamp(stamp.id)}
+                          className={`px-2 py-1 rounded-lg border text-xs flex items-center gap-1 transition-all ${
+                            newNoteStamp === stamp.id
+                              ? "bg-[#000000] text-[#ffffff] border-[#000000] shadow-xs scale-105"
+                              : "bg-[#ffffff] text-[#444444] border-[#e6e6e6] hover:border-[#000000]"
+                          }`}
+                        >
+                          <DoodleStamp stamp={stamp.id} className="w-3.5 h-3.5" />
+                          <span>{stamp.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Live Note Preview Feature */}
+                  <div className="pt-2 border-t border-[#e6e6e6]">
+                    <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1.5">
+                      Live Preview:
+                    </span>
+                    <div
+                      className={`p-3 rounded-xl border shadow-2xs transition-all ${
+                        colorClasses[newNoteColor]
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <span className="text-xs font-bold truncate">
+                            {newNoteAuthor.trim() || "Visitor"}
+                          </span>
+                          {newNoteStamp !== "none" && (
+                            <span className="inline-flex items-center justify-center w-4 h-4 rounded bg-black/5 border border-black/10 text-[#000000] rotate-3">
+                              <DoodleStamp stamp={newNoteStamp} className="w-3 h-3" />
+                            </span>
+                          )}
+                        </div>
+                        <span className="text-xs font-mono opacity-70 truncate max-w-[120px]">
+                          {newNoteRole.trim() || "Guest Note"}
+                        </span>
+                      </div>
+                      <p className="text-xs leading-relaxed break-words font-normal">
+                        {newNoteContent.trim() || "Your message preview will appear here as you type..."}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Form Action Bar: Color Picker + Cancel & Post Buttons */}
+                  <div className="flex items-center justify-between pt-1">
                     <div className="flex items-center gap-1.5">
                       {(["lime", "lilac", "mint", "coral", "pink", "cream"] as const).map((c) => (
                         <button
@@ -206,18 +409,35 @@ export function HeroSection() {
                       ))}
                     </div>
 
-                    <button
-                      type="submit"
-                      className="px-3.5 py-1.5 rounded-full bg-[#000000] text-[#ffffff] text-xs font-semibold hover:bg-[#222222] transition-colors"
-                    >
-                      Post Note
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={handleCancelNote}
+                        className="px-3.5 py-1.5 rounded-full bg-[#ffffff] border border-[#d0d0d0] text-[#555555] hover:text-[#000000] hover:bg-[#eaeaea] text-xs font-medium transition-all active:scale-95"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={!newNoteContent.trim()}
+                        className="px-3.5 py-1.5 rounded-full bg-[#000000] text-[#ffffff] text-xs font-semibold hover:bg-[#222222] transition-colors disabled:opacity-40 disabled:cursor-not-allowed active:scale-95"
+                      >
+                        Post Note
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Subtle keyboard hint */}
+                  <div className="text-center pt-0.5">
+                    <span className="text-xs font-mono text-[#888888]">
+                      Esc to cancel &bull; Ctrl+Enter to post
+                    </span>
                   </div>
                 </form>
               )}
 
               {/* Sticky Notes Container */}
-              <div className="flex flex-col items-center gap-3.5 max-h-[460px] overflow-y-auto overflow-x-hidden py-1.5 px-1">
+              <div className="flex flex-col items-center gap-3.5 max-h-[380px] overflow-y-auto overflow-x-hidden py-1.5 px-1">
                 {stickyNotes.map((note) => (
                   <div
                     key={note.id}
@@ -227,10 +447,20 @@ export function HeroSection() {
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2 mb-1.5">
-                      <span className="text-xs font-bold tracking-tight">
-                        {note.author}
-                      </span>
-                      <span className="text-xs font-mono opacity-70">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <span className="text-xs font-bold tracking-tight truncate">
+                          {note.author}
+                        </span>
+                        {note.stamp && note.stamp !== "none" && (
+                          <span
+                            className="inline-flex items-center justify-center w-5 h-5 rounded-md bg-black/5 border border-black/10 text-[#000000] shrink-0 rotate-3"
+                            title={`Doodle stamp: ${note.stamp}`}
+                          >
+                            <DoodleStamp stamp={note.stamp} className="w-3.5 h-3.5" />
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-xs font-mono opacity-70 shrink-0">
                         {note.role}
                       </span>
                     </div>
