@@ -39,7 +39,7 @@ export default function AboutPage() {
           </h1>
 
           <p className="text-base sm:text-lg font-mono text-[#666666]">
-            By {DEVELOPER_INFO.name} &bull; Software Engineer
+            By {DEVELOPER_INFO.name} &bull; Software Engineer 
           </p>
         </header>
 

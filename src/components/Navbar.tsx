@@ -32,6 +32,7 @@ export function Navbar() {
     { label: "Work", href: "/work", isActive: pathname.startsWith("/work") },
     { label: "About", href: "/about", isActive: pathname === "/about" },
     { label: "Notes", href: "/notes", isActive: pathname.startsWith("/notes") },
+    { label: "Pursuits", href: "/pursuits", isActive: pathname.startsWith("/pursuits") },
   ];
 
   return (
@@ -50,10 +51,10 @@ export function Navbar() {
           </div>
           <div className="flex flex-col">
             <span className="font-bold text-base tracking-tight text-[#000000]">
-              Ammar
+              Ammardito Shafaat
             </span>
             <span className="text-[11px] font-mono text-[#666666] leading-none">
-              Software Engineer
+              Software Engineer | AI & ML
             </span>
           </div>
         </Link>

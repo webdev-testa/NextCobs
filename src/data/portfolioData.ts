@@ -81,6 +81,57 @@ export interface ExperienceItem {
   technologies: string[];
 }
 
+export interface PursuitPhoto {
+  id: string;
+  url: string;
+  caption: string;
+  location: string;
+  date: string;
+  aspectRatio?: "landscape" | "portrait" | "square";
+  camera?: string;
+  note?: string;
+}
+
+export interface PursuitHighlight {
+  title: string;
+  detail: string;
+  icon?: string;
+}
+
+export interface PursuitCuratedItem {
+  title: string;
+  creatorOrContext: string;
+  description: string;
+  tag: string;
+  quote?: string;
+  link?: string;
+}
+
+export interface PursuitDetail {
+  slug: string;
+  title: string;
+  subtitle: string;
+  tag: string;
+  accent: "lilac" | "mint" | "cream" | "coral" | "lime" | "pink";
+  emoji: string;
+  readTime: string;
+  photoCount: number;
+  leadQuote: string;
+  overview: string[];
+  subsections: {
+    heading: string;
+    paragraphs: string[];
+    callout?: string;
+  }[];
+  highlights: PursuitHighlight[];
+  curatedItems?: {
+    sectionTitle: string;
+    sectionDescription: string;
+    items: PursuitCuratedItem[];
+  };
+  gallery: PursuitPhoto[];
+}
+
 export interface StickyNote {
   id: string;
   author: string;
@@ -94,8 +145,8 @@ export interface StickyNote {
 
 export const DEVELOPER_INFO = {
   name: "Ammardito Shafaat",
-  shortName: "Ammar",
-  role: "Software Engineer",
+  shortName: "Dito",
+  role: "Software Engineer | AI & ML",
   tagline: "I build things so other people can carry less.",
   location: "Jakarta, Indonesia (UTC+7)",
   availability: "Available for select projects & technical collaboration",
@@ -113,7 +164,7 @@ export const DEVELOPER_INFO = {
 export const INITIAL_STICKY_NOTES: StickyNote[] = [
   {
     id: "note-1",
-    author: "Ammar",
+    author: "Dito",
     role: "Core Thread",
     content: "I build things so other people can carry less.",
     color: "lime",
@@ -155,36 +206,48 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
 
 export const THINGS_I_SPEND_TIME_ON = [
   {
+    slug: "stories",
     title: "Stories",
     subtitle: "Books, Film, Anime",
     description: "Living inside someone else's perspective for a few hours. Fastest way to shake off your own assumptions.",
     emoji: "📖",
     tag: "Perspective",
-    accent: "lilac",
+    accent: "lilac" as const,
+    photoCount: 6,
+    readTime: "4 min read",
   },
   {
+    slug: "games",
     title: "Games",
     subtitle: "Souls-likes, Chess",
     description: "Less about plot, more about the grind. Effort cleanly equals outcome — no noise, no politics.",
     emoji: "♟️",
     tag: "Deliberate Practice",
-    accent: "coral",
+    accent: "coral" as const,
+    photoCount: 4,
+    readTime: "3 min read",
   },
   {
+    slug: "getting-better-at-things",
     title: "Getting Better at Things",
     subtitle: "Gym, Running, Badminton, Archery",
     description: "Everyone starts bad at everything. Watching yourself slowly improve never stops feeling good.",
     emoji: "🏹",
     tag: "Practice & Discipline",
-    accent: "mint",
+    accent: "mint" as const,
+    photoCount: 6,
+    readTime: "5 min read",
   },
   {
+    slug: "travel",
     title: "Travel",
     subtitle: "Safar & Broad Horizons",
     description: "Safar is encouraged in Islam, and I understand why. Unfamiliar places make you feel small in the best way.",
     emoji: "🌍",
     tag: "Exploration",
-    accent: "cream",
+    accent: "cream" as const,
+    photoCount: 8,
+    readTime: "5 min read",
   },
 ];
 
@@ -967,3 +1030,531 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     technologies: ["Python", "TensorFlow", "SQL", "Computer Vision", "Pandas"],
   },
 ];
+
+export const PURSUITS_DATA: Record<string, PursuitDetail> = {
+  stories: {
+    slug: "stories",
+    title: "Stories",
+    subtitle: "Books, Speculative Fiction, Film & Anime",
+    tag: "Perspective",
+    accent: "lilac",
+    emoji: "📖",
+    readTime: "4 min read",
+    photoCount: 6,
+    leadQuote: "Fiction is systems engineering for human empathy. It is the only technology that lets you inhabit someone else's operating system without overwriting your own.",
+    overview: [
+      "Most of our waking hours are spent locked inside our own skulls — our deadlines, our biases, our immediate sensory bubble. When you build software all day, your mind naturally tries to reduce the universe to deterministic workflows, logic gates, and edge cases.",
+      "Stories are the antidote to that narrowness. Whether it's a 400-page speculative fiction novel, a quiet anime episode, or a film where the dialogue happens in the pauses between words, great storytelling forces you to step outside your ego and live another life for a few hours.",
+      "I don't read or watch fiction to escape reality; I consume it to return to reality with more patience and sharper perception."
+    ],
+    subsections: [
+      {
+        heading: "The Empathy Machine: Why Fiction Matters for Engineers",
+        paragraphs: [
+          "Engineers often pride themselves on pure objectivity. But every piece of software we build will eventually be touched by a tired person at 8 PM on a Tuesday who is frustrated, anxious, or trying to solve an urgent problem for their family.",
+          "Reading speculative fiction is essentially training in consequence modeling. Writers like Ted Chiang or Ursula K. Le Guin ask: 'What happens to human dignity and relationships if this one fundamental rule changes?' That is the exact same discipline required to design compassionate systems that don't break when human life gets messy."
+        ],
+        callout: "The best systems aren't the ones with the cleverest algorithms; they are the ones designed with deep empathy for the person using them on their worst day."
+      },
+      {
+        heading: "The Discipline of Slow Narrative",
+        paragraphs: [
+          "In an algorithmic internet designed to provoke immediate dopamine spikes, a long-form story demands something radical: patience. You have to sit with unresolved tension, sit with flawed characters who make terrible choices, and wait for understanding to arrive gradually.",
+          "That patience directly carries over to debugging and architecture. When a distributed system fails intermittently, quick hacks usually create worse debt. You need the narrative patience to trace causality step by step."
+        ]
+      }
+    ],
+    highlights: [
+      { title: "Perspective Shifting", detail: "Inhabiting other minds to dissolve stubborn preconceptions." },
+      { title: "Consequence Modeling", detail: "Speculative fiction as a mental sandbox for edge-case reasoning." },
+      { title: "Slow Attention", detail: "Rebuilding sustained focus away from short-form dopamine loops." },
+      { title: "Quiet Craft", detail: "Appreciating works where atmosphere and restraint speak loudest." }
+    ],
+    curatedItems: {
+      sectionTitle: "Standout Works That Lingered",
+      sectionDescription: "Stories that fundamentally rearranged how I view time, morality, and purpose.",
+      items: [
+        {
+          title: "Exhalation",
+          creatorOrContext: "Ted Chiang · Book / Short Stories",
+          description: "Nine mind-bending philosophical explorations of free will, entropy, and memory. Crystalline prose that treats emotional dilemmas with mathematical precision.",
+          tag: "Sci-Fi / Philosophy",
+          quote: "The universe began as an enormous breath being held. Who knows why? But whatever the reason, I am glad it did."
+        },
+        {
+          title: "Vinland Saga",
+          creatorOrContext: "Makoto Yukimura · Manga / Anime",
+          description: "A monumental masterclass on violence, grief, and the radical courage of peace. Thorfinn's transition from vengeance to redemption is unmatched.",
+          tag: "Historical Fiction",
+          quote: "You have no enemies. No one has any enemies. There is no one in this world that you should hurt."
+        },
+        {
+          title: "Sousou no Frieren",
+          creatorOrContext: "Kanehito Yamada & Tsukasa Abe · Anime",
+          description: "A quiet, melancholic contemplation of time, elf longevity, and the subtle tragedy of realizing someone's value only after they are gone.",
+          tag: "Fantasy / Drama",
+          quote: "It was only a ten-year journey... but why am I crying?"
+        },
+        {
+          title: "The Dispossessed",
+          creatorOrContext: "Ursula K. Le Guin · Novel",
+          description: "An unsparing contrast between an arid anarcho-syndicalist moon and an affluent capitalist planet. Explores what genuine freedom and community actually cost.",
+          tag: "Speculative Social Fiction",
+          quote: "You cannot buy the revolution. You cannot make the revolution. You can only be the revolution."
+        },
+        {
+          title: "Monster",
+          creatorOrContext: "Naoki Urasawa · Manga / Anime",
+          description: "Dr. Kenzo Tenma's moral odyssey across post-Cold War Germany, grappling with the weight of saving a human life without knowing what that life would become.",
+          tag: "Psychological Thriller",
+          quote: "The only thing humans are equal in is death."
+        }
+      ]
+    },
+    gallery: [
+      {
+        id: "stories-1",
+        url: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80",
+        caption: "A quiet stack of paperbacks on a Saturday morning. Physical print anchors the mind.",
+        location: "Home Study, Jakarta",
+        date: "January 2026",
+        aspectRatio: "landscape",
+        camera: "Fujifilm X100V · 23mm · f/2.8"
+      },
+      {
+        id: "stories-2",
+        url: "https://images.unsplash.com/photo-1507842229451-7f01be7f7a26?auto=format&fit=crop&w=1200&q=80",
+        caption: "Browsing tall shelves in a quiet bookstore. Nothing beats the tactile hunt for an unknown author.",
+        location: "Kuningan, Jakarta",
+        date: "November 2025",
+        aspectRatio: "portrait",
+        camera: "Sony A7 IV · 35mm · f/1.8"
+      },
+      {
+        id: "stories-3",
+        url: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80",
+        caption: "Annotating speculative fiction notebooks over black coffee. Tracing narrative threads.",
+        location: "Senopati, Jakarta",
+        date: "September 2025",
+        aspectRatio: "landscape",
+        camera: "Ricoh GR IIIx · 40mm · f/2.8"
+      },
+      {
+        id: "stories-4",
+        url: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=80",
+        caption: "Worn pages and marginal notes. Books you return to feel different every three years.",
+        location: "Personal Library",
+        date: "July 2025",
+        aspectRatio: "landscape",
+        camera: "Fujifilm X-T5 · 33mm · f/1.4"
+      },
+      {
+        id: "stories-5",
+        url: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80",
+        caption: "Late afternoon light cutting across the desk while finishing the final chapters of Exhalation.",
+        location: "Jakarta",
+        date: "May 2025",
+        aspectRatio: "portrait",
+        camera: "iPhone 15 Pro · 24mm"
+      },
+      {
+        id: "stories-6",
+        url: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=1200&q=80",
+        caption: "Quiet cafe sanctuary when the city outside is humid and loud. Best hour of the weekend.",
+        location: "Blok M, Jakarta",
+        date: "March 2025",
+        aspectRatio: "landscape",
+        camera: "Fujifilm X100V · 23mm · f/2.0"
+      }
+    ]
+  },
+  "getting-better-at-things": {
+    slug: "getting-better-at-things",
+    title: "Getting Better at Things",
+    subtitle: "Running, Gym Progression, Badminton & Archery",
+    tag: "Practice & Discipline",
+    accent: "mint",
+    emoji: "🏹",
+    readTime: "5 min read",
+    photoCount: 6,
+    leadQuote: "Everyone starts bad at everything. Watching yourself slowly, agonizingly improve through sheer consistency never stops feeling like magic.",
+    overview: [
+      "There is an uncomfortable truth about learning any physical discipline: the first hundred hours will make you feel clumsy, uncoordinated, and painfully slow. Your lungs burn at kilometer two, your bench press stalls at rookie numbers, your arrows scatter across the cardboard, and you miss routine smashes on the court.",
+      "And yet, that friction is the entire point. In intellectual work or software engineering, feedback is often noisy — you can spend three weeks refactoring code and wonder if you made things genuinely better or just moved complexity around. Physical discipline gives you uncorrupted feedback.",
+      "The barbell either moves or it stays glued to the floor. Your 10km split is either 52 minutes or it isn't. The arrow either hit the yellow inner ring or it bit into the wooden stand. No excuses, no committee meetings, no political spin."
+    ],
+    subsections: [
+      {
+        heading: "Running: Pacing, Breath & The 10km Progression",
+        paragraphs: [
+          "I used to despise running because I ran with my ego. I would bolt out of the gate at 4:30/km pace, gasp for oxygen at kilometer two, and walk home defeated. Discovering low-heart-rate Zone 2 pacing completely rebuilt my relationship with endurance.",
+          "When you slow down to a conversational cadence where you can nasal-breathe, your aerobic system actually builds. Suddenly 5km feels like a warm-up, 8km becomes routine, and a Sunday 10km run along the Jakarta car-free day or morning streets becomes the most peaceful hour of the entire week."
+        ],
+        callout: "Running teaches you that panic does not make the hill shorter. Relax your shoulders, lower your chin, and let your cadence do the work."
+      },
+      {
+        heading: "The Barbell: Progressive Overload as Life Philosophy",
+        paragraphs: [
+          "Strength training is compound interest in biological form. You don't build a strong back or clean posture through 'heroic workouts' once a month; you build it by showing up on Thursday at 7 PM when your brain is tired, adding 2.5kg to the bar, and completing your reps.",
+          "It forces you to respect fundamentals: sleep, recovery, joint positioning, and mechanical advantage. There are zero shortcuts."
+        ]
+      },
+      {
+        heading: "Archery & Badminton: Stillness vs. Velocity",
+        paragraphs: [
+          "Archery is pure internal stillness. When you draw the recurve bowstring to your anchor point under your jaw, your heartbeat slows, your breath stops at the bottom of the exhale, and you let the arrow release itself without flinching. Any anxiety in your fingertips sends the shot wide.",
+          "Badminton is the exact polar opposite: explosive reaction time, court geometry, and reading your opponent's shoulder angle in 200 milliseconds. Playing doubles requires instantaneous non-verbal communication with your partner. One sport teaches stillness; the other teaches lightning reflex."
+        ]
+      }
+    ],
+    highlights: [
+      { title: "10km Target Pace", detail: "Consistently running sub-54min 10k sessions with low perceived exertion." },
+      { title: "Weekly Volume", detail: "4x gym strength sessions (push/pull/legs) + 2x road running sessions." },
+      { title: "Recurve Archery", detail: "Developing calm breath control and consistent 20m target clustering." },
+      { title: "Badminton Doubles", detail: "Refining rotational court coverage and aggressive net-kill timing." }
+    ],
+    curatedItems: {
+      sectionTitle: "Gear & Protocols That Actually Mattered",
+      sectionDescription: "The few pieces of training equipment and habits that made a tangible difference.",
+      items: [
+        {
+          title: "Garmin Forerunner & Heart Rate Pacing",
+          creatorOrContext: "Running Tool",
+          description: "Stops you from sabotaging your recovery runs. Keeping heart rate under 145 bpm during base mileage is the cheat code to running injury-free.",
+          tag: "Bio-feedback"
+        },
+        {
+          title: "Simple Daily Push-Pull-Legs Split",
+          creatorOrContext: "Gym Protocol",
+          description: "Forget fancy Instagram routines. Barbell squats, Romanian deadlifts, pull-ups, overhead press, and dips. Track weights in a basic spreadsheet.",
+          tag: "Strength"
+        },
+        {
+          title: "24-Pound Recurve Bow & Finger Tab",
+          creatorOrContext: "Archery Gear",
+          description: "Starting light is essential. Heavy poundage ruins your shoulder form before you ever learn how to use your back rhomboids.",
+          tag: "Focus"
+        },
+        {
+          title: "Electrolyte Hydration & Sleep Hygiene",
+          creatorOrContext: "Recovery Routine",
+          description: "You don't grow in the gym; you grow while sleeping. 7.5 hours of dark, cool sleep beats every supplement on the shelf.",
+          tag: "Recovery"
+        }
+      ]
+    },
+    gallery: [
+      {
+        id: "getting-better-1",
+        url: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1200&q=80",
+        caption: "Early morning pavement before the city awakens. Cool air and rhythmic footstrikes.",
+        location: "GBK Senayan, Jakarta",
+        date: "February 2026",
+        aspectRatio: "landscape",
+        camera: "Sony A7 IV · 50mm · f/2.0"
+      },
+      {
+        id: "getting-better-2",
+        url: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=80",
+        caption: "Chalk, iron, and a disciplined notebook. Logging every set keeps honesty alive.",
+        location: "Training Facility, Jakarta",
+        date: "January 2026",
+        aspectRatio: "portrait",
+        camera: "Fujifilm X-T5 · 33mm · f/1.8"
+      },
+      {
+        id: "getting-better-3",
+        url: "https://images.unsplash.com/photo-1511067007770-33756711c304?auto=format&fit=crop&w=1200&q=80",
+        caption: "Target face at 20 meters. Grouping arrows tightly is a test of emotional steadiness.",
+        location: "Archery Range, South Jakarta",
+        date: "October 2025",
+        aspectRatio: "landscape",
+        camera: "iPhone 15 Pro · 77mm"
+      },
+      {
+        id: "getting-better-4",
+        url: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=1200&q=80",
+        caption: "Shuttlecocks and court grips after a 90-minute doubles drill. Quick feet, high tempo.",
+        location: "Badminton Hall, Jakarta",
+        date: "August 2025",
+        aspectRatio: "landscape",
+        camera: "Sony A7 IV · 35mm · f/2.8"
+      },
+      {
+        id: "getting-better-5",
+        url: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=1200&q=80",
+        caption: "Reaching the 10km turnaround mark as the sun clears the tree line.",
+        location: "Sudirman Boulevard, Jakarta",
+        date: "June 2025",
+        aspectRatio: "portrait",
+        camera: "Ricoh GR IIIx · 40mm"
+      },
+      {
+        id: "getting-better-6",
+        url: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80",
+        caption: "Post-run stretch and cooldown hydration. The feeling of earned clarity for the rest of the day.",
+        location: "Senayan Park, Jakarta",
+        date: "April 2025",
+        aspectRatio: "landscape",
+        camera: "Fujifilm X100V · 23mm"
+      }
+    ]
+  },
+  travel: {
+    slug: "travel",
+    title: "Travel & Safar",
+    subtitle: "Safar, Sacred Ground & Broad Horizons",
+    tag: "Exploration",
+    accent: "cream",
+    emoji: "🌍",
+    readTime: "5 min read",
+    photoCount: 8,
+    leadQuote: "Safar is encouraged in Islam, and I understand why. Unfamiliar places make you feel small in the best way.",
+    overview: [
+      "In Islamic tradition, travel (*Safar*) is not merely consumer tourism or checking monuments off an itinerary. The Arabic root of the word *Safar* shares its linguistic foundation with *safara* — meaning to unveil, reveal, or manifest.",
+      "When you remain in the sheltered familiarity of your hometown, your routines reinforce your assumptions. But the moment you leave your comfort zone, your true nature is unveiled: how you respond when a flight is canceled, how you treat a stranger when you don't speak their language, and how humble you feel standing before vast landscapes.",
+      "Jakarta is loud, hurried, and dense. Journeying across quiet stone alleys, mountain calderas, or the serene marble courtyards of the Haramain recalibrates your spirit. It shrinks your daily worries down to their proper, microscopic size."
+    ],
+    subsections: [
+      {
+        heading: "The Haramain: The Gravity of Sacred Silence",
+        paragraphs: [
+          "Walking into the Prophet's Mosque in Madinah is an experience unlike anywhere else on earth. There are hundreds of thousands of people gathered from every continent, language, and walk of life — and yet there is an overarching quiet dignity that settles over the courtyard like morning mist.",
+          "In Mecca, watching the circular flow around the Kaaba at 2 AM strips away every distinction of social status, job title, and nationality. Everyone stands in the exact same simple white cloth. It is the most powerful reminder I know that we all arrive with nothing and leave with nothing."
+        ],
+        callout: "In the courtyard of Madinah, time doesn't feel like a resource you're spending. It feels like a space you are quietly inhabiting."
+      },
+      {
+        heading: "Japan: The Dignity of Everyday Craft",
+        paragraphs: [
+          "What struck me most in Japan wasn't the futuristic skyline of Tokyo, but the quiet pride people take in seemingly routine work. The subway conductor pointing with crisp precision, the elderly ramen master tending a single broth for forty years, the carpenter smoothing cedar joints in a Kyoto temple.",
+          "There is a cultural reverence for doing simple things with exquisite care (*kodawari*). As a software engineer, it challenged me: do I write code with that level of deliberate respect, or do I just rush to hit a deadline?"
+        ]
+      },
+      {
+        heading: "The Archipelago: Bromo Caldera & Ancient Stones",
+        paragraphs: [
+          "We often look abroad for awe while forgetting what exists in our own backyard. Standing on the rim of Mount Bromo at dawn, watching the sea of sand emerge from the darkness under a biting mountain wind, reminds you of the raw tectonic power shaping Indonesia.",
+          "Wandering through Prambanan and Borobudur in Central Java tells a story of centuries of architectural ambition built entirely by hand. Unfamiliar places remind you that human history is vast, and our modern era is merely the latest chapter."
+        ]
+      }
+    ],
+    highlights: [
+      { title: "Safar as Unveiling", detail: "Testing patience, humility, and presence outside familiar walls." },
+      { title: "Spiritual Stillness", detail: "The serene white umbrellas and marble floors of the Haramain." },
+      { title: "Everyday Craft", detail: "Observing devotion to small details in Tokyo and Kyoto alleys." },
+      { title: "Archipelago Wonder", detail: "Volcanic winds in Bromo and ancient stone history in Central Java." }
+    ],
+    curatedItems: {
+      sectionTitle: "Memorable Journeys & Coordinates",
+      sectionDescription: "Places that left an indelible mark on my memory and perspective.",
+      items: [
+        {
+          title: "Madinah Al-Munawwarah",
+          creatorOrContext: "Saudi Arabia · Spiritual Reflection",
+          description: "The serene shaded umbrellas, the green dome at twilight, and the peaceful evening prayers in the courtyard of the Prophet's Mosque.",
+          tag: "Safar / Faith"
+        },
+        {
+          title: "Mecca Al-Mukarramah",
+          creatorOrContext: "Saudi Arabia · Umrah",
+          description: "The continuous human tide circumambulating the Kaaba beneath towering desert skies. Absolute equality of all souls.",
+          tag: "Spiritual Anchor"
+        },
+        {
+          title: "Kyoto & Gion Historical Alleys",
+          creatorOrContext: "Kansai, Japan · Urban Craft",
+          description: "Wooden machiya townhouses, moss gardens, and the scent of incense in centuries-old cedar temples.",
+          tag: "Tradition & Craft"
+        },
+        {
+          title: "Mount Bromo Caldera",
+          creatorOrContext: "East Java, Indonesia · Volcanic Landscape",
+          description: "Sub-zero morning air, sulfur plumes against the sunrise, and the vast silence of the Tengger sand sea.",
+          tag: "Raw Nature"
+        }
+      ]
+    },
+    gallery: [
+      {
+        id: "travel-1",
+        url: "https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=1200&q=80",
+        caption: "The grand courtyard umbrellas opening at sunrise in Madinah. A profound, quiet grace.",
+        location: "Madinah, Saudi Arabia",
+        date: "December 2025",
+        aspectRatio: "landscape",
+        camera: "Sony A7 IV · 24-70mm · f/4.0"
+      },
+      {
+        id: "travel-2",
+        url: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=1200&q=80",
+        caption: "Narrow lantern-lit alleys in Kyoto after evening rain. Reflections on wet stone.",
+        location: "Kyoto, Japan",
+        date: "October 2025",
+        aspectRatio: "portrait",
+        camera: "Fujifilm X-T5 · 23mm · f/2.0"
+      },
+      {
+        id: "travel-3",
+        url: "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=1200&q=80",
+        caption: "The volcanic crest of Mount Bromo catching the first golden rays above the sea of clouds.",
+        location: "East Java, Indonesia",
+        date: "July 2025",
+        aspectRatio: "landscape",
+        camera: "Fujifilm X100V · 23mm · f/5.6"
+      },
+      {
+        id: "travel-4",
+        url: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80",
+        caption: "Tokyo subway platform at rush hour: thousands moving with immaculate order and silence.",
+        location: "Shibuya, Tokyo",
+        date: "October 2025",
+        aspectRatio: "landscape",
+        camera: "Ricoh GR IIIx · 40mm · f/2.8"
+      },
+      {
+        id: "travel-5",
+        url: "https://images.unsplash.com/photo-1565552645632-d725f8bfc19a?auto=format&fit=crop&w=1200&q=80",
+        caption: "Intricate stone reliefs at sunset, weathered by a thousand years of monsoons.",
+        location: "Yogyakarta, Indonesia",
+        date: "May 2025",
+        aspectRatio: "portrait",
+        camera: "Sony A7 IV · 35mm · f/2.8"
+      },
+      {
+        id: "travel-6",
+        url: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1200&q=80",
+        caption: "Desert horizon stretching endlessly into the late afternoon haze.",
+        location: "Hejaz Region, Saudi Arabia",
+        date: "December 2025",
+        aspectRatio: "landscape",
+        camera: "iPhone 15 Pro · 24mm"
+      },
+      {
+        id: "travel-7",
+        url: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80",
+        caption: "Traditional wooden gate leading into an ancient temple forest. Timeless cedar aroma.",
+        location: "Nara, Japan",
+        date: "October 2025",
+        aspectRatio: "landscape",
+        camera: "Fujifilm X-T5 · 33mm · f/2.0"
+      },
+      {
+        id: "travel-8",
+        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+        caption: "Quiet southern coastline with breaking waves and empty sandbars.",
+        location: "Gunungkidul, Yogyakarta",
+        date: "May 2025",
+        aspectRatio: "landscape",
+        camera: "Fujifilm X100V · 23mm · f/4.0"
+      }
+    ]
+  },
+  games: {
+    slug: "games",
+    title: "Games & Boss Encounters",
+    subtitle: "Souls-likes, Chess & The Honest Grind",
+    tag: "Deliberate Practice",
+    accent: "coral",
+    emoji: "♟️",
+    readTime: "3 min read",
+    photoCount: 4,
+    leadQuote: "Souls-likes & Chess teach the same lesson: effort cleanly equals outcome. No noise, no politics, no shortcuts.",
+    overview: [
+      "In modern corporate work, causality is often obscured. You can build a technically brilliant feature that gets killed by executive reprioritization. You can pour days into a proposal that gets sidelined by organizational politics.",
+      "Games provide an uncorrupted arena. When you sit down across a chessboard against a formidable opponent, or step through the fog gate to face Malenia or Sword Saint Isshin, the universe is stripped of unfair excuses.",
+      "If you take damage, it's because you rolled too early or greedily swung during an open recovery frame. If your king gets pinned on move 22, it's because you neglected candidate moves on move 16. The fault is completely, beautifully yours."
+    ],
+    subsections: [
+      {
+        heading: "The Geometry of Boss Encounters",
+        paragraphs: [
+          "FromSoftware games are often labeled 'punishing,' but that misses their core design philosophy. They are not cruel; they are strictly fair. Every attack has a tell: a shoulder twitch, a raised blade, a windup timing.",
+          "Beating a boss on your 40th attempt isn't about reflexes; it's about composure and pattern recognition. You stop fighting the boss and start dancing with the rhythm of the animation frames."
+        ],
+        callout: "Panic is the true boss. The moment you panic-roll, you die. The moment you breathe and wait for your window, the encounter slows down."
+      },
+      {
+        heading: "Chess as Mental Stoicism",
+        paragraphs: [
+          "Chess is the ultimate test of intellectual honesty. You cannot bluff a passed pawn. You cannot talk your way out of a knight fork.",
+          "It forces you to confront your own cognitive biases: hope chess (playing a move hoping your opponent won't see your flaw) will always be punished by a disciplined adversary. It teaches you to look for the strongest rebuttal before committing to an idea."
+        ]
+      }
+    ],
+    highlights: [
+      { title: "Pure Causality", detail: "Clear rules where outcome directly reflects preparation and focus." },
+      { title: "Pattern Mastery", detail: "Decoding enemy attack windows and positional chess imbalances." },
+      { title: "Composure Under Pressure", detail: "Staying calm when health is low or the clock is under 30 seconds." },
+      { title: "Zero Shortcuts", detail: "Gaining satisfaction from earned mastery through repeated failure." }
+    ],
+    curatedItems: {
+      sectionTitle: "Legendary Encounters & Studies",
+      sectionDescription: "Moments in gaming that demanded peak focus and tactical discipline.",
+      items: [
+        {
+          title: "Sword Saint Isshin (Sekiro: Shadows Die Twice)",
+          creatorOrContext: "FromSoftware · Boss Design Peak",
+          description: "A three-phase clinic in rhythm and posture. 'Hesitation is defeat' is perhaps the best piece of life advice in gaming history.",
+          tag: "Boss Encounter"
+        },
+        {
+          title: "Malenia, Blade of Miquella (Elden Ring)",
+          creatorOrContext: "FromSoftware · Precision Spatial Spacing",
+          description: "Surviving Waterfowl Dance requires mastering exact positioning and camera discipline without panic.",
+          tag: "Boss Encounter"
+        },
+        {
+          title: "Capablanca's Endgame Simplicity",
+          creatorOrContext: "Classical Chess Studies",
+          description: "José Raúl Capablanca converted microscopic advantages with zero wasted moves. Clean, minimalist calculation.",
+          tag: "Chess Strategy"
+        },
+        {
+          title: "Hollow Knight: Path of Pain",
+          creatorOrContext: "Team Cherry · Platforming Precision",
+          description: "Down-slashing buzzsaws for three hours taught me more about breath control than any meditation app.",
+          tag: "Platformer / Discipline"
+        }
+      ]
+    },
+    gallery: [
+      {
+        id: "games-1",
+        url: "https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&w=1200&q=80",
+        caption: "Wooden chess set on a rainy evening. Calculating lines three moves ahead.",
+        location: "Home Desk, Jakarta",
+        date: "February 2026",
+        aspectRatio: "landscape",
+        camera: "Fujifilm X-T5 · 33mm · f/2.0"
+      },
+      {
+        id: "games-2",
+        url: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80",
+        caption: "Atmospheric controller and monitor setup before tackling a late-game boss gate.",
+        location: "Gaming Corner, Jakarta",
+        date: "January 2026",
+        aspectRatio: "portrait",
+        camera: "Sony A7 IV · 35mm · f/1.8"
+      },
+      {
+        id: "games-3",
+        url: "https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&w=1200&q=80",
+        caption: "King, queen, and pawns in an endgame tension. Every move is irreversible.",
+        location: "Study, Jakarta",
+        date: "November 2025",
+        aspectRatio: "landscape",
+        camera: "Fujifilm X100V · 23mm · f/2.8"
+      },
+      {
+        id: "games-4",
+        url: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80",
+        caption: "Warm desk lamp and tactile mechanical keys. Where focus lives.",
+        location: "Jakarta",
+        date: "August 2025",
+        aspectRatio: "landscape",
+        camera: "Ricoh GR IIIx · 40mm"
+      }
+    ]
+  }
+};

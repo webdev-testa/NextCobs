@@ -216,12 +216,12 @@ export function HeroSection() {
               )}
 
               {/* Sticky Notes Container */}
-              <div className="flex flex-col gap-3 max-h-[460px] overflow-y-auto pr-1">
+              <div className="flex flex-col items-center gap-3.5 max-h-[460px] overflow-y-auto overflow-x-hidden py-1.5 px-1">
                 {stickyNotes.map((note) => (
                   <div
                     key={note.id}
                     style={{ transform: `rotate(${note.rotation}deg)` }}
-                    className={`p-3.5 rounded-xl border transition-all duration-150 shadow-xs hover:shadow-md hover:scale-[1.01] ${
+                    className={`w-[92%] p-3.5 rounded-xl border transition-all duration-150 shadow-xs hover:shadow-md hover:scale-[1.01] ${
                       colorClasses[note.color]
                     }`}
                   >
