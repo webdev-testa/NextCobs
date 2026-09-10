@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PURSUITS_DATA, THINGS_I_SPEND_TIME_ON } from "@/data/portfolioData";
 import { Navbar } from "@/components/Navbar";
@@ -15,6 +16,12 @@ import {
   Quote,
   Sparkles,
 } from "lucide-react";
+import {
+  BookSketchIcon,
+  ChessKnightSketchIcon,
+  RunningShoeSketchIcon,
+  StreetPoleSketchIcon,
+} from "@/components/SketchIcons";
 
 export async function generateStaticParams() {
   return Object.keys(PURSUITS_DATA).map((slug) => ({ slug }));
@@ -84,6 +91,21 @@ export default async function PursuitDetailPage({
     pill: "bg-[#000000] text-[#ffffff]",
   };
 
+  const getSketchIcon = (slug: string) => {
+    switch (slug) {
+      case "stories":
+        return <BookSketchIcon className="w-6 h-6 text-[#000000]" />;
+      case "games":
+        return <ChessKnightSketchIcon className="w-6 h-6 text-[#000000]" />;
+      case "getting-better-at-things":
+        return <RunningShoeSketchIcon className="w-6 h-6 text-[#000000]" />;
+      case "travel":
+        return <StreetPoleSketchIcon className="w-6 h-6 text-[#000000]" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#ffffff] text-[#000000] flex flex-col selection:bg-[#000000] selection:text-[#ffffff]">
       <Navbar />
@@ -130,7 +152,9 @@ export default async function PursuitDetailPage({
           className={`p-7 sm:p-10 rounded-3xl border-2 ${accentStyles.bg} ${accentStyles.border} relative overflow-hidden mb-12 shadow-[0_10px_30px_rgba(0,0,0,0.04)]`}
         >
           <div className="flex items-start justify-between gap-4 mb-4">
-            <span className="text-4xl sm:text-5xl">{pursuit.emoji}</span>
+            <div className="w-12 h-12 rounded-2xl bg-[#ffffff]/80 border border-black/10 flex items-center justify-center shadow-xs">
+              {getSketchIcon(pursuit.slug)}
+            </div>
             <span className="text-xs font-mono uppercase tracking-widest opacity-70">
               Core Thread
             </span>
@@ -196,6 +220,54 @@ export default async function PursuitDetailPage({
             </div>
           ))}
         </article>
+
+        {/* Illustrated Field Study / Pen & Ink Sketch Plate */}
+        {pursuit.sketchIllustration && (
+          <section className="my-12 p-6 sm:p-8 rounded-3xl bg-[#f7f7f5] border-2 border-[#e6e6e6] shadow-xs">
+            <div className="flex items-center justify-between gap-2 mb-5 pb-3 border-b border-[#e6e6e6]">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#000000]" />
+                <span className="text-xs font-mono uppercase tracking-widest text-[#000000] font-semibold">
+                  Field Study &bull; Pen & Ink Sketch
+                </span>
+              </div>
+              {pursuit.sketchIllustration.location && (
+                <span className="text-xs font-mono text-[#666666]">
+                  📍 {pursuit.sketchIllustration.location}
+                </span>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+              <div className="lg:col-span-7">
+                <div className="relative aspect-[3/4] sm:aspect-[4/3] w-full rounded-2xl overflow-hidden bg-[#ffffff] border border-[#e6e6e6] shadow-sm">
+                  <Image
+                    src={pursuit.sketchIllustration.url}
+                    alt={pursuit.sketchIllustration.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 60vw"
+                    className="object-contain p-3"
+                  />
+                </div>
+              </div>
+
+              <div className="lg:col-span-5 flex flex-col justify-center">
+                <span className="text-xs font-mono text-[#888888] uppercase tracking-wider mb-1">
+                  {pursuit.sketchIllustration.subtitle}
+                </span>
+                <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-[#000000] mb-3">
+                  {pursuit.sketchIllustration.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-[#444444] leading-relaxed mb-4">
+                  {pursuit.sketchIllustration.caption}
+                </p>
+                <div className="p-3.5 rounded-xl bg-[#ffffff] border border-[#e6e6e6] text-xs font-mono text-[#555555]">
+                  <span>Craft reflection: Powerlines, residential quiet, and the dignity of everyday routine.</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* High-Resolution Photo Gallery */}
         <div className="mt-8">

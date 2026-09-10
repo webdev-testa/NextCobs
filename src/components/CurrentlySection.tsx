@@ -2,19 +2,24 @@
 
 import React from "react";
 import { CURRENTLY_DATA } from "@/data/portfolioData";
-import { BookOpen, Gamepad2, Activity, Code2 } from "lucide-react";
+import {
+  BookSketchIcon,
+  GamepadSketchIcon,
+  ActivitySketchIcon,
+  CodeSketchIcon,
+} from "@/components/SketchIcons";
 
 export function CurrentlySection() {
   const getIcon = (icon: string) => {
     switch (icon) {
       case "book":
-        return <BookOpen className="w-4 h-4 text-[#000000]" />;
+        return <BookSketchIcon className="w-4 h-4 text-[#000000]" />;
       case "gamepad":
-        return <Gamepad2 className="w-4 h-4 text-[#000000]" />;
+        return <GamepadSketchIcon className="w-4 h-4 text-[#000000]" />;
       case "activity":
-        return <Activity className="w-4 h-4 text-[#000000]" />;
+        return <ActivitySketchIcon className="w-4 h-4 text-[#000000]" />;
       case "code":
-        return <Code2 className="w-4 h-4 text-[#000000]" />;
+        return <CodeSketchIcon className="w-4 h-4 text-[#000000]" />;
       default:
         return null;
     }
@@ -49,7 +54,7 @@ export function CurrentlySection() {
                 </p>
               </div>
 
-              <div className="mt-4 pt-2 border-t border-[#f1f1f1] text-[10px] font-mono text-[#888888]">
+              <div className="mt-4 pt-2 border-t border-[#f1f1f1] text-xs font-mono text-[#888888]">
                 <span>In Progress</span>
               </div>
             </div>

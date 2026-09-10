@@ -130,6 +130,13 @@ export interface PursuitDetail {
     items: PursuitCuratedItem[];
   };
   gallery: PursuitPhoto[];
+  sketchIllustration?: {
+    url: string;
+    title: string;
+    subtitle: string;
+    caption: string;
+    location?: string;
+  };
 }
 
 export interface StickyNote {
@@ -141,6 +148,8 @@ export interface StickyNote {
   rotation: number;
   likes: number;
   tag: string;
+  sketchImage?: string;
+  sketchCaption?: string;
 }
 
 export const DEVELOPER_INFO = {
@@ -165,12 +174,14 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
   {
     id: "note-1",
     author: "Dito",
-    role: "Core Thread",
-    content: "I build things so other people can carry less.",
+    role: "Creator",
+    content: "I build things so other people can carry less. Stick a note, leave a thought, or just say hi!",
     color: "lime",
     rotation: -2,
-    likes: 48,
+    likes: 58,
     tag: "Philosophy",
+    sketchImage: "/images/sketches/avatar-sketch.png",
+    sketchCaption: "Dito building & sketching",
   },
   {
     id: "note-2",
@@ -1448,7 +1459,14 @@ export const PURSUITS_DATA: Record<string, PursuitDetail> = {
         aspectRatio: "landscape",
         camera: "Fujifilm X100V · 23mm · f/4.0"
       }
-    ]
+    ],
+    sketchIllustration: {
+      url: "/images/sketches/street-sketch.png",
+      title: "Pen & Ink Study: Everyday Alleys & Powerlines",
+      subtitle: "Residential Tokyo & Kyoto Side Streets · Freehand Ink",
+      caption: "What struck me most in Japan was the quiet pride in routine craft. Powerlines cutting through clean skies, quiet stone, and the silence of side streets.",
+      location: "Kyoto / Tokyo Alleys",
+    },
   },
   games: {
     slug: "games",

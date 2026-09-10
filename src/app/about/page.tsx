@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ABOUT_ESSAY, EXPERIENCE_DATA, DEVELOPER_INFO } from "@/data/portfolioData";
@@ -29,8 +30,8 @@ export default function AboutPage() {
         </div>
 
         {/* Essay Header */}
-        <header className="mb-12 pb-8 border-b border-[#e6e6e6]">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#000000] text-[#ffffff] text-[11px] font-mono tracking-widest uppercase mb-4">
+        <header className="mb-8 pb-6 border-b border-[#e6e6e6]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#000000] text-[#ffffff] text-xs font-mono tracking-widest uppercase mb-4">
             <span>{ABOUT_ESSAY.eyebrow}</span>
           </div>
 
@@ -42,6 +43,49 @@ export default function AboutPage() {
             By {DEVELOPER_INFO.name} &bull; Software Engineer 
           </p>
         </header>
+
+        {/* Author Illustrated Bio Card */}
+        <section className="mb-12 p-6 sm:p-7 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
+          <div className="shrink-0 flex flex-col items-center">
+            <div className="p-2.5 bg-[#ffffff] rounded-2xl border border-[#e6e6e6] shadow-sm transform -rotate-1 hover:rotate-0 transition-transform">
+              <div className="relative w-36 sm:w-44 aspect-square rounded-xl overflow-hidden bg-[#ffffff]">
+                <Image
+                  src="/images/sketches/avatar-sketch.png"
+                  alt="Ammardito Shafaat sketch"
+                  fill
+                  sizes="180px"
+                  className="object-contain"
+                />
+              </div>
+              <p className="text-xs font-mono text-[#666666] text-center mt-2 italic">
+                Dito &bull; Jakarta
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-center text-center sm:text-left">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#666666] mb-1">
+              Field Notes &bull; Author
+            </span>
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#000000] mb-2">
+              Building things so people can carry less.
+            </h2>
+            <p className="text-xs sm:text-sm text-[#444444] leading-relaxed mb-4 max-w-lg">
+              Software engineer focused on AI knowledge workflows, lightweight production systems, and physical endurance outside the terminal.
+            </p>
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs font-mono">
+              <span className="px-2.5 py-1 rounded-full bg-[#ffffff] border border-[#e6e6e6] text-[#333333]">
+                📍 Jakarta, Indonesia
+              </span>
+              <span className="px-2.5 py-1 rounded-full bg-[#ffffff] border border-[#e6e6e6] text-[#333333]">
+                ⚙️ LG Sinarmas &bull; AI Lead
+              </span>
+              <span className="px-2.5 py-1 rounded-full bg-[#ffffff] border border-[#e6e6e6] text-[#333333]">
+                📖 Speculative Fiction
+              </span>
+            </div>
+          </div>
+        </section>
 
         {/* The Full Essay Body */}
         <article className="prose prose-neutral max-w-none mb-16">
@@ -67,7 +111,7 @@ export default function AboutPage() {
               From there I went looking for a way in — machine learning through Bangkit, full-stack courses, Google Cloud Arcade, anything that got me building instead of documenting. Eventually that pointed pretty clearly toward software engineering, and I stuck with it.
             </p>
 
-            <div className="p-6 sm:p-7 rounded-2xl bg-[#f7f7f5] border-l-4 border-[#000000] my-8">
+            <div className="p-6 sm:p-7 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6] my-8 shadow-xs">
               <p className="text-lg sm:text-xl font-bold text-[#000000] leading-snug">
                 &ldquo;I can&apos;t carry what people carry by planning around their problems from a distance. But I can carry some of it by actually building the thing that lightens their load.&rdquo;
               </p>
@@ -119,7 +163,7 @@ export default function AboutPage() {
 
                 <div className="mt-4 pt-3 border-t border-[#f1f1f1] flex flex-wrap gap-1.5">
                   {exp.technologies.map((t) => (
-                    <span key={t} className="px-2 py-0.5 rounded text-[11px] font-mono bg-[#f7f7f5] text-[#555555]">
+                    <span key={t} className="px-2 py-0.5 rounded text-xs font-mono bg-[#f7f7f5] text-[#555555]">
                       {t}
                     </span>
                   ))}

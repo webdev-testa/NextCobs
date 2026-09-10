@@ -12,6 +12,12 @@ import {
   Image as ImageIcon,
   Sparkles,
 } from "lucide-react";
+import {
+  BookSketchIcon,
+  ChessKnightSketchIcon,
+  RunningShoeSketchIcon,
+  StreetPoleSketchIcon,
+} from "@/components/SketchIcons";
 
 export default function PursuitsIndexPage() {
   const pursuits = Object.values(PURSUITS_DATA);
@@ -43,6 +49,21 @@ export default function PursuitsIndexPage() {
         return "hover:border-[#ded0b1]";
       default:
         return "hover:border-[#000000]";
+    }
+  };
+
+  const getSketchIcon = (slug: string) => {
+    switch (slug) {
+      case "stories":
+        return <BookSketchIcon className="w-5 h-5 text-[#000000]" />;
+      case "games":
+        return <ChessKnightSketchIcon className="w-5 h-5 text-[#000000]" />;
+      case "getting-better-at-things":
+        return <RunningShoeSketchIcon className="w-5 h-5 text-[#000000]" />;
+      case "travel":
+        return <StreetPoleSketchIcon className="w-5 h-5 text-[#000000]" />;
+      default:
+        return null;
     }
   };
 
@@ -94,7 +115,9 @@ export default function PursuitsIndexPage() {
                     >
                       {pursuit.tag}
                     </span>
-                    <span className="text-2xl">{pursuit.emoji}</span>
+                    <div className="w-9 h-9 rounded-full bg-[#f7f7f5] border border-[#e6e6e6] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#ffffff] transition-all">
+                      {getSketchIcon(pursuit.slug)}
+                    </div>
                   </div>
 
                   {/* Title & Subtitle */}

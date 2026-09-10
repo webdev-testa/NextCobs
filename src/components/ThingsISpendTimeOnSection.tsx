@@ -4,6 +4,12 @@ import React from "react";
 import Link from "next/link";
 import { THINGS_I_SPEND_TIME_ON } from "@/data/portfolioData";
 import { ArrowRight, Clock, Image as ImageIcon } from "lucide-react";
+import {
+  BookSketchIcon,
+  ChessKnightSketchIcon,
+  RunningShoeSketchIcon,
+  StreetPoleSketchIcon,
+} from "@/components/SketchIcons";
 
 export function ThingsISpendTimeOnSection() {
   const getBadgeStyle = (accent: string) => {
@@ -18,6 +24,21 @@ export function ThingsISpendTimeOnSection() {
         return "bg-[#f4ecd6] border-[#ded0b1] text-[#000000]";
       default:
         return "bg-[#f7f7f5] border-[#e6e6e6] text-[#000000]";
+    }
+  };
+
+  const getSketchIcon = (slug: string) => {
+    switch (slug) {
+      case "stories":
+        return <BookSketchIcon className="w-5 h-5 text-[#000000]" />;
+      case "games":
+        return <ChessKnightSketchIcon className="w-5 h-5 text-[#000000]" />;
+      case "getting-better-at-things":
+        return <RunningShoeSketchIcon className="w-5 h-5 text-[#000000]" />;
+      case "travel":
+        return <StreetPoleSketchIcon className="w-5 h-5 text-[#000000]" />;
+      default:
+        return null;
     }
   };
 
@@ -61,9 +82,9 @@ export function ThingsISpendTimeOnSection() {
                   <span className={`px-2.5 py-0.5 rounded-full text-xs font-mono font-medium border ${getBadgeStyle(item.accent)}`}>
                     {item.tag}
                   </span>
-                  <span className="text-xl group-hover:scale-110 transition-transform">
-                    {item.emoji}
-                  </span>
+                  <div className="w-8 h-8 rounded-full bg-[#f7f7f5] border border-[#e6e6e6] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#ffffff] transition-all">
+                    {getSketchIcon(item.slug)}
+                  </div>
                 </div>
 
                 <h3 className="text-lg font-bold tracking-tight text-[#000000] group-hover:text-[#000000] flex items-center justify-between">

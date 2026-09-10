@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { DEVELOPER_INFO, INITIAL_STICKY_NOTES, StickyNote } from "@/data/portfolioData";
 import {
   ArrowDown,
@@ -97,7 +98,7 @@ export function HeroSection() {
 
             {/* Core thread headline */}
             <div className="my-4">
-              <p className="text-3xl sm:text-5xl lg:text-[54px] font-semibold tracking-[-0.03em] text-[#000000] leading-[1.12]">
+              <p className="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] text-[#000000] leading-[1.12]">
                 I build things so other people can carry less.
               </p>
             </div>
@@ -131,7 +132,7 @@ export function HeroSection() {
                   <span className="text-xs font-bold tracking-tight text-[#000000]">
                     {stat.value}
                   </span>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#666666] mt-0.5">
+                  <span className="text-xs font-mono uppercase tracking-wider text-[#666666] mt-0.5">
                     {stat.label}
                   </span>
                 </div>
@@ -226,19 +227,38 @@ export function HeroSection() {
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2 mb-1.5">
-                      <span className="text-[11px] font-bold tracking-tight">
+                      <span className="text-xs font-bold tracking-tight">
                         {note.author}
                       </span>
-                      <span className="text-[10px] font-mono opacity-70">
+                      <span className="text-xs font-mono opacity-70">
                         {note.role}
                       </span>
                     </div>
+
+                    {note.sketchImage && (
+                      <div className="mb-2.5 p-1.5 rounded-lg bg-[#ffffff]/90 border border-black/10 shadow-xs flex flex-col items-center">
+                        <div className="relative w-full aspect-[4/3] rounded overflow-hidden bg-[#ffffff]">
+                          <Image
+                            src={note.sketchImage}
+                            alt={note.sketchCaption || "Author Sketch"}
+                            fill
+                            sizes="280px"
+                            className="object-contain"
+                          />
+                        </div>
+                        {note.sketchCaption && (
+                          <span className="text-xs font-mono text-black/70 mt-1 italic tracking-tight text-center">
+                            {note.sketchCaption}
+                          </span>
+                        )}
+                      </div>
+                    )}
 
                     <p className="text-xs leading-relaxed font-normal mb-2.5">
                       {note.content}
                     </p>
 
-                    <div className="flex items-center justify-between text-[11px] font-mono pt-1.5 border-t border-black/10">
+                    <div className="flex items-center justify-between text-xs font-mono pt-1.5 border-t border-black/10">
                       <span className="opacity-60">{note.tag}</span>
                       <button
                         onClick={() => handleLikeNote(note.id)}
