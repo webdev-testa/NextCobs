@@ -50,12 +50,12 @@ export default function NotesIndexPage() {
               key={note.slug}
               className="p-6 sm:p-8 rounded-3xl bg-[#ffffff] border border-[#e6e6e6] hover:border-[#000000] shadow-2xs hover:shadow-md transition-all duration-200"
             >
-              <div className="flex items-center justify-between gap-3 text-xs font-mono text-[#666666] mb-3">
+              <div className="flex items-center justify-between gap-3 text-xs font-mono text-[#5c5c5c] mb-3">
                 <div className="flex items-center gap-2">
                   <BookOpen className="w-3.5 h-3.5 text-[#000000]" />
                   <span>{note.date}</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-[#888888]">
+                <div className="flex items-center gap-1.5 text-[#5c5c5c]">
                   <Clock className="w-3.5 h-3.5" />
                   <span>{note.readTime}</span>
                 </div>
@@ -64,14 +64,14 @@ export default function NotesIndexPage() {
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#000000] mb-2">
                 <Link
                   href={`/notes/${note.slug}`}
-                  className="hover:underline flex items-start justify-between gap-2"
+                  className="hover:underline flex items-start justify-between gap-2 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
                 >
                   <span>{note.title}</span>
-                  <ArrowUpRight className="w-4 h-4 text-[#888888] shrink-0 mt-1" />
+                  <ArrowUpRight className="w-4 h-4 text-[#5c5c5c] shrink-0 mt-1" />
                 </Link>
               </h2>
 
-              <p className="text-sm font-mono text-[#666666] mb-4">
+              <p className="text-sm font-mono text-[#5c5c5c] mb-4">
                 {note.subtitle}
               </p>
 
@@ -93,7 +93,7 @@ export default function NotesIndexPage() {
 
                 <Link
                   href={`/notes/${note.slug}`}
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-[#000000] hover:underline"
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-[#000000] hover:underline rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
                 >
                   <span>Read essay</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />

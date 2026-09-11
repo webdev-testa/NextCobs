@@ -124,7 +124,7 @@ export default function PursuitsIndexPage() {
                   <h2 className="text-2xl font-bold tracking-tight text-[#000000] mb-1 group-hover:text-[#000000]">
                     {pursuit.title}
                   </h2>
-                  <p className="text-xs font-mono text-[#666666] mb-4">
+                  <p className="text-xs font-mono text-[#5c5c5c] mb-4">
                     {pursuit.subtitle}
                   </p>
 
@@ -154,7 +154,7 @@ export default function PursuitsIndexPage() {
 
                 {/* Bottom Meta & CTA Link */}
                 <div className="pt-4 border-t border-[#f1f1f1] flex items-center justify-between">
-                  <div className="flex items-center gap-3 text-xs font-mono text-[#777777]">
+                  <div className="flex items-center gap-3 text-xs font-mono text-[#5c5c5c]">
                     <span className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />
                       {pursuit.readTime}
@@ -168,7 +168,7 @@ export default function PursuitsIndexPage() {
 
                   <Link
                     href={`/pursuits/${pursuit.slug}`}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#000000] text-[#ffffff] text-xs font-semibold hover:bg-[#222222] active:scale-95 transition-all shadow-xs"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#000000] text-[#ffffff] text-xs font-semibold hover:bg-[#222222] active:scale-95 transition-all shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
                   >
                     <span>Read Essay</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />

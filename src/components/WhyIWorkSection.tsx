@@ -11,12 +11,12 @@ export function WhyIWorkSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Eyebrow */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#000000] text-[#ffffff] text-[11px] font-mono tracking-wider uppercase mb-8">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#000000] text-[#ffffff] text-[11px] font-mono tracking-widest uppercase mb-8 font-medium">
           <span>Why I Work</span>
         </div>
 
         {/* Editorial Blockquote */}
-        <div className="relative pl-6 sm:pl-10 border-l-2 border-[#000000]">
+        <div className="relative pl-6 sm:pl-10 border-l-2 border-[#000000] max-w-3xl">
           <Quote className="w-8 h-8 text-[#000000]/20 absolute -top-3 -left-4 bg-[#f4ecd6] p-1" />
 
           <p className="text-xl sm:text-2xl lg:text-[26px] font-normal leading-relaxed text-[#111111] mb-6">
@@ -35,7 +35,7 @@ export function WhyIWorkSection() {
           <div>
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#000000] text-[#ffffff] text-xs font-semibold hover:bg-[#222222] active:scale-95 transition-all shadow-sm group"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#000000] text-[#ffffff] text-xs font-semibold hover:bg-[#222222] active:scale-95 transition-all shadow-sm group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
             >
               <span>Read the longer backstory</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

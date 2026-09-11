@@ -124,7 +124,7 @@ export function HeroSection() {
           <div className="lg:col-span-7 flex flex-col pt-2">
             {/* Taxonomic eyebrow */}
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-xs font-mono tracking-widest uppercase text-[#666666]">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-[#5c5c5c] font-medium">
                 Portfolio &bull; v2
               </span>
               <span className="text-xs font-mono text-[#cccccc]">/</span>
@@ -138,16 +138,16 @@ export function HeroSection() {
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#000000] mb-1">
                 {DEVELOPER_INFO.name}
               </h1>
-              <p className="text-sm sm:text-base font-mono text-[#555555]">
+              <p className="text-sm sm:text-base font-mono text-[#5c5c5c]">
                 {DEVELOPER_INFO.role}
               </p>
             </div>
 
             {/* Core thread headline */}
             <div className="my-4">
-              <p className="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] text-[#000000] leading-[1.12]">
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] text-[#000000] leading-[1.12]">
                 I build things so other people can carry less.
-              </p>
+              </h2>
             </div>
 
             {/* Subtext description */}
@@ -159,14 +159,14 @@ export function HeroSection() {
             <div className="flex flex-wrap items-center gap-3.5 mb-10">
               <a
                 href="#selected-work"
-                className="px-6 py-3 rounded-full text-xs font-semibold text-[#ffffff] bg-[#000000] hover:bg-[#222222] active:scale-95 transition-all flex items-center gap-2 shadow-sm"
+                className="px-6 py-3 rounded-full text-xs font-semibold text-[#ffffff] bg-[#000000] hover:bg-[#222222] active:scale-95 transition-all flex items-center gap-2 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
               >
                 <span>See Selected Work ↓</span>
               </a>
 
               <Link
                 href="/about"
-                className="px-6 py-3 rounded-full text-xs font-semibold text-[#000000] bg-[#ffffff] border border-[#d0d0d0] hover:bg-[#f7f7f5] active:scale-95 transition-all flex items-center gap-2 shadow-xs"
+                className="px-6 py-3 rounded-full text-xs font-semibold text-[#000000] bg-[#ffffff] border border-[#d0d0d0] hover:bg-[#f7f7f5] active:scale-95 transition-all flex items-center gap-2 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
               >
                 <span>Read About Me →</span>
               </Link>
@@ -179,7 +179,7 @@ export function HeroSection() {
                   <span className="text-xs font-bold tracking-tight text-[#000000]">
                     {stat.value}
                   </span>
-                  <span className="text-xs font-mono uppercase tracking-wider text-[#666666] mt-0.5">
+                  <span className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-[#5c5c5c] mt-0.5 break-words">
                     {stat.label}
                   </span>
                 </div>
@@ -429,7 +429,7 @@ export function HeroSection() {
 
                   {/* Subtle keyboard hint */}
                   <div className="text-center pt-0.5">
-                    <span className="text-xs font-mono text-[#888888]">
+                    <span className="text-xs font-mono text-[#5c5c5c]">
                       Esc to cancel &bull; Ctrl+Enter to post
                     </span>
                   </div>
@@ -492,8 +492,8 @@ export function HeroSection() {
                       <span className="opacity-60">{note.tag}</span>
                       <button
                         onClick={() => handleLikeNote(note.id)}
-                        className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/5 hover:bg-black/10 transition-colors"
-                        aria-label="Like note"
+                        className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/5 hover:bg-black/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
+                        aria-label={`Like note by ${note.author}`}
                       >
                         <Heart className="w-3 h-3 fill-current text-[#ff3d8b]" />
                         <span>{note.likes}</span>

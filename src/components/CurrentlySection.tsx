@@ -26,12 +26,12 @@ export function CurrentlySection() {
   };
 
   return (
-    <section className="w-full bg-[#f7f7f5] py-14 border-b border-[#e6e6e6]">
+    <section className="w-full bg-[#f7f7f5] py-16 sm:py-20 border-b border-[#e6e6e6]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="flex items-center gap-2 mb-6">
           <span className="w-2 h-2 rounded-full bg-[#1ea64a] animate-ping" />
-          <span className="text-xs font-mono uppercase tracking-widest text-[#000000] font-semibold">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-[#000000] font-semibold">
             Currently &bull; Active Focus
           </span>
         </div>
@@ -43,7 +43,7 @@ export function CurrentlySection() {
               className="p-5 rounded-2xl bg-[#ffffff] border border-[#e6e6e6] shadow-xs flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center gap-2 mb-2 text-[#666666]">
+                <div className="flex items-center gap-2 mb-2 text-[#5c5c5c]">
                   {getIcon(item.icon)}
                   <span className="text-xs font-mono uppercase font-semibold text-[#000000]">
                     {item.label}
@@ -54,7 +54,7 @@ export function CurrentlySection() {
                 </p>
               </div>
 
-              <div className="mt-4 pt-2 border-t border-[#f1f1f1] text-xs font-mono text-[#888888]">
+              <div className="mt-4 pt-2 border-t border-[#f1f1f1] text-xs font-mono text-[#5c5c5c]">
                 <span>In Progress</span>
               </div>
             </div>

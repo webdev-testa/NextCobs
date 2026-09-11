@@ -65,23 +65,23 @@ export default function WorkIndexPage() {
           {PROJECTS_DATA.map((project, idx) => (
             <article
               key={project.slug}
-              className="p-6 sm:p-9 rounded-3xl bg-[#ffffff] border border-[#e6e6e6] hover:border-[#000000] shadow-xs hover:shadow-md transition-all duration-200"
+              className="p-6 sm:p-8 rounded-3xl bg-[#ffffff] border border-[#e6e6e6] hover:border-[#000000] shadow-xs hover:shadow-md transition-all duration-200"
             >
               {/* Header */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 mb-6 border-b border-[#f1f1f1]">
                 <div className="flex items-center gap-2.5">
-                  <span className="font-mono text-xs font-bold text-[#888888]">
+                  <span className="font-mono text-xs font-bold text-[#5c5c5c]">
                     0{idx + 1}
                   </span>
                   <span className={`px-2.5 py-0.5 rounded-full text-xs font-mono font-medium border ${getPillColor(project.colorBlock)}`}>
                     {project.clientOrContext}
                   </span>
-                  <span className="text-xs font-mono text-[#888888]">&bull; {project.year}</span>
+                  <span className="text-xs font-mono text-[#5c5c5c]">&bull; {project.year}</span>
                 </div>
 
                 <Link
                   href={`/work/${project.slug}`}
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-[#000000] hover:underline self-start sm:self-auto"
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-[#000000] hover:underline self-start sm:self-auto rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
                 >
                   <span>Full case study</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -91,11 +91,14 @@ export default function WorkIndexPage() {
               {/* Title & Subtitle */}
               <div className="mb-6">
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#000000] mb-1">
-                  <Link href={`/work/${project.slug}`} className="hover:underline">
+                  <Link
+                    href={`/work/${project.slug}`}
+                    className="hover:underline rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
+                  >
                     {project.title}
                   </Link>
                 </h2>
-                <p className="text-sm font-mono text-[#666666]">
+                <p className="text-sm font-mono text-[#5c5c5c]">
                   {project.subtitle}
                 </p>
               </div>
@@ -170,7 +173,7 @@ export default function WorkIndexPage() {
 
                 <Link
                   href={`/work/${project.slug}`}
-                  className="px-4 py-2 rounded-full bg-[#000000] text-[#ffffff] text-xs font-semibold hover:bg-[#222222] transition-colors"
+                  className="px-4 py-2 rounded-full bg-[#000000] text-[#ffffff] text-xs font-semibold hover:bg-[#222222] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
                 >
                   Read Architecture & Code →
                 </Link>
@@ -182,7 +185,7 @@ export default function WorkIndexPage() {
         {/* Explorations & Archive Section */}
         <section className="pt-12 border-t border-[#e6e6e6]">
           <div className="mb-6">
-            <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1">
+            <span className="text-[11px] font-mono uppercase tracking-widest text-[#5c5c5c] font-medium block mb-1">
               Explorations & Research
             </span>
             <h3 className="text-xl font-bold text-[#000000]">
@@ -197,7 +200,7 @@ export default function WorkIndexPage() {
                 className="p-5 rounded-2xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between text-xs font-mono text-[#888888] mb-2">
+                  <div className="flex items-center justify-between text-xs font-mono text-[#5c5c5c] mb-2">
                     <span>{arch.year}</span>
                     <span>{arch.clientOrContext}</span>
                   </div>

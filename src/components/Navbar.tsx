@@ -45,7 +45,10 @@ export function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-3 group">
+        <Link
+          href="/"
+          className="flex items-center gap-3 group rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
+        >
           <div className="w-8 h-8 rounded-full bg-[#000000] text-[#ffffff] flex items-center justify-center font-bold text-xs tracking-tight transition-transform group-hover:scale-105">
             AS
           </div>
@@ -53,7 +56,7 @@ export function Navbar() {
             <span className="font-bold text-base tracking-tight text-[#000000]">
               Ammardito Shafaat
             </span>
-            <span className="text-[11px] font-mono text-[#666666] leading-none">
+            <span className="text-[11px] font-mono text-[#5c5c5c] leading-none">
               Software Engineer | AI & ML
             </span>
           </div>
@@ -65,10 +68,10 @@ export function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`text-sm tracking-tight transition-colors py-1 relative ${
+              className={`text-sm tracking-tight transition-colors py-1 relative rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] ${
                 item.isActive
                   ? "text-[#000000] font-semibold"
-                  : "text-[#666666] font-normal hover:text-[#000000]"
+                  : "text-[#5c5c5c] font-normal hover:text-[#000000]"
               }`}
             >
               {item.label}
@@ -85,14 +88,15 @@ export function Navbar() {
             href={DEVELOPER_INFO.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs font-mono font-medium text-[#444444] hover:text-[#000000] transition-colors flex items-center gap-1"
+            aria-label="Visit Ammar's GitHub profile (opens in new tab)"
+            className="text-xs font-mono font-medium text-[#444444] hover:text-[#000000] transition-colors flex items-center gap-1 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
           >
             <span>↗ GitHub</span>
           </a>
 
           <Link
             href="/#contact"
-            className="px-4 py-2 rounded-full text-xs font-semibold text-[#ffffff] bg-[#000000] hover:bg-[#222222] active:scale-95 transition-all flex items-center gap-1.5 shadow-sm"
+            className="px-4 py-2 rounded-full text-xs font-semibold text-[#ffffff] bg-[#000000] hover:bg-[#222222] active:scale-95 transition-all flex items-center gap-1.5 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
           >
             <span>Contact</span>
           </Link>
@@ -102,7 +106,7 @@ export function Navbar() {
         <div className="flex md:hidden items-center gap-2">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-full text-[#000000] hover:bg-[#f7f7f5] transition-colors"
+            className="p-2 rounded-full text-[#000000] hover:bg-[#f7f7f5] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
           >

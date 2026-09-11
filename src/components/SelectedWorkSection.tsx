@@ -31,20 +31,20 @@ export function SelectedWorkSection() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-[#f1f1f1]">
           <div>
-            <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1">
+            <span className="text-[11px] font-mono uppercase tracking-widest text-[#5c5c5c] font-medium block mb-1">
               Selected Work
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#000000]">
               Relieving Operational Weight
             </h2>
-            <p className="text-sm italic text-[#666666] mt-1">
+            <p className="text-sm italic text-[#5c5c5c] mt-1">
               The stuff I&apos;m proudest of — usually because someone was drowning in busywork before I touched it.
             </p>
           </div>
 
           <Link
             href="/work"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#000000] hover:text-[#555555] transition-colors shrink-0 group py-1"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#000000] hover:text-[#555555] transition-colors shrink-0 group py-1 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
           >
             <span>View all projects</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -57,7 +57,7 @@ export function SelectedWorkSection() {
             <Link
               key={project.slug}
               href={`/work/${project.slug}`}
-              className="group p-6 sm:p-7 rounded-3xl bg-[#ffffff] border border-[#e6e6e6] hover:border-[#000000] shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+              className="group p-6 sm:p-8 rounded-3xl bg-[#ffffff] border border-[#e6e6e6] hover:border-[#000000] shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
             >
               <div>
                 {/* Meta Header */}
@@ -65,16 +65,16 @@ export function SelectedWorkSection() {
                   <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium border ${getPillColor(project.colorBlock)}`}>
                     {project.clientOrContext}
                   </span>
-                  <span className="text-xs font-mono text-[#888888]">{project.year}</span>
+                  <span className="text-xs font-mono text-[#5c5c5c]">{project.year}</span>
                 </div>
 
                 {/* Title & Subtitle */}
                 <h3 className="text-xl font-bold tracking-tight text-[#000000] group-hover:underline flex items-center justify-between">
                   <span>{project.title}</span>
-                  <ArrowUpRight className="w-4 h-4 text-[#888888] group-hover:text-[#000000] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <ArrowUpRight className="w-4 h-4 text-[#5c5c5c] group-hover:text-[#000000] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </h3>
 
-                <p className="text-xs font-mono text-[#666666] mt-1 mb-3">
+                <p className="text-xs font-mono text-[#5c5c5c] mt-1 mb-3">
                   {project.subtitle}
                 </p>
 
@@ -103,7 +103,7 @@ export function SelectedWorkSection() {
         <div className="mt-10 text-center">
           <Link
             href="/work"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#f7f7f5] hover:bg-[#e6e6e6] text-[#000000] text-xs font-semibold border border-[#e6e6e6] transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#f7f7f5] hover:bg-[#e6e6e6] text-[#000000] text-xs font-semibold border border-[#e6e6e6] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
           >
             <span>View all 5 case studies & archived systems →</span>
           </Link>
