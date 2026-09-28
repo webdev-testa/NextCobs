@@ -25,7 +25,7 @@ export function SelectedWorkSection() {
   };
 
   return (
-    <section id="selected-work" className="w-full bg-[#ffffff] py-16 sm:py-20 border-b border-[#e6e6e6]">
+    <section id="selected-work" className="scroll-mt-20 w-full bg-[#ffffff] py-16 sm:py-20 border-b border-[#e6e6e6]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -52,12 +52,13 @@ export function SelectedWorkSection() {
         </div>
 
         {/* Selected Work List */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-reveal-group>
           {selectedProjects.map((project) => (
             <Link
               key={project.slug}
+              data-reveal="quiet"
               href={`/work/${project.slug}`}
-              className="group p-6 sm:p-8 rounded-3xl bg-[#ffffff] border border-[#e6e6e6] hover:border-[#000000] shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
+              className="project-card group p-6 sm:p-8 rounded-3xl bg-[#ffffff] border border-[#e6e6e6] hover:border-[#000000] shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
             >
               <div>
                 {/* Meta Header */}

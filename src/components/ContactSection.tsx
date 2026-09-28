@@ -45,7 +45,7 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="w-full bg-[#dceeb1] text-[#000000] py-16 sm:py-24 border-b border-[#bed68b]">
+    <section id="contact" className="w-full bg-[#dceeb1] text-[#000000] py-16 sm:py-24 border-b border-[#bed68b]" data-reveal="quiet">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           

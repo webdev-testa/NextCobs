@@ -34,6 +34,7 @@ export function HeroSection() {
   const [newNoteRole, setNewNoteRole] = useState("");
   const [newNoteColor, setNewNoteColor] = useState<StickyNote["color"]>("lime");
   const [newNoteStamp, setNewNoteStamp] = useState<DoodleStampType>("sparkle");
+  const [newlyAddedId, setNewlyAddedId] = useState<string | null>(null);
 
   const handleCancelNote = () => {
     setNewNoteContent("");
@@ -87,6 +88,7 @@ export function HeroSection() {
     };
 
     setStickyNotes((prev) => [newNote, ...prev]);
+    setNewlyAddedId(newNote.id);
     setNewNoteContent("");
     setNewNoteAuthor("");
     setNewNoteRole("");
@@ -113,7 +115,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative w-full bg-[#ffffff] pt-14 pb-16 lg:pt-20 lg:pb-24 border-b border-[#e6e6e6] overflow-hidden">
+    <section className="portfolio-hero relative w-full bg-[#ffffff] pt-10 pb-12 lg:pt-16 lg:pb-16 border-b border-[#e6e6e6] overflow-hidden">
       {/* Subtle editorial dot grid */}
       <div className="absolute inset-0 bg-figma-grid opacity-40 pointer-events-none" />
 
@@ -121,7 +123,7 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
           
           {/* Main Hero Column (7 cols) */}
-          <div className="lg:col-span-7 flex flex-col pt-2">
+          <div className="hero-copy lg:col-span-7 flex flex-col pt-2 min-w-0">
             {/* Taxonomic eyebrow */}
             <div className="flex items-center gap-2 mb-4">
               <span className="text-[11px] font-mono tracking-widest uppercase text-[#5c5c5c] font-medium">
@@ -165,10 +167,10 @@ export function HeroSection() {
               </a>
 
               <Link
-                href="/about"
+                href="#experience"
                 className="px-6 py-3 rounded-full text-xs font-semibold text-[#000000] bg-[#ffffff] border border-[#d0d0d0] hover:bg-[#f7f7f5] active:scale-95 transition-all flex items-center gap-2 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
               >
-                <span>Read About Me →</span>
+                <span>Work experience</span><ArrowDown size={14} aria-hidden="true" />
               </Link>
             </div>
 
@@ -188,7 +190,7 @@ export function HeroSection() {
           </div>
 
           {/* Right Column: Tactile Interactive Sticky Board (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col">
+          <div className="hero-board lg:col-span-5 flex flex-col min-w-0">
             <div className="p-5 sm:p-6 rounded-3xl bg-[#ffffff] border-2 border-[#e6e6e6] shadow-[0_8px_30px_rgba(0,0,0,0.05)] relative">
               {/* Board Header */}
               <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[#f1f1f1]">
@@ -438,14 +440,20 @@ export function HeroSection() {
 
               {/* Sticky Notes Container */}
               <div className="flex flex-col items-center gap-3.5 max-h-[380px] overflow-y-auto overflow-x-hidden py-1.5 px-1">
-                {stickyNotes.map((note) => (
-                  <div
-                    key={note.id}
-                    style={{ transform: `rotate(${note.rotation}deg)` }}
-                    className={`w-[92%] p-3.5 rounded-xl border transition-all duration-150 shadow-xs hover:shadow-md hover:scale-[1.01] ${
-                      colorClasses[note.color]
-                    }`}
-                  >
+                {stickyNotes.map((note, idx) => {
+                  const isNew = newlyAddedId === note.id;
+                  return (
+                    <div
+                      key={note.id}
+                      style={{
+                        "--note-index": Math.min(idx, 8),
+                        "--note-rot": `${note.rotation}deg`,
+                        transform: `rotate(${note.rotation}deg)`,
+                      } as React.CSSProperties}
+                      className={`sticky-note ${isNew ? "sticky-note-new" : ""} w-[92%] p-3.5 rounded-xl border transition-all duration-150 shadow-xs hover:shadow-md hover:scale-[1.01] ${
+                        colorClasses[note.color]
+                      }`}
+                    >
                     <div className="flex items-center justify-between gap-2 mb-1.5">
                       <div className="flex items-center gap-1.5 min-w-0">
                         <span className="text-xs font-bold tracking-tight truncate">
@@ -493,14 +501,15 @@ export function HeroSection() {
                       <button
                         onClick={() => handleLikeNote(note.id)}
                         className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/5 hover:bg-black/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
-                        aria-label={`Like note by ${note.author}`}
+                        aria-label={`Like note by ${note.author}, ${note.likes} likes`}
                       >
                         <Heart className="w-3 h-3 fill-current text-[#ff3d8b]" />
                         <span>{note.likes}</span>
                       </button>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>

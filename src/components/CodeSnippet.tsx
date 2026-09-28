@@ -11,12 +11,16 @@ interface CodeSnippetProps {
 }
 
 export function CodeSnippet({ filename, language = "typescript", code, caption }: CodeSnippetProps) {
-  const [copied, setCopied] = useState(false);
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "error">("idle");
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopyStatus("copied");
+    } catch {
+      setCopyStatus("error");
+    }
+    setTimeout(() => setCopyStatus("idle"), 2000);
   };
 
   return (
@@ -28,12 +32,15 @@ export function CodeSnippet({ filename, language = "typescript", code, caption }
             onClick={handleCopy}
             className="flex items-center gap-1 hover:text-[#ffffff] transition-colors"
             title="Copy code"
+            aria-live="polite"
           >
-            {copied ? (
+            {copyStatus === "copied" ? (
               <>
                 <Check className="w-3 h-3 text-[#1ea64a]" />
                 <span>Copied</span>
               </>
+            ) : copyStatus === "error" ? (
+              <span>Copy failed</span>
             ) : (
               <>
                 <Copy className="w-3 h-3" />

@@ -3,7 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { SelectedWorkSection } from "@/components/SelectedWorkSection";
 import { WhyIWorkSection } from "@/components/WhyIWorkSection";
-import { ThingsISpendTimeOnSection } from "@/components/ThingsISpendTimeOnSection";
+import { ExperienceSection } from "@/components/ExperienceSection";
 import { CurrentlySection } from "@/components/CurrentlySection";
 import { NotesPreviewSection } from "@/components/NotesPreviewSection";
 import { ContactSection } from "@/components/ContactSection";
@@ -21,11 +21,10 @@ export default function Home() {
       {/* Selected Work (4 Key Case Studies) */}
       <SelectedWorkSection />
 
+      <ExperienceSection />
+
       {/* Why I Work Signature Manifesto Block */}
       <WhyIWorkSection />
-
-      {/* Things I Spend Time On */}
-      <ThingsISpendTimeOnSection />
 
       {/* Currently Dashboard */}
       <CurrentlySection />

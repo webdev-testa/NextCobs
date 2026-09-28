@@ -29,7 +29,7 @@ export default function NotesIndexPage() {
         </div>
 
         {/* Page Header */}
-        <header className="mb-14 pb-8 border-b border-[#e6e6e6]">
+        <header className="mb-14 pb-8 border-b border-[#e6e6e6]" data-reveal>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#000000] text-[#ffffff] text-[11px] font-mono tracking-widest uppercase mb-4">
             <span>NOTES & ESSAYS</span>
           </div>
@@ -44,11 +44,12 @@ export default function NotesIndexPage() {
         </header>
 
         {/* Notes List */}
-        <div className="space-y-8 mb-16">
+        <div className="space-y-8 mb-16" data-reveal-group>
           {NOTES_DATA.map((note) => (
             <article
               key={note.slug}
-              className="p-6 sm:p-8 rounded-3xl bg-[#ffffff] border border-[#e6e6e6] hover:border-[#000000] shadow-2xs hover:shadow-md transition-all duration-200"
+              data-reveal="quiet"
+              className="group p-6 sm:p-8 rounded-3xl bg-[#ffffff] border border-[#e6e6e6] hover:border-[#000000] focus-within:border-[#000000] shadow-2xs hover:shadow-md transition-all duration-200"
             >
               <div className="flex items-center justify-between gap-3 text-xs font-mono text-[#5c5c5c] mb-3">
                 <div className="flex items-center gap-2">
@@ -64,10 +65,10 @@ export default function NotesIndexPage() {
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#000000] mb-2">
                 <Link
                   href={`/notes/${note.slug}`}
-                  className="hover:underline flex items-start justify-between gap-2 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
+                  className="flex items-start justify-between gap-2 rounded-xs group-hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] underline-offset-4 decoration-1"
                 >
                   <span>{note.title}</span>
-                  <ArrowUpRight className="w-4 h-4 text-[#5c5c5c] shrink-0 mt-1" />
+                  <ArrowUpRight className="w-4 h-4 text-[#5c5c5c] shrink-0 mt-1 group-hover:text-[#000000] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-focus-within:translate-x-0.5 group-focus-within:-translate-y-0.5 transition-transform duration-200" />
                 </Link>
               </h2>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { DEVELOPER_INFO } from "@/data/portfolioData";
@@ -10,25 +10,31 @@ export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const sentinel = useRef<HTMLDivElement>(null);
+  const menuToggle = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const observer = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting));
+    if (sentinel.current) observer.observe(sentinel.current);
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setMobileMenuOpen(false);
+        if (document.activeElement?.closest("#mobile-navigation")) menuToggle.current?.focus();
       }
     };
-    window.addEventListener("scroll", handleScroll);
     window.addEventListener("keydown", handleKeyDown);
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => { if (desktop.matches) setMobileMenuOpen(false); };
+    desktop.addEventListener("change", closeOnDesktop);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+      desktop.removeEventListener("change", closeOnDesktop);
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
   const navLinks = [
+    { label: "Experience", href: "/#experience", isActive: false },
     { label: "Work", href: "/work", isActive: pathname.startsWith("/work") },
     { label: "About", href: "/about", isActive: pathname === "/about" },
     { label: "Notes", href: "/notes", isActive: pathname.startsWith("/notes") },
@@ -36,6 +42,8 @@ export function Navbar() {
   ];
 
   return (
+    <>
+    <div ref={sentinel} className="absolute top-0 h-px w-px" aria-hidden="true" />
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-200 ${
         scrolled
@@ -63,11 +71,12 @@ export function Navbar() {
         </Link>
 
         {/* Clean Editorial Nav: Work, About, Notes */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-5">
           {navLinks.map((item) => (
             <Link
               key={item.href}
               href={item.href}
+              aria-current={item.isActive ? "page" : undefined}
               className={`text-sm tracking-tight transition-colors py-1 relative rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] ${
                 item.isActive
                   ? "text-[#000000] font-semibold"
@@ -83,7 +92,7 @@ export function Navbar() {
         </nav>
 
         {/* Right Actions: ↗ GitHub + Contact */}
-        <div className="hidden sm:flex items-center gap-5">
+        <div className="hidden lg:flex items-center gap-5">
           <a
             href={DEVELOPER_INFO.github}
             target="_blank"
@@ -103,12 +112,14 @@ export function Navbar() {
         </div>
 
         {/* Mobile menu toggle */}
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex lg:hidden items-center gap-2">
           <button
+            ref={menuToggle}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-full text-[#000000] hover:bg-[#f7f7f5] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
+            className="p-3 rounded-full text-[#000000] hover:bg-[#f7f7f5] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -117,7 +128,7 @@ export function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-[#e6e6e6] bg-[#ffffff] px-6 pt-4 pb-6 flex flex-col gap-4 shadow-lg animate-in fade-in slide-in-from-top-2 duration-150">
+        <nav id="mobile-navigation" aria-label="Mobile navigation" className="mobile-navigation lg:hidden absolute top-full inset-x-0 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-[#e6e6e6] bg-[#ffffff] px-6 pt-4 pb-6 flex flex-col gap-2 shadow-lg">
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
@@ -131,6 +142,7 @@ export function Navbar() {
             <Link
               key={item.href}
               href={item.href}
+              aria-current={item.isActive ? "page" : undefined}
               onClick={() => setMobileMenuOpen(false)}
               className={`text-sm py-2 border-b border-[#f1f1f1] ${
                 item.isActive ? "font-bold text-[#000000]" : "text-[#555555]"
@@ -158,8 +170,9 @@ export function Navbar() {
               Contact
             </Link>
           </div>
-        </div>
+        </nav>
       )}
     </header>
+    </>
   );
 }

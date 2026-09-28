@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { PursuitPhoto } from "@/data/portfolioData";
 import {
@@ -26,22 +26,35 @@ export function PhotoGallery({
   accent = "cream",
 }: PhotoGalleryProps) {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
+  const [direction, setDirection] = useState(1);
+  const triggerRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const openerIndex = useRef<number | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const pointerStart = useRef<number | null>(null);
 
   const handleOpenLightbox = (index: number) => {
+    openerIndex.current = index;
     setSelectedPhotoIndex(index);
   };
 
   const handleCloseLightbox = () => {
+    const returnIndex = openerIndex.current;
     setSelectedPhotoIndex(null);
+    window.setTimeout(() => {
+      if (returnIndex !== null) triggerRefs.current[returnIndex]?.focus();
+    }, 0);
   };
 
   const handlePrev = useCallback(() => {
     if (selectedPhotoIndex === null) return;
+    setDirection(-1);
     setSelectedPhotoIndex((prev) => (prev! > 0 ? prev! - 1 : photos.length - 1));
   }, [selectedPhotoIndex, photos.length]);
 
   const handleNext = useCallback(() => {
     if (selectedPhotoIndex === null) return;
+    setDirection(1);
     setSelectedPhotoIndex((prev) => (prev! < photos.length - 1 ? prev! + 1 : 0));
   }, [selectedPhotoIndex, photos.length]);
 
@@ -56,11 +69,19 @@ export function PhotoGallery({
         handlePrev();
       } else if (e.key === "ArrowRight") {
         handleNext();
+      } else if (e.key === "Tab") {
+        const focusable = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>("button, [href], [tabindex]:not([tabindex='-1'])") ?? []);
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     document.body.style.overflow = "hidden";
+    window.setTimeout(() => closeRef.current?.focus(), 0);
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
@@ -71,7 +92,7 @@ export function PhotoGallery({
   const currentPhoto = selectedPhotoIndex !== null ? photos[selectedPhotoIndex] : null;
 
   return (
-    <section className="w-full my-12">
+    <section className="w-full my-12" data-reveal="quiet">
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#f1f1f1] gap-3">
         <div>
@@ -98,12 +119,16 @@ export function PhotoGallery({
       </div>
 
       {/* Responsive Editorial Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" data-reveal-group>
         {photos.map((photo, index) => (
-          <div
+          <button
+            type="button"
             key={photo.id}
+            ref={(node) => { triggerRefs.current[index] = node; }}
             onClick={() => handleOpenLightbox(index)}
-            className="group bg-[#ffffff] p-3 rounded-2xl border border-[#e6e6e6] hover:border-[#000000] shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between"
+            data-reveal="photo"
+            aria-label={`Open photo ${index + 1}: ${photo.caption}`}
+            className="gallery-frame group bg-[#ffffff] p-3 rounded-2xl border border-[#e6e6e6] hover:border-[#000000] shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between"
           >
             {/* Photo Frame */}
             <div className="relative w-full overflow-hidden rounded-xl bg-[#f7f7f5] aspect-[4/3]">
@@ -143,7 +168,7 @@ export function PhotoGallery({
                 )}
               </div>
             </div>
-          </div>
+          </button>
         ))}
       </div>
 
@@ -153,11 +178,12 @@ export function PhotoGallery({
           role="dialog"
           aria-modal="true"
           aria-label="Photo Lightbox"
-          className="fixed inset-0 z-50 bg-[#000000]/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-150"
+          className="lightbox-backdrop fixed inset-0 z-50 bg-[#000000]/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
           onClick={handleCloseLightbox}
         >
           <div
-            className="relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center"
+            ref={dialogRef}
+            className="lightbox-sheet relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Top Toolbar */}
@@ -174,6 +200,7 @@ export function PhotoGallery({
                   {selectedPhotoIndex + 1} / {photos.length}
                 </span>
                 <button
+                  ref={closeRef}
                   onClick={handleCloseLightbox}
                   className="w-8 h-8 rounded-full bg-[#ffffff]/10 hover:bg-[#ffffff]/20 text-[#ffffff] flex items-center justify-center transition-colors"
                   aria-label="Close photo preview"
@@ -184,14 +211,26 @@ export function PhotoGallery({
             </div>
 
             {/* Photo Container */}
-            <div className="relative w-full max-h-[70vh] h-[550px] bg-[#000000] rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center border border-[#333333]">
+            <div
+              className="relative w-full max-h-[70vh] h-[550px] bg-[#000000] rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center border border-[#333333] touch-pan-y"
+              onPointerDown={(event) => { pointerStart.current = event.clientX; }}
+              onPointerUp={(event) => {
+                if (pointerStart.current === null) return;
+                const distance = event.clientX - pointerStart.current;
+                pointerStart.current = null;
+                if (Math.abs(distance) < 50) return;
+                if (distance > 0) handlePrev(); else handleNext();
+              }}
+            >
               <Image
+                key={currentPhoto.id}
                 src={currentPhoto.url}
                 alt={currentPhoto.caption}
                 fill
                 priority
                 sizes="100vw"
-                className="object-contain"
+                className="lightbox-photo object-contain"
+                style={{ "--lightbox-direction": `${direction * 18}px` } as React.CSSProperties}
               />
 
               {/* Prev / Next Arrows */}

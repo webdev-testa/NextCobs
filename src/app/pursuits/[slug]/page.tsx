@@ -7,6 +7,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { BackButton } from "@/components/BackButton";
 import { PhotoGallery } from "@/components/PhotoGallery";
+import { ReadingProgress } from "@/components/ReadingProgress";
 import {
   ArrowLeft,
   ArrowRight,
@@ -117,7 +118,7 @@ export default async function PursuitDetailPage({
         </div>
 
         {/* Taxonomic Eyebrow & Meta */}
-        <header className="mb-8 border-b border-[#f1f1f1] pb-6">
+        <header className="mb-8 border-b border-[#f1f1f1] pb-6" data-reveal>
           <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono text-[#666666] mb-3">
             <span className="uppercase tracking-widest text-[#000000] font-semibold">
               Pursuits &bull; Personal Blog
@@ -147,8 +148,16 @@ export default async function PursuitDetailPage({
           </p>
         </header>
 
+        <ReadingProgress items={[
+          { id: "pursuit-overview", label: "Overview" },
+          ...pursuit.subsections.map((sub, index) => ({ id: `pursuit-section-${index + 1}`, label: sub.heading })),
+          { id: "pursuit-gallery", label: "Photo journal" },
+          ...(pursuit.curatedItems ? [{ id: "pursuit-index", label: "Curated index" }] : []),
+        ]} label="Essay sections" />
+
         {/* Large Tactile Accent Color Block Banner */}
         <section
+          data-reveal
           className={`p-7 sm:p-10 rounded-3xl border-2 ${accentStyles.bg} ${accentStyles.border} relative overflow-hidden mb-12 shadow-[0_10px_30px_rgba(0,0,0,0.04)]`}
         >
           <div className="flex items-start justify-between gap-4 mb-4">
@@ -166,19 +175,20 @@ export default async function PursuitDetailPage({
         </section>
 
         {/* Essay Section (max-w-3xl for optimal line length and reading ergonomics) */}
-        <article className="max-w-3xl mx-auto flex flex-col gap-10">
+        <article id="pursuit-overview" className="max-w-3xl mx-auto flex flex-col gap-10">
           {/* Overview Lead */}
-          <div className="flex flex-col gap-4 text-base sm:text-lg text-[#333333] leading-relaxed">
+          <div className="flex flex-col gap-4 text-base sm:text-lg text-[#333333] leading-relaxed" data-reveal-group>
             {pursuit.overview.map((para, idx) => (
-              <p key={idx}>{para}</p>
+              <p key={idx} data-reveal="quiet">{para}</p>
             ))}
           </div>
 
           {/* Highlights Matrix */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-2" data-reveal-group>
             {pursuit.highlights.map((highlight, idx) => (
               <div
                 key={idx}
+                data-reveal="quiet"
                 className="p-4 rounded-2xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col justify-between"
               >
                 <span className="text-xs font-mono uppercase tracking-wider text-[#666666] mb-1">
@@ -196,7 +206,7 @@ export default async function PursuitDetailPage({
 
           {/* Subsections & Callouts */}
           {pursuit.subsections.map((sub, idx) => (
-            <div key={idx} className="flex flex-col gap-4 pt-4 border-t border-[#f1f1f1]">
+            <section key={idx} id={`pursuit-section-${idx + 1}`} className="flex flex-col gap-4 pt-4 border-t border-[#f1f1f1]" data-reveal="quiet">
               <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-[#000000]">
                 {sub.heading}
               </h3>
@@ -217,13 +227,13 @@ export default async function PursuitDetailPage({
                   </p>
                 </div>
               )}
-            </div>
+            </section>
           ))}
         </article>
 
         {/* Illustrated Field Study / Pen & Ink Sketch Plate */}
         {pursuit.sketchIllustration && (
-          <section className="my-12 p-6 sm:p-8 rounded-3xl bg-[#f7f7f5] border-2 border-[#e6e6e6] shadow-xs">
+          <section className="my-12 p-6 sm:p-8 rounded-3xl bg-[#f7f7f5] border-2 border-[#e6e6e6] shadow-xs" data-reveal>
             <div className="flex items-center justify-between gap-2 mb-5 pb-3 border-b border-[#e6e6e6]">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#000000]" />
@@ -270,7 +280,7 @@ export default async function PursuitDetailPage({
         )}
 
         {/* High-Resolution Photo Gallery */}
-        <div className="mt-8">
+        <div id="pursuit-gallery" className="mt-8">
           <PhotoGallery
             photos={pursuit.gallery}
             title={`${pursuit.title} Visual Journal`}
@@ -281,7 +291,7 @@ export default async function PursuitDetailPage({
 
         {/* Curated Items / Logs Section */}
         {pursuit.curatedItems && (
-          <section className="mt-12 pt-8 border-t border-[#f1f1f1]">
+          <section id="pursuit-index" className="mt-12 pt-8 border-t border-[#f1f1f1]" data-reveal="quiet">
             <div className="mb-6">
               <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1">
                 Curated Index
@@ -294,10 +304,11 @@ export default async function PursuitDetailPage({
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4" data-reveal-group>
               {pursuit.curatedItems.items.map((item, idx) => (
                 <div
                   key={idx}
+                  data-reveal="quiet"
                   className="p-5 rounded-2xl bg-[#ffffff] border border-[#e6e6e6] hover:border-[#000000] transition-colors flex flex-col justify-between"
                 >
                   <div>

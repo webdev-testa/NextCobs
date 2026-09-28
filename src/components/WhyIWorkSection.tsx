@@ -7,7 +7,7 @@ import { ArrowRight, Quote } from "lucide-react";
 
 export function WhyIWorkSection() {
   return (
-    <section className="w-full bg-[#f4ecd6] text-[#000000] py-16 sm:py-24 border-b border-[#ded0b1]">
+    <section className="w-full bg-[#f4ecd6] text-[#000000] py-16 sm:py-24 border-b border-[#ded0b1]" data-reveal="quiet">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Eyebrow */}

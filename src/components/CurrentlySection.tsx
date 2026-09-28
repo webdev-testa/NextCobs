@@ -36,10 +36,11 @@ export function CurrentlySection() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-reveal-group>
           {CURRENTLY_DATA.map((item, idx) => (
             <div
               key={idx}
+              data-reveal="quiet"
               className="p-5 rounded-2xl bg-[#ffffff] border border-[#e6e6e6] shadow-xs flex flex-col justify-between"
             >
               <div>

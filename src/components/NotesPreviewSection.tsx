@@ -37,10 +37,11 @@ export function NotesPreviewSection() {
         </div>
 
         {/* Notes Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-reveal-group>
           {previewNotes.map((note) => (
             <Link
               key={note.slug}
+              data-reveal="quiet"
               href={`/notes/${note.slug}`}
               className="group p-6 sm:p-8 rounded-3xl bg-[#ffffff] border border-[#e6e6e6] hover:border-[#000000] shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
             >

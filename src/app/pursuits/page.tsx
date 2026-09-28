@@ -78,7 +78,7 @@ export default function PursuitsIndexPage() {
         </div>
 
         {/* Page Header */}
-        <header className="mb-12 pb-8 border-b border-[#e6e6e6]">
+        <header className="mb-12 pb-8 border-b border-[#e6e6e6]" data-reveal>
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xs font-mono uppercase tracking-widest text-[#666666]">
               Personal Blog &bull; Visual Essays
@@ -95,13 +95,14 @@ export default function PursuitsIndexPage() {
         </header>
 
         {/* Grid of Pursuit Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8" data-reveal-group>
           {pursuits.map((pursuit) => {
             const previewPhotos = pursuit.gallery.slice(0, 3);
             return (
               <article
                 key={pursuit.slug}
-                className={`p-6 sm:p-8 rounded-3xl bg-[#ffffff] border-2 border-[#e6e6e6] ${getAccentCardBorder(
+                data-reveal
+                className={`pursuit-card p-6 sm:p-8 rounded-3xl bg-[#ffffff] border-2 border-[#e6e6e6] ${getAccentCardBorder(
                   pursuit.accent
                 )} shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group`}
               >
@@ -134,10 +135,11 @@ export default function PursuitsIndexPage() {
                   </p>
 
                   {/* Photo Preview Strip (3 thumbnails) */}
-                  <div className="grid grid-cols-3 gap-2 mb-6">
+                  <div className="pursuit-photo-strip grid grid-cols-3 gap-2 mb-6" data-reveal-group>
                     {previewPhotos.map((photo) => (
                       <div
                         key={photo.id}
+                        data-reveal="photo"
                         className="relative aspect-[4/3] rounded-xl overflow-hidden bg-[#f7f7f5] border border-[#e6e6e6]"
                       >
                         <Image

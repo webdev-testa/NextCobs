@@ -6,6 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { BackButton } from "@/components/BackButton";
 import { CodeSnippet } from "@/components/CodeSnippet";
+import { ReadingProgress } from "@/components/ReadingProgress";
 import {
   ArrowLeft,
   ArrowRight,
@@ -49,7 +50,7 @@ export default async function ProjectDetailPage({
           </div>
 
           {/* Header Info */}
-          <header className="flex flex-col gap-4 border-b border-[#e6e6e6] pb-8">
+          <header className="flex flex-col gap-4 border-b border-[#e6e6e6] pb-8" data-reveal>
             <div className="flex items-center gap-2 text-xs font-mono text-[#666666]">
               <span>{project.year}</span>
               <span>&bull;</span>
@@ -101,15 +102,22 @@ export default async function ProjectDetailPage({
             </div>
           </header>
 
+          <ReadingProgress items={[
+            { id: "impact", label: "Impact" },
+            { id: "overview", label: "Overview" },
+            { id: "architecture", label: "Architecture" },
+            { id: "decisions", label: "Decisions" },
+          ]} />
+
           {/* The 4-Part Framework: Weight / Constraint / Build / Result */}
           {project.framework && (
-            <section className="p-6 sm:p-8 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6]">
+            <section id="impact" className="scroll-mt-28 p-6 sm:p-8 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6]" data-reveal>
               <h2 className="text-sm font-mono uppercase tracking-wider font-bold text-[#000000] mb-4">
                 The Operational Reality & Impact
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#f3dada]">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4" data-reveal-group>
+                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#f3dada]" data-reveal="quiet">
                   <div className="flex items-center gap-2 mb-1.5">
                     <ShieldAlert className="w-3.5 h-3.5 text-[#cf4444]" />
                     <span className="text-[11px] font-mono uppercase font-bold text-[#cf4444]">
@@ -121,7 +129,7 @@ export default async function ProjectDetailPage({
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#eee4ca]">
+                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#eee4ca]" data-reveal="quiet">
                   <div className="flex items-center gap-2 mb-1.5">
                     <Wrench className="w-3.5 h-3.5 text-[#b07d18]" />
                     <span className="text-[11px] font-mono uppercase font-bold text-[#b07d18]">
@@ -133,7 +141,7 @@ export default async function ProjectDetailPage({
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#d2e4ed]">
+                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#d2e4ed]" data-reveal="quiet">
                   <div className="flex items-center gap-2 mb-1.5">
                     <Cpu className="w-3.5 h-3.5 text-[#2573a7]" />
                     <span className="text-[11px] font-mono uppercase font-bold text-[#2573a7]">
@@ -145,7 +153,7 @@ export default async function ProjectDetailPage({
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#cbe8d2]">
+                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#cbe8d2]" data-reveal="quiet">
                   <div className="flex items-center gap-2 mb-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-[#1ea64a]" />
                     <span className="text-[11px] font-mono uppercase font-bold text-[#1ea64a]">
@@ -160,9 +168,9 @@ export default async function ProjectDetailPage({
             </section>
           )}
 
-          {/* Metrics Row */}
+          {/* Metrics Row - Reveal result panels together */}
           {project.metrics && project.metrics.length > 0 && (
-            <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <section className="grid grid-cols-1 sm:grid-cols-3 gap-4" data-reveal="quiet">
               {project.metrics.map((m, idx) => (
                 <div
                   key={idx}
@@ -180,7 +188,7 @@ export default async function ProjectDetailPage({
           )}
 
           {/* Overview */}
-          <section className="flex flex-col gap-3 text-base leading-relaxed text-[#333333]">
+          <section id="overview" className="scroll-mt-28 flex flex-col gap-3 text-base leading-relaxed text-[#333333]" data-reveal="quiet">
             <h2 className="text-xl font-bold text-[#000000]">
               Overview & Context
             </h2>
@@ -188,8 +196,8 @@ export default async function ProjectDetailPage({
           </section>
 
           {/* Problem & Solution */}
-          <section className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="p-6 rounded-3xl bg-[#ffffff] border-2 border-[#e6e6e6] flex flex-col gap-3 shadow-xs">
+          <section className="grid grid-cols-1 sm:grid-cols-2 gap-6" data-reveal-group>
+            <div className="p-6 rounded-3xl bg-[#ffffff] border-2 border-[#e6e6e6] flex flex-col gap-3 shadow-xs" data-reveal="quiet">
               <h3 className="text-base font-bold text-[#000000]">
                 The Challenge
               </h3>
@@ -198,7 +206,7 @@ export default async function ProjectDetailPage({
               </p>
             </div>
 
-            <div className="p-6 rounded-3xl bg-[#ffffff] border-2 border-[#e6e6e6] flex flex-col gap-3 shadow-xs">
+            <div className="p-6 rounded-3xl bg-[#ffffff] border-2 border-[#e6e6e6] flex flex-col gap-3 shadow-xs" data-reveal="quiet">
               <h3 className="text-base font-bold text-[#000000]">
                 The Solution
               </h3>
@@ -210,7 +218,7 @@ export default async function ProjectDetailPage({
 
           {/* Architecture Flow */}
           {project.architecture && (
-            <section className="p-6 sm:p-8 rounded-3xl bg-[#ffffff] border-2 border-[#000000] flex flex-col gap-5 shadow-sm">
+            <section id="architecture" className="scroll-mt-28 p-6 sm:p-8 rounded-3xl bg-[#ffffff] border-2 border-[#000000] flex flex-col gap-5 shadow-sm" data-reveal>
               <div className="border-b border-[#f1f1f1] pb-4">
                 <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1">
                   Architecture & Data Flow
@@ -223,9 +231,9 @@ export default async function ProjectDetailPage({
                 </p>
               </div>
 
-              <div className="flex flex-col gap-3">
+              <div className="architecture-flow flex flex-col gap-3" data-reveal data-reveal-group>
                 {project.architecture.flowSteps.map((step, idx) => (
-                  <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-[#222222]">
+                  <div key={idx} className="architecture-step flex items-start gap-3 text-xs sm:text-sm text-[#222222]" data-reveal="quiet">
                     <div className="w-6 h-6 rounded-full bg-[#000000] text-[#ffffff] flex items-center justify-center font-mono text-xs shrink-0 mt-0.5">
                       {idx + 1}
                     </div>
@@ -238,7 +246,7 @@ export default async function ProjectDetailPage({
 
           {/* Code Snippet */}
           {project.codeSnippet && (
-            <section className="flex flex-col gap-3">
+            <section className="flex flex-col gap-3" data-reveal="quiet">
               <h2 className="text-xl font-bold text-[#000000]">
                 Key Implementation Detail
               </h2>
@@ -253,14 +261,15 @@ export default async function ProjectDetailPage({
 
           {/* Key Decisions */}
           {project.keyDecisions && project.keyDecisions.length > 0 && (
-            <section className="flex flex-col gap-4">
+            <section id="decisions" className="scroll-mt-28 flex flex-col gap-4" data-reveal="quiet">
               <h2 className="text-xl font-bold text-[#000000]">
                 Engineering Trade-Offs & Decisions
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" data-reveal-group>
                 {project.keyDecisions.map((kd, idx) => (
                   <div
                     key={idx}
+                    data-reveal="quiet"
                     className="p-5 rounded-2xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col gap-2"
                   >
                     <span className="text-xs font-mono font-bold text-[#000000]">

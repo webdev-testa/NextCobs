@@ -30,7 +30,7 @@ export default function AboutPage() {
         </div>
 
         {/* Essay Header */}
-        <header className="mb-8 pb-6 border-b border-[#e6e6e6]">
+        <header className="mb-8 pb-6 border-b border-[#e6e6e6]" data-reveal>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#000000] text-[#ffffff] text-xs font-mono tracking-widest uppercase mb-4">
             <span>{ABOUT_ESSAY.eyebrow}</span>
           </div>
@@ -45,8 +45,8 @@ export default function AboutPage() {
         </header>
 
         {/* Author Illustrated Bio Card */}
-        <section className="mb-12 p-6 sm:p-7 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
-          <div className="shrink-0 flex flex-col items-center">
+        <section className="mb-12 p-6 sm:p-7 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col sm:flex-row items-center gap-6 sm:gap-8" data-reveal>
+          <div className="shrink-0 flex flex-col items-center" data-reveal="photo">
             <div className="p-2.5 bg-[#ffffff] rounded-2xl border border-[#e6e6e6] shadow-sm transform -rotate-1 hover:rotate-0 transition-transform">
               <div className="relative w-36 sm:w-44 aspect-square rounded-xl overflow-hidden bg-[#ffffff]">
                 <Image
@@ -63,7 +63,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="flex flex-col justify-center text-center sm:text-left">
+          <div className="flex flex-col justify-center text-center sm:text-left" data-reveal="quiet">
             <span className="text-xs font-mono uppercase tracking-widest text-[#666666] mb-1">
               Field Notes &bull; Author
             </span>
@@ -100,7 +100,7 @@ export default function AboutPage() {
             </p>
 
             {/* Pull Quote */}
-            <div className="my-8 p-6 sm:p-8 rounded-3xl bg-[#f4ecd6] border border-[#ded0b1] relative">
+            <div className="my-8 p-6 sm:p-8 rounded-3xl bg-[#f4ecd6] border border-[#ded0b1] relative" data-reveal>
               <Quote className="w-6 h-6 text-[#000000]/20 absolute top-4 left-4" />
               <p className="text-lg sm:text-xl font-medium text-[#111111] italic leading-snug pl-6">
                 &ldquo;That was the moment I realized I care less about analyzing a problem and more about actually building the thing that fixes it. Planning tells you what should exist. Building is where you find out if it actually works — and where you learn the most, fast, by breaking things and fixing them yourself.&rdquo;
@@ -111,7 +111,7 @@ export default function AboutPage() {
               From there I went looking for a way in — machine learning through Bangkit, full-stack courses, Google Cloud Arcade, anything that got me building instead of documenting. Eventually that pointed pretty clearly toward software engineering, and I stuck with it.
             </p>
 
-            <div className="p-6 sm:p-7 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6] my-8 shadow-xs">
+            <div className="p-6 sm:p-7 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6] my-8 shadow-xs" data-reveal>
               <p className="text-lg sm:text-xl font-bold text-[#000000] leading-snug">
                 &ldquo;I can&apos;t carry what people carry by planning around their problems from a distance. But I can carry some of it by actually building the thing that lightens their load.&rdquo;
               </p>
@@ -121,7 +121,7 @@ export default function AboutPage() {
         </article>
 
         {/* Career Milestones Section */}
-        <section className="mb-16 pt-10 border-t border-[#e6e6e6]">
+        <section className="mb-16 pt-10 border-t border-[#e6e6e6]" data-reveal="quiet">
           <div className="flex items-center justify-between gap-4 mb-8">
             <div>
               <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1">
@@ -141,11 +141,13 @@ export default function AboutPage() {
             </Link>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-6" data-reveal-group>
             {EXPERIENCE_DATA.map((exp) => (
               <div
                 key={exp.id}
-                className="p-6 rounded-2xl bg-[#ffffff] border border-[#e6e6e6] shadow-2xs hover:border-[#000000] transition-colors"
+                data-reveal="quiet"
+                data-current={exp.period.includes("Present") ? "true" : "false"}
+                className="career-card p-6 rounded-2xl bg-[#ffffff] border border-[#e6e6e6] shadow-2xs hover:border-[#000000] transition-colors"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
                   <div className="flex items-center gap-2">

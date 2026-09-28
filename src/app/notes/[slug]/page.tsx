@@ -6,6 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { BackButton } from "@/components/BackButton";
 import { CodeSnippet } from "@/components/CodeSnippet";
+import { ReadingProgress } from "@/components/ReadingProgress";
 import { ArrowLeft, ArrowRight, BookOpen, Clock, Quote } from "lucide-react";
 
 export async function generateStaticParams() {
@@ -41,7 +42,7 @@ export default async function NoteDetailPage({
           </div>
 
           {/* Header */}
-          <header className="border-b border-[#e6e6e6] pb-8">
+          <header className="border-b border-[#e6e6e6] pb-8" data-reveal>
             <div className="flex items-center gap-3 text-xs font-mono text-[#666666] mb-3">
               <span className="flex items-center gap-1.5">
                 <BookOpen className="w-3.5 h-3.5 text-[#000000]" />
@@ -82,17 +83,23 @@ export default async function NoteDetailPage({
             </div>
           </header>
 
+          <ReadingProgress items={[
+            { id: "note-intro", label: "Introduction" },
+            ...note.content.sections.map((section, index) => ({ id: `note-section-${index + 1}`, label: section.heading })),
+            { id: "note-takeaway", label: "Takeaway" },
+          ]} label="Essay sections" />
+
           {/* Article Body */}
           <div className="space-y-8 text-base sm:text-lg text-[#222222] leading-relaxed font-normal">
             
             {/* Intro Lead */}
-            <p className="text-lg sm:text-xl text-[#111111] leading-relaxed font-medium">
+            <p id="note-intro" className="scroll-mt-28 text-lg sm:text-xl text-[#111111] leading-relaxed font-medium">
               {note.content.intro}
             </p>
 
             {/* Sections */}
             {note.content.sections.map((section, sIdx) => (
-              <section key={sIdx} className="space-y-4 pt-4">
+              <section key={sIdx} id={`note-section-${sIdx + 1}`} className="scroll-mt-28 space-y-4 pt-4">
                 <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#000000] pt-2">
                   {section.heading}
                 </h2>
@@ -103,7 +110,7 @@ export default async function NoteDetailPage({
 
                 {/* Callout Quote */}
                 {section.callout && (
-                  <div className="p-6 rounded-2xl bg-[#f7f7f5] border-l-4 border-[#000000] my-6">
+                  <div className="p-6 rounded-2xl bg-[#f7f7f5] border-l-4 border-[#000000] my-6" data-reveal="quiet">
                     <p className="text-base sm:text-lg font-semibold text-[#000000] italic">
                       &ldquo;{section.callout}&rdquo;
                     </p>
@@ -125,7 +132,7 @@ export default async function NoteDetailPage({
             ))}
 
             {/* Conclusion */}
-            <div className="pt-8 border-t border-[#e6e6e6] my-8">
+            <div id="note-takeaway" className="scroll-mt-28 pt-8 border-t border-[#e6e6e6] my-8" data-reveal>
               <div className="p-6 rounded-3xl bg-[#f4ecd6] border border-[#ded0b1]">
                 <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1">
                   Core Takeaway
@@ -139,7 +146,7 @@ export default async function NoteDetailPage({
           </div>
 
           {/* Author Footnote */}
-          <div className="p-6 rounded-2xl bg-[#ffffff] border border-[#e6e6e6] flex items-center gap-4 mt-6">
+          <div className="p-6 rounded-2xl bg-[#ffffff] border border-[#e6e6e6] flex items-center gap-4 mt-6" data-reveal="quiet">
             <div className="w-10 h-10 rounded-full bg-[#000000] text-[#ffffff] flex items-center justify-center font-bold text-sm shrink-0">
               AS
             </div>
