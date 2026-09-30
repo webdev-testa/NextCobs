@@ -179,13 +179,16 @@ button, summary { cursor: pointer; }
   .experience-section[data-entered="true"] .experience-timeline::after { animation: draw-career 1100ms var(--ease-arrive) both; }
   .experience-section[data-entered="true"] .career-note { animation: settle-note 800ms var(--ease-arrive) both; }
   .experience-disclosure[open] .experience-detail { animation: ink-arrive 300ms var(--ease-arrive); }
-  .project-card { transition: transform 300ms var(--ease-arrive), border-color 200ms, box-shadow 300ms; }
+  .project-card, .exhibit-card { transition: transform 300ms var(--ease-arrive), border-color 200ms, box-shadow 300ms; }
+  .exhibit-crop .exhibit-media { transition: transform 300ms var(--ease-arrive); }
+  .cluster-note { transition: transform 220ms var(--ease-arrive), box-shadow 220ms var(--ease-arrive); }
   @supports (animation-timeline: view()) {
-    .project-card { animation: project-arrive both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+    .project-card, .exhibit-card { animation: project-arrive both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
   }
   @media (hover: hover) and (pointer: fine) {
     .project-card:hover { translate: 0 -4px; }
-    .project-card { transition: translate 250ms var(--ease-arrive), border-color 200ms, box-shadow 300ms; }
+    .exhibit-card:hover .exhibit-crop .exhibit-media { transform: scale(1.018); }
+    .cluster-note:hover { transform: translateY(-4px) rotate(0deg) scale(1.02) !important; box-shadow: 0 12px 24px rgba(0,0,0,0.09); z-index: 10; }
     .experience-link:hover svg { transform: translateY(2px); }
   }
 }

@@ -45,21 +45,21 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="w-full bg-[#dceeb1] text-[#000000] py-16 sm:py-24 border-b border-[#bed68b]" data-reveal="quiet">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+    <section id="contact" className="w-full bg-[#dceeb1] text-[#000000] py-20 sm:py-28 border-b border-[#bed68b]" data-reveal="quiet">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
           {/* Left Column (7 cols) */}
           <div className="lg:col-span-7 flex flex-col">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#000000] text-[#ffffff] text-[11px] font-mono tracking-widest uppercase mb-4 self-start font-medium">
-              <span>Contact</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#000000] text-[#ffffff] text-[11px] font-mono tracking-widest uppercase mb-6 self-start font-medium">
+              <span>Contact &bull; Let&apos;s Build</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#000000] mb-4">
-              Get in Touch
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#000000] leading-[1.08] mb-6">
+              Let&apos;s build something that makes the weight lighter.
             </h2>
 
-            <p className="text-base sm:text-lg text-[#222222] leading-relaxed mb-8 max-w-lg">
+            <p className="text-base sm:text-lg text-[#222222] leading-relaxed mb-8 max-w-xl">
               Always open to discussing system architecture, lightweight tooling, or hard-fought boss encounters.
             </p>
 

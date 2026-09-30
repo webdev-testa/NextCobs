@@ -27,7 +27,7 @@ export function Footer() {
 
   return (
     <footer className="w-full bg-[#ffffff] text-[#000000] py-14 border-t border-[#e6e6e6]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           {/* Brand & Monogram */}
           <div className="flex items-center gap-3">

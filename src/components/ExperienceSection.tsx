@@ -26,7 +26,7 @@ export function ExperienceSection() {
 
   return (
     <section ref={section} id="experience" aria-labelledby="experience-title" className="experience-section scroll-mt-20">
-      <div className="experience-layout max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="experience-layout max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
         <div className="experience-intro">
           <h2 id="experience-title">Where I’ve<br />made a difference.</h2>
           <p>Work experience across enterprise engineering, independent builds, and helping others learn.</p>
