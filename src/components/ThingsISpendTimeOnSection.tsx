@@ -50,13 +50,13 @@ export function ThingsISpendTimeOnSection() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-[#f1f1f1] gap-4">
           <div>
             <span className="text-[11px] font-mono uppercase tracking-widest text-[#5c5c5c] font-medium block mb-1">
-              Perspectives, Practice & Safar
+              Life Beyond Code &bull; Off-Screen Pursuits
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#000000]">
               Things I Spend Time On
             </h2>
             <p className="text-sm text-[#5c5c5c] mt-1 max-w-xl">
-              Beyond the code editor: story-driven worlds, calculating variations, physical discipline, and traveling to unfamiliar places.
+              When I&apos;m not writing code or tweaking architectures, I stay curious with storytelling, strategic games, running, and discovering new places.
             </p>
           </div>
 
@@ -64,7 +64,7 @@ export function ThingsISpendTimeOnSection() {
             href="/pursuits"
             className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-[#000000] hover:text-[#444444] transition-colors self-start sm:self-auto rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
           >
-            <span>View All Pursuits & Essays</span>
+            <span>Explore All Pursuits &amp; Stories</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>

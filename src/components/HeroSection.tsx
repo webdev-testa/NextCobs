@@ -7,11 +7,9 @@ import { DEVELOPER_INFO, INITIAL_STICKY_NOTES, StickyNote } from "@/data/portfol
 import {
   ArrowDown,
   ArrowRight,
-  ArrowUpRight,
   Heart,
   Maximize2,
   Plus,
-  Sparkles,
   X,
 } from "lucide-react";
 import confetti from "canvas-confetti";
@@ -103,8 +101,8 @@ export function HeroSection() {
     }
   };
 
-  // 3 Curated notes for the hero cluster
-  const curatedNotes = stickyNotes.slice(0, 3);
+  // Curated notes for the hero cluster
+  const curatedNotes = stickyNotes.slice(0, 4);
 
   return (
     <section className="portfolio-hero relative w-full bg-[#ffffff] pt-8 pb-16 lg:pt-14 lg:pb-24 border-b border-[#e6e6e6] overflow-hidden">
@@ -112,12 +110,11 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-figma-grid opacity-30 pointer-events-none" />
 
       <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-start">
-          
-          {/* Left Column (Identity, Context & Relocated Stats) - 5 cols on lg */}
-          <div className="hero-copy lg:col-span-5 flex flex-col pt-1 min-w-0">
-            {/* Taxonomic eyebrow */}
-            <div className="flex items-center gap-2 mb-6">
+        {/* Top Masthead Header (Full Width Display) */}
+        <header className="mb-8 pb-8 border-b border-[#f0f0f0]" data-reveal>
+          {/* Eyebrow & Live Status Row */}
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+            <div className="flex items-center gap-2">
               <span className="text-[11px] font-mono tracking-widest uppercase text-[#555555] font-semibold">
                 Portfolio &bull; 2026
               </span>
@@ -125,144 +122,168 @@ export function HeroSection() {
               <span className="text-[11px] font-mono tracking-wider uppercase text-[#000000] font-semibold">
                 Jakarta, ID (UTC+7)
               </span>
+              <span className="text-xs font-mono text-[#cccccc] hidden sm:inline">&bull;</span>
+              <span className="text-[11px] font-mono text-[#666666] hidden sm:inline">
+                {DEVELOPER_INFO.role}
+              </span>
             </div>
 
-            {/* Tactile Identity Polaroid Card */}
-            <div className="p-4 sm:p-5 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6] shadow-xs relative group mb-6 transition-all duration-300 hover:shadow-md">
-              {/* Pushpin badge detail */}
-              <div className="absolute -top-2.5 left-6 flex items-center gap-1.5 z-10 pointer-events-none">
-                <div className="w-4 h-4 rounded-full bg-[#ff3d8b] border-2 border-[#ffffff] shadow-xs flex items-center justify-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#ffffff]" />
-                </div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[#555555] bg-[#ffffff] px-1.5 py-0.5 rounded border border-[#e6e6e6] shadow-2xs font-semibold">
-                  Studio Desk
-                </span>
-              </div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f7f7f5] border border-[#e6e6e6] text-xs font-mono">
+              <span className="w-2 h-2 rounded-full bg-[#1ea64a] animate-pulse" />
+              <span className="text-[#333333] font-medium">{DEVELOPER_INFO.availability}</span>
+            </div>
+          </div>
 
-              <div className="flex items-start gap-4 pt-1.5">
-                {/* Polaroid Frame */}
-                <div className="relative w-20 h-24 sm:w-24 sm:h-28 shrink-0 bg-[#ffffff] p-1.5 pb-4 rounded-lg shadow-sm border border-[#e6e6e6] -rotate-2 group-hover:rotate-0 transition-transform duration-300">
-                  <div className="relative w-full h-full rounded overflow-hidden bg-[#fafafa]">
+          {/* Grand Display Headline & Tactile Avatar Row (Balanced 12-Column Grid) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
+            {/* Display Headline (8 cols) */}
+            <div className="lg:col-span-8">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] xl:text-[54px] font-bold tracking-[-0.035em] text-[#000000] leading-[1.1] max-w-3xl">
+                I build practical software solutions—<br className="hidden sm:inline" />
+                <span className="font-serif italic font-normal text-[#444444]">with a dash of creative spark—</span><br className="hidden sm:inline" />
+                so teams can work faster and carry less.
+              </h1>
+            </div>
+
+            {/* Tactile Identity Sketchbook Plate (4 cols) */}
+            <div className="lg:col-span-4 flex items-center justify-start lg:justify-end">
+              <Link
+                href="/about"
+                className="relative group block w-full max-w-[270px] sm:max-w-[290px] lg:max-w-[260px] xl:max-w-[285px]"
+                aria-label="About Ammardito - Read Story"
+                title="About Ammardito - Read Story"
+              >
+                {/* Tactile tape detail */}
+                <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-16 h-4 bg-[#f4ecd6]/90 border border-[#e2d4b7]/70 backdrop-blur-xs -rotate-2 z-10 shadow-2xs pointer-events-none" />
+
+                {/* Tactile Sketch Frame with balanced 1:1 square canvas */}
+                <div className="relative bg-[#ffffff] p-3 sm:p-3.5 pb-3.5 sm:pb-4 rounded-2xl shadow-sm border border-[#e6e6e6] rotate-1.5 group-hover:rotate-0 group-hover:shadow-md transition-all duration-300">
+                  <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-[#fafafa] border border-[#f0f0f0]">
                     <Image
                       src="/images/sketches/avatar-sketch.png"
-                      alt="Ammardito (Dito) Sketch"
+                      alt="Ammardito Sketch"
                       fill
-                      sizes="100px"
-                      className="object-contain"
+                      sizes="(max-width: 640px) 270px, (max-width: 1024px) 290px, 300px"
+                      className="object-contain p-1.5 group-hover:scale-105 transition-transform duration-300"
                       priority
                     />
                   </div>
-                  <div className="absolute bottom-1 left-0 right-0 text-center">
-                    <span className="text-[10px] font-mono text-[#666666] tracking-tight">
-                      dito.pen
+
+                  {/* Studio caption footer */}
+                  <div className="pt-2.5 flex items-center justify-between">
+                    <div>
+                      <span className="text-xs sm:text-[13px] font-mono font-bold text-[#111111] tracking-tight block">
+                        dito.pen
+                      </span>
+                      <span className="text-[10px] font-mono text-[#777777] block">
+                        ink on paper &bull; self-study
+                      </span>
+                    </div>
+                    <span className="text-xs font-mono font-semibold text-[#000000] group-hover:underline flex items-center gap-1">
+                      <span>Story</span>
+                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                     </span>
                   </div>
                 </div>
+              </Link>
+            </div>
+          </div>
+        </header>
 
-                {/* Identity & Bio Details */}
-                <div className="flex flex-col justify-between flex-1 min-w-0">
-                  <div>
-                    <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#000000] leading-snug">
-                      {DEVELOPER_INFO.name}
-                    </h1>
-                    <p className="text-xs font-mono text-[#555555] mt-0.5">
-                      {DEVELOPER_INFO.role}
-                    </p>
-                    <p className="text-xs text-[#333333] leading-relaxed mt-2">
-                      Engineer solving real-world operational friction with production AI, clean full-stack architecture, and pragmatic automation.
-                    </p>
-                  </div>
+        {/* Balanced Two-Column Studio Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-14 items-start">
+          
+          {/* Left Column (6 cols): Narrative, Capabilities & Action */}
+          <div className="lg:col-span-6 flex flex-col justify-between pt-1">
+            <div>
+              {/* Personal Greeting & Bio */}
+              <p className="text-base sm:text-lg text-[#333333] font-normal leading-relaxed mb-6">
+                <strong className="font-semibold text-[#000000]">{DEVELOPER_INFO.greeting}</strong> {DEVELOPER_INFO.bioIntro}
+              </p>
 
-                  <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-[#e6e6e6]">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-[#1ea64a] animate-pulse" />
-                      <span className="text-[11px] font-mono text-[#444444] font-medium">Available for work</span>
-                    </div>
-                    <Link
-                      href="/about"
-                      className="text-xs font-semibold text-[#000000] hover:underline flex items-center gap-1 group/link"
-                    >
-                      <span>Story</span>
-                      <ArrowRight className="w-3 h-3 group-hover/link:translate-x-0.5 transition-transform" />
-                    </Link>
-                  </div>
+              {/* How I Can Help card */}
+              <div className="p-5 rounded-2xl bg-[#f7f7f5] border border-[#e6e6e6] mb-8">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="w-2 h-2 rounded-full bg-[#1ea64a]" />
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-[#000000] font-bold">
+                    How I Can Help
+                  </span>
                 </div>
+                <p className="text-xs sm:text-sm text-[#444444] leading-relaxed">
+                  {DEVELOPER_INFO.howICanHelp}
+                </p>
+              </div>
+
+              {/* Primary Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3 mb-6">
+                <a
+                  href="#selected-work"
+                  className="px-5 py-3 rounded-full text-xs font-semibold text-[#ffffff] bg-[#000000] hover:bg-[#222222] active:scale-95 transition-all flex items-center gap-2 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
+                >
+                  <span>Case Studies ↓</span>
+                </a>
+
+                <a
+                  href="#experience"
+                  className="px-5 py-3 rounded-full text-xs font-semibold text-[#000000] bg-[#ffffff] border border-[#d0d0d0] hover:bg-[#f7f7f5] active:scale-95 transition-all flex items-center gap-2 shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
+                >
+                  <span>Work Experience</span>
+                  <ArrowDown size={13} aria-hidden="true" />
+                </a>
+
+                <a
+                  href="#contact"
+                  className="px-5 py-3 rounded-full text-xs font-semibold text-[#000000] bg-[#dceeb1] hover:bg-[#cde49c] border border-[#bed68b] active:scale-95 transition-all flex items-center gap-2 shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
+                >
+                  <span>Get in Touch</span>
+                </a>
               </div>
             </div>
 
-            {/* Relocated Editorial Stats Matrix (Quiet Supporting Layout) */}
-            <div className="grid grid-cols-2 gap-2.5 p-3 rounded-2xl bg-[#fafaf8] border border-[#ecece8] mb-6">
-              {DEVELOPER_INFO.stats.map((stat, idx) => (
-                <div key={idx} className="p-2 flex flex-col">
-                  <span className="text-xs font-bold tracking-tight text-[#000000]">
-                    {stat.value}
-                  </span>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#666666] mt-0.5">
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Quick Links */}
-            <div className="flex items-center gap-3 text-xs font-mono">
+            {/* Quick Contact Links */}
+            <div className="pt-4 border-t border-[#f0f0f0] flex flex-wrap items-center gap-3 text-xs font-mono text-[#555555]">
               <a
                 href={DEVELOPER_INFO.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[#444444] hover:text-[#000000] transition-colors hover:underline"
+                className="hover:text-[#000000] hover:underline"
               >
-                <span>↗ GitHub Profile</span>
+                ↗ GitHub
               </a>
               <span className="text-[#cccccc]">&bull;</span>
               <a
                 href={DEVELOPER_INFO.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[#444444] hover:text-[#000000] transition-colors hover:underline"
+                className="hover:text-[#000000] hover:underline"
               >
-                <span>↗ LinkedIn</span>
+                ↗ LinkedIn
+              </a>
+              <span className="text-[#cccccc]">&bull;</span>
+              <a
+                href={`mailto:${DEVELOPER_INFO.email}`}
+                className="hover:text-[#000000] hover:underline"
+              >
+                ↗ {DEVELOPER_INFO.email}
               </a>
             </div>
           </div>
 
-          {/* Right Column (Oversized Headline, Work CTAs, & Curated Tactile Note Cluster) - 7 cols on lg */}
-          <div className="lg:col-span-7 flex flex-col pt-1 min-w-0">
-            {/* Display Headline inspired by Guglieri with deliberate line breaks */}
-            <div className="mb-6">
-              <h2 className="text-3xl sm:text-5xl lg:text-[64px] xl:text-[76px] font-bold tracking-[-0.035em] text-[#000000] leading-[1.04]">
-                I build things<br />
-                so other people<br />
-                <span className="font-serif italic font-normal text-[#444444]">can carry less.</span>
-              </h2>
-            </div>
+          {/* Right Column (6 cols): Studio Desk Notes beside Introduction */}
+          <div className="lg:col-span-6 pt-1">
+            {/* Interactive Studio Desk Notes Module */}
+            <div className="p-5 sm:p-6 rounded-3xl bg-[#fafaf8] border border-[#e6e6e6] relative shadow-xs">
+              {/* Pushpin badge detail */}
+              <div className="absolute -top-2.5 left-6 flex items-center gap-1.5 z-10 pointer-events-none">
+                <div className="w-4 h-4 rounded-full bg-[#ff3d8b] border-2 border-[#ffffff] shadow-xs flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#ffffff]" />
+                </div>
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#555555] bg-[#ffffff] px-1.5 py-0.5 rounded border border-[#e6e6e6] shadow-2xs font-semibold">
+                  Studio Desk Notes
+                </span>
+              </div>
 
-            {/* Subtext description */}
-            <p className="text-base sm:text-lg text-[#333333] font-normal leading-relaxed mb-8 max-w-2xl">
-              Software engineer focused on relieving operational bottlenecks. From enterprise AI knowledge assistants with PaddleOCR to zero-overhead client systems and headless automation.
-            </p>
-
-            {/* Primary Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3.5 mb-10">
-              <a
-                href="#selected-work"
-                className="px-6 py-3.5 rounded-full text-xs font-semibold text-[#ffffff] bg-[#000000] hover:bg-[#222222] active:scale-95 transition-all flex items-center gap-2 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
-              >
-                <span>See Selected Work ↓</span>
-              </a>
-
-              <a
-                href="#experience"
-                className="px-6 py-3.5 rounded-full text-xs font-semibold text-[#000000] bg-[#ffffff] border border-[#d0d0d0] hover:bg-[#f7f7f5] active:scale-95 transition-all flex items-center gap-2 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
-              >
-                <span>Work experience</span>
-                <ArrowDown size={14} aria-hidden="true" />
-              </a>
-            </div>
-
-            {/* Tactile Cluster of Personal Notes (Studio Wall Moment) */}
-            <div className="pt-6 border-t border-[#f0f0f0]">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3.5 pt-1">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#1ea64a]" />
                   <span className="text-xs font-mono uppercase tracking-wider text-[#555555] font-semibold">
@@ -276,28 +297,33 @@ export function HeroSection() {
                     setIsBoardOpen(true);
                     setIsAddingNote(true);
                   }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#f7f7f5] hover:bg-[#e6e6e6] text-[#000000] text-xs font-semibold border border-[#e6e6e6] transition-colors active:scale-95"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#ffffff] hover:bg-[#e6e6e6] text-[#000000] text-xs font-semibold border border-[#d0d0d0] transition-colors active:scale-95 shadow-2xs"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Stick a note</span>
                 </button>
               </div>
 
-              {/* Curated 3-Note Cluster */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-1">
+              {/* 4 Curated Sticky Notes side-by-side in 2x2 grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                 {curatedNotes.map((note, idx) => {
-                  const rotations = ["-rotate-1 sm:-rotate-2", "rotate-1 sm:rotate-1.5", "-rotate-1 sm:-rotate-2.5"];
+                  const rotations = [
+                    "-rotate-1 sm:-rotate-1.5",
+                    "rotate-1 sm:rotate-1.5",
+                    "rotate-1 sm:rotate-1",
+                    "-rotate-1 sm:-rotate-1.5",
+                  ];
                   const rotClass = rotations[idx % rotations.length];
 
                   return (
                     <div
                       key={note.id}
                       onClick={() => setActiveNoteModal(note)}
-                      className={`cluster-note cursor-pointer p-4 rounded-2xl border shadow-xs transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:rotate-0 flex flex-col justify-between ${rotClass} ${colorClasses[note.color]}`}
+                      className={`cursor-pointer p-3.5 rounded-2xl border shadow-xs transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:rotate-0 flex flex-col justify-between min-h-[145px] ${rotClass} ${colorClasses[note.color]}`}
                     >
                       <div>
                         {/* Note Header */}
-                        <div className="flex items-center justify-between gap-1 mb-2">
+                        <div className="flex items-center justify-between gap-1 mb-1.5">
                           <div className="flex items-center gap-1.5 min-w-0">
                             <span className="text-xs font-bold truncate">
                               {note.author}
@@ -341,18 +367,18 @@ export function HeroSection() {
                 })}
               </div>
 
-              {/* Button to open full interactive board & composer */}
-              <div className="mt-4 text-center sm:text-right">
+              {/* Link to open full interactive modal wall */}
+              <div className="mt-3.5 pt-2.5 border-t border-[#ecece8] flex items-center justify-between text-xs font-mono text-[#666666]">
+                <span>Community board</span>
                 <button
                   type="button"
                   onClick={() => setIsBoardOpen(true)}
-                  className="text-xs font-mono text-[#555555] hover:text-[#000000] hover:underline inline-flex items-center gap-1"
+                  className="text-[#000000] font-semibold hover:underline inline-flex items-center gap-1"
                 >
-                  <span>Explore full note wall ({stickyNotes.length} notes) &rarr;</span>
+                  <span>Open studio wall ({stickyNotes.length}) &rarr;</span>
                 </button>
               </div>
             </div>
-
           </div>
 
         </div>

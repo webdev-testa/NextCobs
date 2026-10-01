@@ -3,7 +3,6 @@ import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { SelectedWorkSection } from "@/components/SelectedWorkSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
-import { WhyIWorkSection } from "@/components/WhyIWorkSection";
 import { PersonalNotesSection } from "@/components/PersonalNotesSection";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
@@ -22,9 +21,6 @@ export default function Home() {
 
       {/* Experience: Quiet Reading Interval */}
       <ExperienceSection />
-
-      {/* Why I Work: Typographic Pause Manifesto */}
-      <WhyIWorkSection />
 
       {/* Personal Material: Editorial Studio Wall (Currently Focus + Field Notes + Sketch Artifact) */}
       <PersonalNotesSection />

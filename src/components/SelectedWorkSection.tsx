@@ -15,20 +15,20 @@ export function SelectedWorkSection() {
     <section id="selected-work" className="scroll-mt-20 w-full bg-[#ffffff] py-16 sm:py-24 border-b border-[#e6e6e6]">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
         
-        {/* Section Header with Guglieri Editorial Hierarchy */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 pb-6 border-b border-[#f1f1f1]">
+        {/* Section Header with Toan Editorial Hierarchy */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 pb-6 border-b border-[#f1f1f1]">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="w-2 h-2 rounded-full bg-[#000000]" />
               <span className="text-[11px] font-mono uppercase tracking-widest text-[#555555] font-semibold">
-                Selected Work &bull; Case Studies
+                Case Studies &bull; Selected Work
               </span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#000000]">
-              Relieving Operational Weight
+              Practical Solutions Under Real Constraints
             </h2>
-            <p className="text-sm sm:text-base text-[#555555] mt-2 max-w-2xl">
-              Systems engineered so someone else carries less busywork. Real evidence, production architectures, and measurable operational relief.
+            <p className="text-sm sm:text-base text-[#555555] mt-2 max-w-2xl leading-relaxed">
+              How I balance technical innovation with legacy systems, real-world constraints, and lean resources to deliver measurable results.
             </p>
           </div>
 
@@ -36,9 +36,17 @@ export function SelectedWorkSection() {
             href="/work"
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#f7f7f5] hover:bg-[#e6e6e6] text-xs font-semibold text-[#000000] border border-[#e6e6e6] transition-colors shrink-0 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
           >
-            <span>View all 5 case studies</span>
+            <span>View all case studies</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </Link>
+        </div>
+
+        {/* Heads Up Disclaimer (Signature Toan note) */}
+        <div className="mb-10 p-4 sm:p-5 rounded-2xl bg-[#fafaf8] border border-[#e6e6e6] flex items-start gap-3.5 text-xs sm:text-sm text-[#444444] leading-relaxed" data-reveal="quiet">
+          <div className="w-2 h-2 rounded-full bg-[#ff3d8b] shrink-0 mt-1.5" />
+          <p>
+            <strong className="text-[#000000] font-semibold">Heads up!</strong> These case studies are a bit lengthy. I share a lot about my approach, architecture trade-offs, and technical problem-solving. Not a ton of fluff, but hopefully plenty of insights. Thanks for stopping by—I hope you find something useful.
+          </p>
         </div>
 
         {/* ========================================================================= */}

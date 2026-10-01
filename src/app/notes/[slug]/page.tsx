@@ -153,7 +153,7 @@ export default async function NoteDetailPage({
             <div className="flex flex-col">
               <span className="font-bold text-sm text-[#000000]">Ammardito Shafaat</span>
               <span className="text-xs text-[#666666]">
-                Software Engineer based in Jakarta. Building things so other people can carry less.
+                Software Engineer | AI &amp; Systems based in Jakarta. Building practical software solutions with a dash of creative spark.
               </span>
             </div>
           </div>

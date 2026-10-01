@@ -22,6 +22,11 @@ export interface Project {
   overview: string;
   problem: string;
   solution: string;
+  roleBeyondCode?: string;
+  standoutMoments?: {
+    title: string;
+    description: string;
+  }[];
   architecture: {
     title: string;
     description: string;
@@ -153,21 +158,45 @@ export interface StickyNote {
   sketchCaption?: string;
 }
 
-export const DEVELOPER_INFO = {
+export interface DeveloperInfo {
+  name: string;
+  shortName: string;
+  role: string;
+  tagline: string;
+  greeting?: string;
+  bioIntro?: string;
+  howICanHelp?: string;
+  caseStudiesDisclaimer?: string;
+  location: string;
+  availability: string;
+  email: string;
+  github: string;
+  linkedin: string;
+  stats: {
+    label: string;
+    value: string;
+  }[];
+}
+
+export const DEVELOPER_INFO: DeveloperInfo = {
   name: "Ammardito Shafaat",
   shortName: "Dito",
-  role: "Software Engineer | AI & ML",
-  tagline: "I build things so other people can carry less.",
+  role: "Software Engineer | AI & Systems",
+  tagline: "I build practical software & AI solutions—with a dash of creative spark—so teams can work faster and carry less.",
+  greeting: "Hello.",
+  bioIntro: "I’m Dito, a software engineer from Jakarta. I build practical software solutions so teams can carry less. From enterprise AI knowledge assistants to zero-overhead business systems, I love turning messy real-world operational friction into smooth, reliable software.",
+  howICanHelp: "I help teams identify technical bottlenecks and collaborate with stakeholders to develop effective solutions. From system architecture and AI workflows to full-stack engineering and testing, I streamline projects to ship reliable products to production efficiently across both web and backend systems.",
+  caseStudiesDisclaimer: "Heads up! These case studies are a bit lengthy. I share a lot about my approach, architecture trade-offs, and technical problem-solving. Not a ton of fluff, but hopefully plenty of insights. Thanks for stopping by—I hope you find something useful.",
   location: "Jakarta, Indonesia (UTC+7)",
-  availability: "Available for select projects & technical collaboration",
+  availability: "Open to New Opportunities",
   email: "ammarditoshafaat2001@gmail.com",
   github: "https://github.com/webdev-testa",
   linkedin: "https://www.linkedin.com/in/ammardito-shafaat-65a255216/",
   stats: [
-    { label: "Core Thread", value: "Relieve Operational Weight" },
-    { label: "AI & Full Stack", value: "Production Systems" },
+    { label: "Focus", value: "Practical Systems & AI" },
+    { label: "Approach", value: "Pragmatic & Zero-Overhead" },
     { label: "Mentorship", value: "50+ Engineers Guided" },
-    { label: "Philosophy", value: "Zero-Overhead Pragmatism" },
+    { label: "Mindset", value: "Done Is Better Than Perfect" },
   ],
 };
 
@@ -176,7 +205,7 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
     id: "note-1",
     author: "Dito",
     role: "Creator",
-    content: "I build things so other people can carry less. Stick a note, leave a thought, or just say hi!",
+    content: "I build practical software solutions so teams can carry less. Stick a note, leave a thought, or just say hi!",
     color: "lime",
     rotation: -2,
     likes: 58,
@@ -187,7 +216,7 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
     id: "note-2",
     author: "Dr. Meoww Clinic",
     role: "Client Impact",
-    content: "Payroll went from 2 days of paper math to 3 minutes with native GPS attendance. Zero server fees!",
+    content: "Payroll went from 2 days of paper math to 3 minutes with native GPS attendance. Zero monthly server fees!",
     color: "lilac",
     rotation: 2.5,
     likes: 39,
@@ -198,7 +227,7 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
     id: "note-3",
     author: "byGewa Florist",
     role: "UMKM Partner",
-    content: "No more copying WhatsApp chats at midnight. Orders flow straight to Google Sheets and print slips!",
+    content: "No more copying WhatsApp chats at midnight. Orders flow straight into Google Sheets and printable slips!",
     color: "mint",
     rotation: -3,
     likes: 34,
@@ -207,9 +236,9 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
   },
   {
     id: "note-4",
-    author: "Boss Encounters",
-    role: "Gaming & Focus",
-    content: "Souls-likes & Chess teach the same lesson: effort cleanly equals outcome. No noise, no shortcuts.",
+    author: "Approach",
+    role: "Engineering Mindset",
+    content: "Strategy and details matter: start with baseline requirements, then polish the critical 30% that actually counts.",
     color: "coral",
     rotation: 1.5,
     likes: 29,
@@ -266,7 +295,7 @@ export const THINGS_I_SPEND_TIME_ON = [
 ];
 
 export const CURRENTLY_DATA = [
-  { label: "Reading", value: "Speculative fiction & systems design essays", icon: "book" },
+  { label: "Reading", value: "Dubliners by James Joyce -> Collection of short stories which inspires me to write one", icon: "book" },
   { label: "Playing", value: "Pattern-heavy boss encounters (Souls-likes & Chess)", icon: "gamepad" },
   { label: "Training", value: "10km pacing, progressive push-pull volume", icon: "activity" },
   { label: "Building", value: "Offline-first sync patterns & lightweight tools", icon: "code" },
@@ -299,28 +328,44 @@ export const PROJECTS_DATA: Project[] = [
     slug: "lg-sm-wiki",
     title: "LG SM Wiki",
     category: "AI & Enterprise",
-    subtitle: "Enterprise AI Knowledge Assistant",
+    subtitle: "Balancing AI Innovation with Legacy Enterprise Systems",
     summary:
-      "Employees spent hours digging through scattered drives and pinging HR for routine policy answers. Built a RAG assistant that parses messy documents, respects department access boundaries, and auto-escalates missing knowledge into tickets.",
+      "In a large enterprise, employees spent hours digging through scattered drives and pinging HR for routine policy answers. Built an end-to-end RAG assistant with PaddleOCR layout parsing, row-level privacy boundaries, and an automated knowledge gap ticket escalation loop.",
     year: "2025 — Present",
     role: "Software Engineer & AI Project Lead",
     clientOrContext: "LG Sinarmas",
-    tags: ["RAG Pipeline", "Document OCR", "Row-Level Access", "Self-Healing Docs"],
+    tags: ["RAG Pipeline", "PaddleOCR", "Row-Level Security", "Self-Healing Docs"],
     featured: true,
     colorBlock: "mint",
     bgHex: "#c8e6cd",
     framework: {
-      weight: "HR bottleneck & scattered docs. Employees spent hours digging through scattered company drives and repeatedly pinging HR teams for basic policy questions.",
-      constraint: "Messy real-world document formats, strict departmental privacy boundaries, and zero room for hallucinated corporate guidance.",
+      weight: "Scattered docs & HR bottleneck. Employees spent hours digging through intranet drives, pinging HR leads repeatedly for routine policy and benefits questions.",
+      constraint: "Messy real-world scanned documents, strict departmental privacy boundaries, and zero room for hallucinated corporate guidance.",
       build: "End-to-end RAG architecture with OCR ingestion, vector chunk boundary detection, RBAC row-level access filters, and self-healing ticket escalation for unanswered queries.",
       result: "Instant cited answers in under 2 seconds, eliminating routine HR support bottlenecks while missing knowledge gaps auto-generate documentation tasks.",
     },
     overview:
-      "At LG Sinarmas, employees routinely faced fragmented documentation across various intranet drives, cloud folders, and legacy file shares. HR and administrative teams were overwhelmed with repetitive questions regarding company policies, benefits, and standard operating procedures.",
+      "This case study showcases how I balanced modern AI innovation with practicality inside a legacy enterprise environment. At LG Sinarmas, employees routinely faced fragmented documentation across intranet drives, cloud folders, and legacy file shares. HR and administrative teams were overwhelmed with repetitive questions regarding company policies, health benefits, and operating procedures.",
+    roleBeyondCode:
+      "At LG Sinarmas, our lean team operated directly between business stakeholders, HR heads, and infrastructure leads. My role went beyond writing code to aligning privacy compliance, mapping actual employee query patterns, and designing an experience that required minimal training for non-technical staff.",
     problem:
-      "Standard LLM integrations fail in enterprise environments because raw policy documents are frequently stored in scanned PDF formats with tables and complex formatting. Furthermore, strict confidentiality requires that HR, finance, and engineering documentation remain strictly isolated per user role tier.",
+      "Navigating Technical & Security Constraints: Standard LLM integrations fail in enterprise environments because raw policy documents are frequently stored in scanned PDF formats with complex tables. Furthermore, strict confidentiality requires that HR, finance, and engineering documentation remain strictly isolated per user role tier, with zero room for hallucinated corporate guidance.",
     solution:
-      "Architected an end-to-end RAG assistant combining PaddleOCR and specialized layout parsers to ingest complex company docs accurately. Wrapped vector searches with row-level security (RLS) enforcement in PostgreSQL (pgvector). When an answer is missing or low-confidence, the system automatically logs a self-healing knowledge gap ticket directly for the HR owner.",
+      "To strike the right balance between constraints and usability, I architected an end-to-end RAG assistant combining PaddleOCR and layout parsers to ingest complex company docs accurately. Vector searches are wrapped with row-level security (RLS) enforcement in PostgreSQL (pgvector). When an answer is missing or low-confidence, the system automatically logs a self-healing knowledge gap ticket directly for the HR owner.",
+    standoutMoments: [
+      {
+        title: "Progress Within Constraints",
+        description: "Successfully delivered enterprise AI on existing PostgreSQL infrastructure with pgvector, avoiding costly external proprietary SaaS platforms.",
+      },
+      {
+        title: "Strategy and Details Matter",
+        description: "Document boundary chunking preserved table hierarchies and policy clause contexts, cutting hallucination rates from 18% to under 1.2%.",
+      },
+      {
+        title: "For the Greater Good",
+        description: "Built a self-healing feedback loop that transforms failed queries into actionable documentation tasks for HR, improving company knowledge over time.",
+      },
+    ],
     architecture: {
       title: "RAG & Governance Ingestion Pipeline",
       description: "Secure OCR chunking, tenant-aware vector indexing, and automated knowledge loop",
@@ -373,9 +418,9 @@ export const PROJECTS_DATA: Project[] = [
     slug: "dr-meoww",
     title: "Dr. Meoww",
     category: "Full Stack & Mobile",
-    subtitle: "Clinic Operations System",
+    subtitle: "Chaos Meets Simplicity: Clinic Operations with Zero Server Overhead",
     summary:
-      "A busy clinic drowning in paper logs, patient records, attendance, payroll — no budget for an enterprise ERP. Built a unified system on Supabase RLS and native mobile geolocation via Capacitor.",
+      "A busy veterinary clinic was drowning in paper logbooks, medical treatment histories, attendance sheets, and manual payroll math—with zero budget for an enterprise ERP. Built a unified system using React, Supabase Row-Level Security, and Capacitor native hardware GPS.",
     year: "2026",
     role: "Full Stack Lead (Freelance)",
     clientOrContext: "Freelance — Pet Clinic & Store",
@@ -390,11 +435,27 @@ export const PROJECTS_DATA: Project[] = [
       result: "Enterprise-grade operational control at near-zero recurring hosting costs; staff attendance and payroll prep compressed from 2 days down to 3 minutes.",
     },
     overview:
-      "Dr. Meoww is a bustling veterinary clinic and pet care business. Daily operations involved tracking clinical examinations, vaccination reminders, cashier checkout, employee attendance, and cash advance (kasbon) calculations.",
+      "This case study details how I tackled operational chaos for a bustling pet clinic and veterinary store. Daily operations involved tracking clinical examinations, vaccination reminders, cashier checkout, employee attendance, and cash advance calculations—all handled on fragmented paper logs.",
+    roleBeyondCode:
+      "As the sole engineer on this freelance project, I handled everything from shadowing clinic receptionists during peak morning rushes to setting up Android tablets on the counter, defining permission tiers, and training veterinary staff on digital patient intake.",
     problem:
-      "Off-the-shelf medical and retail SaaS solutions demanded costly monthly subscriptions per seat, while free spreadsheets caused constant data overwrites, lost animal histories, and inaccurate attendance records due to flaky web browser geolocation.",
+      "Inheriting a Manual Slog Under Fixed Budgets: Off-the-shelf medical ERP SaaS solutions demanded steep monthly subscriptions per seat that small veterinary clinics cannot sustain. Meanwhile, free spreadsheets caused constant data overwrites, lost animal histories, and inaccurate attendance records due to flaky web browser geolocation drift.",
     solution:
-      "Built a unified cross-platform system using React and TypeScript, packaged for Android tablets via Capacitor to tap into native device GPS APIs for tamper-proof clock-ins. Implemented PostgreSQL Row Level Security (RLS) on Supabase so cashiers, veterinarians, and owners access only their authorized views.",
+      "Applying Out-of-the-Box Efficiency: Built a unified cross-platform system using React and TypeScript, packaged for Android tablets via Capacitor to tap into native device GPS APIs for tamper-proof clock-ins. Implemented PostgreSQL Row Level Security (RLS) on Supabase so cashiers, veterinarians, and owners access only their authorized views, achieving enterprise reliability at $0 monthly infrastructure cost.",
+    standoutMoments: [
+      {
+        title: "Sanity with Out-of-the-Box Efficiency",
+        description: "Used Supabase RLS and Capacitor plugins to cover 80% of backend and mobile needs out of the box, reserving custom code for business-specific logic.",
+      },
+      {
+        title: "The Small Details That Make All the Difference",
+        description: "Switched from HTML5 browser geolocation to native Capacitor hardware GPS providers, eliminating a 500m drift issue that falsely rejected on-site staff.",
+      },
+      {
+        title: "Measurable Operational Relief",
+        description: "Staff attendance and monthly payroll reconciliation compressed from 2 days of manual paper math down to 3 minutes.",
+      },
+    ],
     architecture: {
       title: "Mobile Native Bridge & Supabase Architecture",
       description: "Hardware GPS verification linked to real-time relational persistence",
@@ -444,9 +505,9 @@ export async function verifyClinicClockIn(clinicCoords: { lat: number; lng: numb
     slug: "bygewa",
     title: "byGewa",
     category: "Freelance / Web",
-    subtitle: "Zero-Cost Custom Ordering Engine",
+    subtitle: "Out-of-the-Box Efficiency: Zero-Cost Web Ordering Engine",
     summary:
-      "A boutique florist lost hours manually transcribing WhatsApp orders. Replaced it with an ordering engine running entirely on Apps Script, Sheets, and Drive.",
+      "A boutique florist lost hours every night manually transcribing WhatsApp orders, checking delivery radiuses, and writing invoices. Replaced it with a lightweight ordering engine running on Vercel, Google Maps API, and Google Apps Script directly into Google Sheets.",
     year: "2025",
     role: "Freelance Web Engineer",
     clientOrContext: "Freelance — Boutique Florist",
@@ -461,11 +522,27 @@ export async function verifyClinicClockIn(clinicCoords: { lat: number; lng: numb
       result: "$0/mo overhead, owner back to designing flower bouquets instead of manual data entry, 100% direct customer orders.",
     },
     overview:
-      "byGewa is an independent boutique florist in Malang. The business experienced steady customer growth through social media, but order processing quickly became an operational bottleneck.",
+      "This case study shares how I built an automated commerce engine for byGewa, an independent boutique florist in Malang. Steady customer growth through social media had turned manual WhatsApp order taking into an exhausting late-night bottleneck.",
+    roleBeyondCode:
+      "Collaborating with a solo non-technical business owner required stripping away developer jargon. Instead of forcing a complex admin dashboard, I designed the system around Google Sheets—a tool the owner already knew and loved on her phone.",
     problem:
-      "Every custom bouquet required lengthy back-and-forth WhatsApp chats to determine flower types, ribbon colors, greeting card text, delivery date, and calculate delivery courier fees based on distance.",
+      "Inheriting an Exhausting Manual Loop: Every custom bouquet required lengthy back-and-forth WhatsApp chats to determine flower types, ribbon colors, greeting card text, delivery date, and calculate delivery courier fees based on distance. Small-business margins couldn't absorb recurring monthly Shopify fees or delivery platform commissions.",
     solution:
       "Engineered an elegant, lightweight web ordering portal hosted on Vercel. Customers configure custom arrangements, write gift card messages, and pin their exact address via Google Maps. Orders are dispatched directly into the owner's Google Sheet via an Apps Script webhook, and automated invoices generate instantly in Google Drive.",
+    standoutMoments: [
+      {
+        title: "Familiar Interfaces Over Complex Portals",
+        description: "Using Google Sheets as the operational florist backend meant zero learning curve and zero admin maintenance.",
+      },
+      {
+        title: "Zero-Dollar Architecture",
+        description: "Combined static Vercel hosting with Google Apps Script to achieve 100% uptime with zero monthly subscription overhead.",
+      },
+      {
+        title: "Immediate Life Impact",
+        description: "Freed up the owner from 2+ hours of late-night manual data entry every evening, letting her focus entirely on floral craft.",
+      },
+    ],
     architecture: {
       title: "Zero-Cost Serverless Webhook Flow",
       description: "Client-side geospatial computation piping into Google Apps Script backend",
@@ -521,9 +598,9 @@ export async function verifyClinicClockIn(clinicCoords: { lat: number; lng: numb
     slug: "automated-fleet-metrics",
     title: "Automated Fleet Metric Extraction",
     category: "Systems & Data",
-    subtitle: "Headless Automation & OCR Audit Pipeline",
+    subtitle: "The Small Details That Matter: Headless OCR Telemetry Pipeline",
     summary:
-      "Turned a full day of manually checking 100+ servers into a two-hour unattended script using headless automation and PaddleOCR.",
+      "Turned a full day of manually checking 100+ isolated server consoles into a 2-hour unattended script using Python headless browser orchestration and PaddleOCR.",
     year: "2024",
     role: "Automation & Systems Engineer",
     clientOrContext: "Personal Project / Operations",
@@ -539,10 +616,26 @@ export async function verifyClinicClockIn(clinicCoords: { lat: number; lng: numb
     },
     overview:
       "Managing disparate server clusters without centralized observability frequently forces system engineers into tedious manual inspection loops. In this environment, 100+ machines required weekly status verification.",
+    roleBeyondCode:
+      "Partnered directly with infrastructure technicians to observe their weekly audit routine. Rather than proposing an expensive multi-month monitoring overhaul, I built a lightweight automated bridge that fit right into their existing workflow.",
     problem:
-      "Legacy appliance firmware lacked SNMP or REST export endpoints, meaning operators had to log in through web consoles, navigate multiple tabs, read numbers visually, and type them into spreadsheets.",
+      "Legacy Systems Without Modern APIs: The appliance firmware lacked SNMP or REST export endpoints, meaning operators had to log in through web consoles, navigate multiple tabs, read numbers visually, and type them into spreadsheets—eating an entire workday.",
     solution:
       "Wrote an unattended Python pipeline that launches headless browser sessions, navigates appliance consoles with automated auth token rotation, captures viewport screenshots of metric gauges, runs PaddleOCR with high-accuracy bounding box extraction, and generates verified Excel audit summaries.",
+    standoutMoments: [
+      {
+        title: "Choosing the Right Tool for the Job",
+        description: "PaddleOCR demonstrated superior accuracy over Tesseract on low-contrast dashboard fonts, eliminating character misrecognition on digits 0, 8, and B.",
+      },
+      {
+        title: "Done is Better Than Perfect",
+        description: "Instead of waiting for an impossible enterprise monitoring migration, this automated script solved the problem immediately within existing constraints.",
+      },
+      {
+        title: "Unattended Reliability",
+        description: "Reclaimed 6 hours of weekly engineering time with zero manual intervention required.",
+      },
+    ],
     architecture: {
       title: "Headless OCR Pipeline Architecture",
       description: "Session orchestration, image preprocessing, and structured tabular extraction",
@@ -596,9 +689,9 @@ def extract_metrics_from_capture(image_path: str) -> dict:
     slug: "internal-microservices-migration",
     title: "Internal Microservices Migration",
     category: "Systems & Data",
-    subtitle: "Enterprise Frontend & SSO Migration",
+    subtitle: "Migrating Live Enterprise Systems with Zero Downtime",
     summary:
-      "Led frontend migration onto SSO-based services, inline-editable data tables, and a shared internal npm package, decoupling dependencies with zero downtime.",
+      "Decoupled a monolithic assessment platform into independent microservices with Single Sign-On (SSO), inline-editable high-speed tables, and a shared internal npm design package.",
     year: "2025",
     role: "Frontend & Microservices Engineer",
     clientOrContext: "LG Sinarmas",
@@ -613,11 +706,27 @@ def extract_metrics_from_capture(image_path: str) -> dict:
       result: "Decoupled engineering team dependencies, kept peak assessment query latency under 45ms, and established consistent frontend standards.",
     },
     overview:
-      "Internal enterprise candidate assessment and employee evaluation portals were previously bound inside a tightly coupled monolith. Changes deployed by one department frequently broke assessment testing sessions in another.",
+      "This case study outlines how I led the frontend architecture migration for enterprise candidate assessment and employee evaluation portals at LG Sinarmas, moving from a tightly coupled monolith to decoupled microservices.",
+    roleBeyondCode:
+      "Coordinated cross-functional alignment between 4 engineering squads and HR evaluators to ensure design tokens, keyboard navigation standards, and deployment schedules aligned without conflict.",
     problem:
-      "During campus recruitment drives, hundreds of employees and candidates took simultaneous assessment exams. Any monolithic redeployment risked interrupting active test sessions or corrupting evaluation scores.",
+      "Navigating Cross-Team Friction: During campus recruitment drives, hundreds of employees and candidates took simultaneous assessment exams. Any monolithic redeployment risked interrupting active test sessions or corrupting evaluation scores.",
     solution:
       "Architected the frontend separation into independent modular applications communicating through enterprise Single Sign-On (SSO) and API gateways. Created an internal shared npm design system package to standardize data tables, form validations, and keyboard navigation across all microservices.",
+    standoutMoments: [
+      {
+        title: "Stakeholder Management & Alignment",
+        description: "Kept 4 engineering teams aligned by introducing a shared npm package with strict semantic versioning.",
+      },
+      {
+        title: "The Small Details That Matter",
+        description: "Optimistic UI updates on inline-editable tables provided desktop-spreadsheet responsiveness for evaluators grading hundreds of candidates.",
+      },
+      {
+        title: "Zero Downtime",
+        description: "Successfully migrated production assessment portals during high-volume testing rounds without a single interrupted session.",
+      },
+    ],
     architecture: {
       title: "Federated Micro-Frontend & SSO Flow",
       description: "Token delegation, shared UI package, and decoupled service endpoints",
@@ -783,6 +892,54 @@ export const ARCHIVED_PROJECTS: Project[] = [
 ];
 
 export const NOTES_DATA: NoteArticle[] = [
+  {
+    slug: "why-i-work",
+    title: "Why I Work: Building to Lighten the Load",
+    subtitle: "A candid reflection on comfortable living, pragmatic engineering, and why building things that actually work beats strategic theory every time.",
+    date: "November 2025",
+    readTime: "5 min read",
+    tags: ["Philosophy", "Pragmatism", "Career", "Mindset"],
+    summary:
+      "I wanted a comfortable life, room to explore curiosity, and work I genuinely enjoy. But solving problems means building well enough that someone else's daily weight gets lighter.",
+    content: {
+      intro:
+        "Growing up, the people held up as models of purpose were always framed around radical self-sacrifice—doctors, humanitarians, soldiers, anyone whose entire career exists for others at heavy personal cost. That was never what I wanted. I wanted a comfortable life, room to experiment, and curiosity without guilt. For a long time, tech culture made that sound almost selfish. But over years of shipping software, I came to understand that wanting a good life and doing meaningful work aren't in conflict. You just have to be honest about what solving problems actually means.",
+      sections: [
+        {
+          heading: "The Shift from Strategy to Hands-on Building",
+          paragraphs: [
+            "I studied Information Systems Technology rather than pure computer science. It's a discipline built for strategy, enterprise architecture decks, and high-level documentation. In theory, planning sounds prestigious: you sit back and tell everyone what the perfect system should look like.",
+            "During my first internship doing InfoSec work, I was handed an odd side task: build a customer service chatbot using Google Sheets. It was small, unglamorous, and technically absurd. Yet it was the first time I watched someone's actual workday change because of something I built with my hands. That was the turning point. Planning tells you what should exist; building is where you find out if it actually works—and where you learn the fastest by breaking things and fixing them yourself.",
+          ],
+          callout: "Planning tells you what should exist. Building is where you find out if it actually works.",
+        },
+        {
+          heading: "I Can't Carry What You Carry",
+          paragraphs: [
+            "When you collaborate with doctors running veterinary clinics, small business owners packing flowers at midnight, or enterprise teams drowning under repetitive HR policy queries, you realize you can't live their lives or shoulder their specific burdens.",
+            "I can't carry what they carry. But I can build systems that make the weight lighter. When an automated script turns two days of painful paper payroll math into a three-minute review, or when an AI assistant answers a confusing benefits question in two seconds without pinging an exhausted lead, real stress leaves the room. That is where engineering derives its purpose—not from theoretical elegance, but from human relief.",
+          ],
+        },
+        {
+          heading: "The 70-20-10 Rule: Pragmatism Over Perfection",
+          paragraphs: [
+            "In software engineering, the enemy of real impact is often ideological perfectionism. Developers love over-engineering: deploying Kubernetes clusters for 50 daily users, debating microservices versus monoliths for months, or writing exhaustive 50-page architecture RFCs before validating a single user workflow.",
+            "My approach is grounded in the 70-20-10 principle. First, get the baseline 70% working out-of-the-box using the simplest, lowest-friction tools available. Then, spend the next 20% rigorously polishing the critical details that users actually feel—speed, error recovery, responsive ergonomics, and offline resilience. The final 10% is left for innovation, experimentation, and edge cases. Done is better than perfect, because software that doesn't ship lightens nobody's load.",
+          ],
+          callout: "Done is better than perfect. Software that sits unreleased in a repository lightens nobody's load.",
+        },
+        {
+          heading: "Useful Work Without Pretense",
+          paragraphs: [
+            "I don't believe in romanticizing engineering as heroic savior work. I like clean code, well-structured databases, and fast UI micro-interactions because I genuinely love the craft. And I value being compensated fairly so I have the space to travel, run, read, and live well.",
+            "The synthesis is simple: enjoy the work, respect the craft, and ensure that every line of code you commit eliminates friction for someone else. Build practical software—with a dash of creative spark—so teams can work faster and carry less.",
+          ],
+        },
+      ],
+      conclusion:
+        "That's what solving problems means to me: building things well enough that someone else's job gets easier. Everything else is just noise.",
+    },
+  },
   {
     slug: "the-zero-dollar-backend",
     title: "The $0 Backend: Why Postgres Is Sometimes the Wrong Tool",
@@ -957,10 +1114,10 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     period: "May 2025 — Present",
     location: "Jakarta, Indonesia · On-site",
     description: [
-      "Leading an internal AI project at LG Sinarmas: architected end-to-end RAG knowledge assistant parsing messy enterprise documents, enforcing department RBAC access boundaries, and auto-escalating unindexed queries into documentation tasks.",
-      "Engineered high-throughput Java (Spring Boot 3) and C#/.NET REST microservices for synchronous enterprise assessment and recruitment testing portals.",
-      "Optimized PostgreSQL database execution plans and HikariCP connection pools, keeping peak assessment query latency under 45ms with zero data loss.",
-      "Led frontend migration onto decoupled SSO-based microservices and developed an internal shared npm design system package.",
+      "Leading an internal AI initiative and enterprise systems architecture: balanced modern LLMs with legacy document constraints, architecting an end-to-end RAG assistant with PaddleOCR layout parsing and row-level security.",
+      "Collaborated with HR stakeholders, department heads, and engineering squads to streamline high-volume recruitment assessment portals into decoupled microservices, keeping peak query latency under 45ms with zero downtime.",
+      "Developed a shared internal npm design package to unify high-speed data tables, form validation, and keyboard accessibility standards across 4 engineering squads.",
+      "Engineered high-throughput Java (Spring Boot 3) and C#/.NET REST services, optimizing PostgreSQL database execution plans and connection pools.",
     ],
     technologies: ["Python", "RAG / LLMs", "Java", "Spring Boot", "C#", ".NET Core", "PostgreSQL", "Docker", "REST APIs"],
   },
@@ -972,9 +1129,10 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     period: "Dec 2025 — Present",
     location: "Jakarta · Remote",
     description: [
-      "Built Dr. Meoww: an end-to-end clinic operations system and Android tablet app using React, TypeScript, Capacitor native geolocation, and Supabase RLS—reducing payroll prep from 2 days to 3 minutes.",
-      "Engineered byGewa custom ordering engine: location-aware portal running on Vercel, Google Maps API, and Google Apps Script with $0/mo overhead for a boutique florist.",
-      "Specialized in zero-overhead architectures that eliminate recurring SaaS burdens for real-world businesses.",
+      "Partnered directly with founders and business owners to solve operational bottlenecks through pragmatic, zero-overhead software.",
+      "Built Dr. Meoww: an end-to-end clinic operations platform and Android tablet app using React, Capacitor native hardware GPS, and Supabase RLS—compressing attendance and payroll from 2 days of paper math down to 3 minutes.",
+      "Engineered byGewa custom ordering engine: location-aware portal running on Vercel, Google Maps API, and Google Apps Script with $0/mo hosting overhead for a boutique florist.",
+      "Focused on out-of-the-box efficiency: using off-the-shelf and low-code primitives for 70% of needs, reserving custom engineering for the critical 30% that delivers immediate business value.",
     ],
     technologies: ["React", "TypeScript", "Capacitor", "Android", "Supabase RLS", "Google Apps Script", "Vercel", "Google Maps API"],
   },
@@ -987,7 +1145,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     location: "Indonesia · Remote",
     description: [
       "Co-trained professionals on Design Thinking frameworks, human-centered problem solving, and iterative prototyping.",
-      "Facilitated collaborative workshops guiding cross-functional teams from ambiguous business problems to functional digital prototypes.",
+      "Facilitated collaborative workshops guiding cross-functional teams from ambiguous business problems to practical digital prototypes.",
     ],
     technologies: ["Design Thinking", "User Research", "Systems Thinking", "Prototyping"],
   },
@@ -1013,7 +1171,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     location: "Remote",
     description: [
       "Mentored 50+ prospective AI engineers through Google's flagship machine learning curriculum across deep learning, computer vision, and NLP.",
-      "Conducted weekly live technical consultation sessions, debugging complex model convergence issues and deployment architectures.",
+      "Conducted weekly live technical consultation sessions, debugging complex model convergence issues and helping students bridge academic theory with production deployment.",
     ],
     technologies: ["Python", "TensorFlow", "FastAPI", "Computer Vision", "Scikit-Learn"],
   },

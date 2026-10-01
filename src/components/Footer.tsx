@@ -47,7 +47,10 @@ export function Footer() {
           {/* Navigation Links */}
           <div className="flex flex-wrap items-center gap-6 text-xs font-mono">
             <Link href="/work" className="hover:text-[#000000] text-[#666666] transition-colors">
-              Work
+              Case Studies
+            </Link>
+            <Link href="/#experience" className="hover:text-[#000000] text-[#666666] transition-colors">
+              Experience
             </Link>
             <Link href="/about" className="hover:text-[#000000] text-[#666666] transition-colors">
               About
@@ -55,20 +58,14 @@ export function Footer() {
             <Link href="/notes" className="hover:text-[#000000] text-[#666666] transition-colors">
               Notes
             </Link>
+            <Link href="/pursuits" className="hover:text-[#000000] text-[#666666] transition-colors">
+              Pursuits
+            </Link>
             <a
               href={`mailto:${DEVELOPER_INFO.email}`}
               className="hover:underline text-[#000000] transition-colors"
             >
               Email
-            </a>
-            <a
-              href={DEVELOPER_INFO.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline text-[#000000] transition-colors flex items-center gap-0.5"
-            >
-              <span>GitHub</span>
-              <ArrowUpRight className="w-3 h-3" />
             </a>
             <a
               href={DEVELOPER_INFO.linkedin}
@@ -79,12 +76,21 @@ export function Footer() {
               <span>LinkedIn</span>
               <ArrowUpRight className="w-3 h-3" />
             </a>
+            <a
+              href={DEVELOPER_INFO.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline text-[#000000] transition-colors flex items-center gap-0.5"
+            >
+              <span>GitHub</span>
+              <ArrowUpRight className="w-3 h-3" />
+            </a>
           </div>
         </div>
 
         <div className="mt-8 pt-4 border-t border-[#f1f1f1] flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-mono text-[#666666]">
           <span>&copy; {new Date().getFullYear()} {DEVELOPER_INFO.name}. All rights reserved.</span>
-          <span className="italic">I build things so other people can carry less.</span>
+          <span className="italic">Practical software solutions with a dash of creative spark.</span>
         </div>
       </div>
     </footer>

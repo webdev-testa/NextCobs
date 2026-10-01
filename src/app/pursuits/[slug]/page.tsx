@@ -121,7 +121,7 @@ export default async function PursuitDetailPage({
         <header className="mb-8 border-b border-[#f1f1f1] pb-6" data-reveal>
           <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono text-[#666666] mb-3">
             <span className="uppercase tracking-widest text-[#000000] font-semibold">
-              Pursuits &bull; Personal Blog
+              Off-Screen Pursuits &bull; Personal Essays &amp; Field Logs
             </span>
             <span>/</span>
             <span className={`px-2.5 py-0.5 rounded-full border text-xs ${accentStyles.badge}`}>

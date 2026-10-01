@@ -24,25 +24,26 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ammardito Shafaat — Full Stack Engineer & AI/ML",
+  title: "Ammardito Shafaat — Software Engineer | AI & Systems",
   description:
-    "Portfolio of Ammardito Shafaat. Full Stack Engineer, Freelance Builder, and AI/ML at LG Sinar Mas based in Jakarta.",
+    "I build practical software & AI solutions—with a dash of creative spark—so teams can work faster and carry less.",
   keywords: [
     "Ammardito Shafaat",
+    "Software Engineer",
+    "AI & Systems",
     "Full Stack Engineer",
-    "AI/ML",
     "React",
+    "Next.js",
     "TypeScript",
-    "Capacitor",
-    "Java Spring Boot",
     "Jakarta",
     "Portfolio",
+    "Case Studies",
   ],
   authors: [{ name: "Ammardito Shafaat" }],
   openGraph: {
-    title: "Ammardito Shafaat — Full Stack Engineer & AI/ML",
+    title: "Ammardito Shafaat — Software Engineer | AI & Systems",
     description:
-      "Building practical full-stack systems, leading AI initiatives, and exploring story-driven worlds.",
+      "I build practical software & AI solutions—with a dash of creative spark—so teams can work faster and carry less.",
     type: "website",
     locale: "en_US",
   },

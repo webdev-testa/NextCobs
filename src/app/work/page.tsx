@@ -6,8 +6,8 @@ import { WorkProjectList } from "@/components/WorkProjectList";
 import { ARCHIVED_PROJECTS } from "@/data/portfolioData";
 
 export const metadata = {
-  title: "Work & Case Studies - Ammardito Shafaat",
-  description: "Full case studies evaluated through the Weight, Constraint, Build, and Result framework.",
+  title: "Case Studies — Ammardito Shafaat",
+  description: "Detailed case studies on balancing technical innovation with practical constraints, legacy systems, and real-world outcomes.",
 };
 
 export default function WorkIndexPage() {
@@ -21,11 +21,19 @@ export default function WorkIndexPage() {
           </Link>
         </div>
 
-        <header className="mb-10 pb-8 border-b border-[#e6e6e6]" data-reveal>
-          <div className="inline-flex items-center px-3 py-1 rounded-full bg-black text-white text-[11px] font-mono tracking-widest uppercase mb-4">Work & Case Studies</div>
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] leading-tight mb-3">Selected Work</h1>
-          <p className="text-base sm:text-lg text-[#555] max-w-2xl leading-relaxed">Every case study starts with the reality of the problem: the weight people carried, the constraints, what I built, and the measurable outcome.</p>
+        <header className="mb-8 pb-6 border-b border-[#e6e6e6]" data-reveal>
+          <div className="inline-flex items-center px-3 py-1 rounded-full bg-black text-white text-[11px] font-mono tracking-widest uppercase mb-4">Case Studies &bull; Selected Work</div>
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] leading-tight mb-3">How I Approach Problems &amp; Build Solutions</h1>
+          <p className="text-base sm:text-lg text-[#555] max-w-2xl leading-relaxed">Every case study begins with the reality of the problem: navigating technical constraints, balancing innovation with practicality, and delivering measurable outcomes.</p>
         </header>
+
+        {/* Heads Up Disclaimer (Signature Toan note) */}
+        <div className="mb-10 p-4 sm:p-5 rounded-2xl bg-[#fafaf8] border border-[#e6e6e6] flex items-start gap-3.5 text-xs sm:text-sm text-[#444444] leading-relaxed" data-reveal="quiet">
+          <div className="w-2 h-2 rounded-full bg-[#ff3d8b] shrink-0 mt-1.5" />
+          <p>
+            <strong className="text-[#000000] font-semibold">Heads up!</strong> These case studies are a bit lengthy. I share a lot about my approach, architecture trade-offs, and technical problem-solving. Not a ton of fluff, but hopefully plenty of insights. Thanks for stopping by—I hope you find something useful.
+          </p>
+        </div>
 
         <WorkProjectList />
 

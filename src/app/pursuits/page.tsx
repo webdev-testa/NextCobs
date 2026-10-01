@@ -81,16 +81,16 @@ export default function PursuitsIndexPage() {
         <header className="mb-12 pb-8 border-b border-[#e6e6e6]" data-reveal>
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xs font-mono uppercase tracking-widest text-[#666666]">
-              Personal Blog &bull; Visual Essays
+              Personal Material &bull; Beyond the Terminal
             </span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-[#000000] leading-tight mb-4">
-            Perspectives, Practice & Safar
+            Things I Spend Time On
           </h1>
 
           <p className="text-base sm:text-lg text-[#555555] max-w-2xl leading-relaxed">
-            Beyond the code editor: story-driven worlds, calculating variations, physical discipline, and the profound humility of traveling to unfamiliar places.
+            Beyond engineering: stories, chess, physical discipline, and the quiet humility of travel. Exploring how life outside the terminal shapes perspective, patience, and focus.
           </p>
         </header>
 

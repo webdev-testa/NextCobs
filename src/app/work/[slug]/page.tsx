@@ -104,16 +104,19 @@ export default async function ProjectDetailPage({
 
           <ReadingProgress items={[
             { id: "impact", label: "Impact" },
-            { id: "overview", label: "Overview" },
+            { id: "overview", label: "Context" },
             { id: "architecture", label: "Architecture" },
             { id: "decisions", label: "Decisions" },
+            ...(project.standoutMoments && project.standoutMoments.length > 0
+              ? [{ id: "standout-moments", label: "Reflections" }]
+              : []),
           ]} />
 
           {/* The 4-Part Framework: Weight / Constraint / Build / Result */}
           {project.framework && (
             <section id="impact" className="scroll-mt-28 p-6 sm:p-8 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6]" data-reveal>
               <h2 className="text-sm font-mono uppercase tracking-wider font-bold text-[#000000] mb-4">
-                The Operational Reality & Impact
+                The Operational Reality &amp; Impact
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4" data-reveal-group>
@@ -187,12 +190,28 @@ export default async function ProjectDetailPage({
             </section>
           )}
 
-          {/* Overview */}
-          <section id="overview" className="scroll-mt-28 flex flex-col gap-3 text-base leading-relaxed text-[#333333]" data-reveal="quiet">
-            <h2 className="text-xl font-bold text-[#000000]">
-              Overview & Context
-            </h2>
-            <p>{project.overview}</p>
+          {/* Overview & Context */}
+          <section id="overview" className="scroll-mt-28 flex flex-col gap-4 text-base leading-relaxed text-[#333333]" data-reveal="quiet">
+            <div>
+              <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1">
+                Context &amp; Background
+              </span>
+              <h2 className="text-2xl font-bold tracking-tight text-[#000000]">
+                Balancing Innovation with Practicality
+              </h2>
+            </div>
+            <p className="text-base sm:text-lg text-[#333333] leading-relaxed">{project.overview}</p>
+
+            {project.roleBeyondCode && (
+              <div className="p-5 rounded-2xl bg-[#fafaf8] border border-[#e6e6e6] mt-2">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-[#000000] font-bold block mb-1.5">
+                  My Role Beyond Just Writing Code
+                </span>
+                <p className="text-xs sm:text-sm text-[#444444] leading-relaxed">
+                  {project.roleBeyondCode}
+                </p>
+              </div>
+            )}
           </section>
 
           {/* Problem & Solution */}
@@ -221,7 +240,7 @@ export default async function ProjectDetailPage({
             <section id="architecture" className="scroll-mt-28 p-6 sm:p-8 rounded-3xl bg-[#ffffff] border-2 border-[#000000] flex flex-col gap-5 shadow-sm" data-reveal>
               <div className="border-b border-[#f1f1f1] pb-4">
                 <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1">
-                  Architecture & Data Flow
+                  Architecture &amp; Data Flow
                 </span>
                 <h3 className="text-xl font-bold text-[#000000]">
                   {project.architecture.title}
@@ -263,7 +282,7 @@ export default async function ProjectDetailPage({
           {project.keyDecisions && project.keyDecisions.length > 0 && (
             <section id="decisions" className="scroll-mt-28 flex flex-col gap-4" data-reveal="quiet">
               <h2 className="text-xl font-bold text-[#000000]">
-                Engineering Trade-Offs & Decisions
+                Engineering Trade-Offs &amp; Decisions
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" data-reveal-group>
                 {project.keyDecisions.map((kd, idx) => (
@@ -278,6 +297,38 @@ export default async function ProjectDetailPage({
                     <p className="text-xs text-[#555555] leading-relaxed">
                       {kd.rationale}
                     </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Standout Moments & Reflections */}
+          {project.standoutMoments && project.standoutMoments.length > 0 && (
+            <section id="standout-moments" className="scroll-mt-28 flex flex-col gap-4" data-reveal="quiet">
+              <div>
+                <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1">
+                  Reflections &amp; Standout Moments
+                </span>
+                <h2 className="text-2xl font-bold tracking-tight text-[#000000]">
+                  What I Learned From This Journey
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4" data-reveal-group>
+                {project.standoutMoments.map((sm, idx) => (
+                  <div
+                    key={idx}
+                    data-reveal="quiet"
+                    className="p-5 rounded-2xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col justify-between"
+                  >
+                    <div>
+                      <span className="text-xs font-mono font-bold text-[#000000] block mb-1.5">
+                        {sm.title}
+                      </span>
+                      <p className="text-xs text-[#555555] leading-relaxed">
+                        {sm.description}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>

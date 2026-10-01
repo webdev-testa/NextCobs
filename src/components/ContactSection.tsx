@@ -51,16 +51,22 @@ export function ContactSection() {
           
           {/* Left Column (7 cols) */}
           <div className="lg:col-span-7 flex flex-col">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#000000] text-[#ffffff] text-[11px] font-mono tracking-widest uppercase mb-6 self-start font-medium">
-              <span>Contact &bull; Let&apos;s Build</span>
+            <div className="flex items-center gap-2 mb-6 self-start">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#000000] text-[#ffffff] text-[11px] font-mono tracking-widest uppercase font-medium">
+                Let&apos;s Connect &bull; Get in Touch
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#ffffff] border border-[#bed68b] text-[11px] font-mono text-[#1ea64a] font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#1ea64a] animate-pulse" />
+                {DEVELOPER_INFO.availability}
+              </span>
             </div>
 
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#000000] leading-[1.08] mb-6">
-              Let&apos;s build something that makes the weight lighter.
+              Let&apos;s build something practical together.
             </h2>
 
             <p className="text-base sm:text-lg text-[#222222] leading-relaxed mb-8 max-w-xl">
-              Always open to discussing system architecture, lightweight tooling, or hard-fought boss encounters.
+              I help teams identify technical bottlenecks and develop effective, reliable software solutions. Whether you have an exciting project in mind, want to discuss systems architecture, or just want to say hi, feel free to reach out.
             </p>
 
             {/* Direct Links */}
@@ -74,17 +80,6 @@ export function ContactSection() {
               </button>
 
               <a
-                href={DEVELOPER_INFO.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit Ammar's GitHub Profile (opens in new tab)"
-                className="px-4 py-2.5 min-h-[44px] rounded-full bg-[#ffffff] border border-[#bed68b] text-xs font-semibold text-[#000000] hover:bg-[#f7f7f5] transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
-              >
-                <span>GitHub</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-
-              <a
                 href={DEVELOPER_INFO.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -92,6 +87,17 @@ export function ContactSection() {
                 className="px-4 py-2.5 min-h-[44px] rounded-full bg-[#ffffff] border border-[#bed68b] text-xs font-semibold text-[#000000] hover:bg-[#f7f7f5] transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
               >
                 <span>LinkedIn</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+
+              <a
+                href={DEVELOPER_INFO.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit Ammar's GitHub Profile (opens in new tab)"
+                className="px-4 py-2.5 min-h-[44px] rounded-full bg-[#ffffff] border border-[#bed68b] text-xs font-semibold text-[#000000] hover:bg-[#f7f7f5] transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
+              >
+                <span>GitHub</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
             </div>

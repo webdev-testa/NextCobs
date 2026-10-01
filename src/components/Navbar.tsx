@@ -34,8 +34,8 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
+    { label: "Case Studies", href: "/work", isActive: pathname.startsWith("/work") },
     { label: "Experience", href: "/#experience", isActive: false },
-    { label: "Work", href: "/work", isActive: pathname.startsWith("/work") },
     { label: "About", href: "/about", isActive: pathname === "/about" },
     { label: "Notes", href: "/notes", isActive: pathname.startsWith("/notes") },
     { label: "Pursuits", href: "/pursuits", isActive: pathname.startsWith("/pursuits") },
@@ -65,12 +65,12 @@ export function Navbar() {
               Ammardito Shafaat
             </span>
             <span className="text-[11px] font-mono text-[#5c5c5c] leading-none">
-              Software Engineer | AI & ML
+              {DEVELOPER_INFO.role}
             </span>
           </div>
         </Link>
 
-        {/* Clean Editorial Nav: Work, About, Notes */}
+        {/* Clean Editorial Nav */}
         <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-5">
           {navLinks.map((item) => (
             <Link
@@ -91,7 +91,7 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Right Actions: ↗ GitHub + Contact */}
+        {/* Right Actions: ↗ GitHub + Get in Touch */}
         <div className="hidden lg:flex items-center gap-5">
           <a
             href={DEVELOPER_INFO.github}
@@ -107,7 +107,7 @@ export function Navbar() {
             href="/#contact"
             className="px-4 py-2 rounded-full text-xs font-semibold text-[#ffffff] bg-[#000000] hover:bg-[#222222] active:scale-95 transition-all flex items-center gap-1.5 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
           >
-            <span>Contact</span>
+            <span>Get in Touch</span>
           </Link>
         </div>
 

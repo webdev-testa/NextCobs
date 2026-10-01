@@ -14,7 +14,7 @@ export function WhyIWorkSection() {
         <div className="flex items-center gap-2 mb-8">
           <span className="w-2 h-2 rounded-full bg-[#000000]" />
           <span className="text-[11px] font-mono tracking-widest uppercase text-[#555555] font-semibold">
-            Manifesto &bull; Core Philosophy
+            Philosophy &bull; How I Approach Work
           </span>
         </div>
 
@@ -38,7 +38,7 @@ export function WhyIWorkSection() {
                 href="/about"
                 className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#000000] hover:underline group"
               >
-                <span>Read the backstory on how I got here</span>
+                <span>Read the story on how I got here</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>

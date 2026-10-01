@@ -8,7 +8,7 @@ import { ArrowLeft, ArrowRight, Quote, ArrowUpRight } from "lucide-react";
 
 export const metadata = {
   title: "About — Ammardito Shafaat",
-  description: "How I Got Here: from studying Information Systems to machine learning and software engineering. I build things so other people can carry less.",
+  description: "How I Got Here: from Information Systems to machine learning and software engineering. I build practical software solutions so teams can carry less.",
 };
 
 export default function AboutPage() {
@@ -40,12 +40,12 @@ export default function AboutPage() {
           </h1>
 
           <p className="text-base sm:text-lg font-mono text-[#666666]">
-            By {DEVELOPER_INFO.name} &bull; Software Engineer 
+            By {DEVELOPER_INFO.name} &bull; {DEVELOPER_INFO.role}
           </p>
         </header>
 
         {/* Author Illustrated Bio Card */}
-        <section className="mb-12 p-6 sm:p-7 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col sm:flex-row items-center gap-6 sm:gap-8" data-reveal>
+        <section className="mb-8 p-6 sm:p-7 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col sm:flex-row items-center gap-6 sm:gap-8" data-reveal>
           <div className="shrink-0 flex flex-col items-center" data-reveal="photo">
             <div className="p-2.5 bg-[#ffffff] rounded-2xl border border-[#e6e6e6] shadow-sm transform -rotate-1 hover:rotate-0 transition-transform">
               <div className="relative w-36 sm:w-44 aspect-square rounded-xl overflow-hidden bg-[#ffffff]">
@@ -64,14 +64,21 @@ export default function AboutPage() {
           </div>
 
           <div className="flex flex-col justify-center text-center sm:text-left" data-reveal="quiet">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#666666] mb-1">
-              Field Notes &bull; Author
-            </span>
+            <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#666666]">
+                Software Engineer
+              </span>
+              <span className="text-[#cccccc]">&bull;</span>
+              <span className="inline-flex items-center gap-1 text-[11px] font-mono text-[#1ea64a] font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#1ea64a] animate-pulse" />
+                {DEVELOPER_INFO.availability}
+              </span>
+            </div>
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#000000] mb-2">
-              Building things so people can carry less.
+              Practical software solutions with a dash of creative spark.
             </h2>
             <p className="text-xs sm:text-sm text-[#444444] leading-relaxed mb-4 max-w-lg">
-              Software engineer focused on AI knowledge workflows, lightweight production systems, and physical endurance outside the terminal.
+              {DEVELOPER_INFO.bioIntro}
             </p>
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs font-mono">
               <span className="px-2.5 py-1 rounded-full bg-[#ffffff] border border-[#e6e6e6] text-[#333333]">
@@ -83,6 +90,33 @@ export default function AboutPage() {
               <span className="px-2.5 py-1 rounded-full bg-[#ffffff] border border-[#e6e6e6] text-[#333333]">
                 📖 Speculative Fiction
               </span>
+            </div>
+          </div>
+        </section>
+
+        {/* How I Can Help Block */}
+        <section className="mb-12 p-6 rounded-3xl bg-[#fafaf8] border border-[#e6e6e6]" data-reveal="quiet">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-2 h-2 rounded-full bg-[#1ea64a]" />
+            <span className="text-xs font-mono uppercase tracking-wider text-[#000000] font-bold">
+              How I Can Help
+            </span>
+          </div>
+          <p className="text-sm sm:text-base text-[#333333] leading-relaxed mb-4">
+            {DEVELOPER_INFO.howICanHelp}
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-[#ebebe8]">
+            <div className="p-3 rounded-xl bg-[#ffffff] border border-[#e6e6e6]">
+              <span className="text-xs font-mono font-bold text-[#000000] block mb-1">Out-of-the-Box Efficiency</span>
+              <p className="text-xs text-[#555555]">Cover 70% of needs with proven tools, polish the critical 30% that matters.</p>
+            </div>
+            <div className="p-3 rounded-xl bg-[#ffffff] border border-[#e6e6e6]">
+              <span className="text-xs font-mono font-bold text-[#000000] block mb-1">Done is Better Than Perfect</span>
+              <p className="text-xs text-[#555555]">Prioritise by impact, solve core bottlenecks, and iterate from real feedback.</p>
+            </div>
+            <div className="p-3 rounded-xl bg-[#ffffff] border border-[#e6e6e6]">
+              <span className="text-xs font-mono font-bold text-[#000000] block mb-1">For the Greater Good</span>
+              <p className="text-xs text-[#555555]">Choose pragmatic, maintainable architecture over fragile complexity.</p>
             </div>
           </div>
         </section>

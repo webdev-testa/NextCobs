@@ -29,17 +29,17 @@ export default function NotesIndexPage() {
         </div>
 
         {/* Page Header */}
-        <header className="mb-14 pb-8 border-b border-[#e6e6e6]" data-reveal>
+        <header className="mb-12 pb-8 border-b border-[#e6e6e6]" data-reveal>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#000000] text-[#ffffff] text-[11px] font-mono tracking-widest uppercase mb-4">
-            <span>NOTES & ESSAYS</span>
+            <span>FIELD NOTES &amp; ESSAYS</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-[#000000] leading-tight mb-3">
-            Field Notes
+            Notes &amp; Observations
           </h1>
 
           <p className="text-base sm:text-lg text-[#555555] max-w-2xl leading-relaxed">
-            Written observations from production. Lessons on zero-dollar infrastructures, hardware APIs, and why building simply is the hardest engineering discipline.
+            Honest insights from building production systems: zero-overhead architectures, hardware constraints, and why simplicity is the hardest part of engineering.
           </p>
         </header>
 

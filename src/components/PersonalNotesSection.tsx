@@ -13,8 +13,8 @@ import {
 } from "@/components/SketchIcons";
 
 export function PersonalNotesSection() {
-  const featuredNote = NOTES_DATA[0]; // The Zero-Dollar Backend
-  const secondaryNote = NOTES_DATA[2] || NOTES_DATA[1]; // Enterprise AI or Capacitor
+  const featuredNote = NOTES_DATA[0]; // Why I Work (Philosophy essay)
+  const secondaryNote = NOTES_DATA[1]; // The $0 Backend
 
   const getIcon = (icon: string) => {
     switch (icon) {
@@ -36,19 +36,19 @@ export function PersonalNotesSection() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 pb-6 border-b border-[#f1f1f1]">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 pb-6 border-b border-[#e6e6e6]">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="w-2 h-2 rounded-full bg-[#000000]" />
               <span className="text-[11px] font-mono uppercase tracking-widest text-[#555555] font-semibold">
-                Personal Material &bull; Field Notes & Living
+                Candid Thoughts &bull; Field Notes &amp; Reflections
               </span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#000000]">
               Notes &amp; Active Focus
             </h2>
             <p className="text-sm sm:text-base text-[#555555] mt-2 max-w-2xl">
-              Systems architecture essays, lightweight tools, and the offline pursuits that keep engineering sharp.
+              Candid write-ups on software systems, small utility tools, and the practical lessons learned from building things that last.
             </p>
           </div>
 
@@ -71,14 +71,17 @@ export function PersonalNotesSection() {
         </div>
 
         {/* 12-Column Unified Editorial Composition */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* Left Column (7 cols): Field Notes & Essays */}
           <div className="lg:col-span-7 flex flex-col gap-6" data-reveal-group>
-            <div className="flex items-center justify-between pb-2 border-b border-[#f1f1f1]">
-              <span className="text-xs font-mono uppercase tracking-wider text-[#555555] font-semibold">
-                Field Notes &bull; Published Writing
-              </span>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#000000]" />
+                <span className="text-xs font-mono uppercase tracking-wider text-[#333333] font-semibold">
+                  Field Notes &bull; Thoughts &amp; Essays
+                </span>
+              </div>
               <span className="text-xs font-mono text-[#888888]">Architecture &amp; Tools</span>
             </div>
 
@@ -92,7 +95,7 @@ export function PersonalNotesSection() {
                 <div className="flex items-center justify-between gap-2 mb-4">
                   <div className="flex items-center gap-2">
                     <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-[#dceeb1] text-[#000000] border border-[#bed68b]">
-                      Featured Essay
+                      Featured Note
                     </span>
                     <span className="text-xs font-mono text-[#555555]">
                       {featuredNote.date}
@@ -129,7 +132,7 @@ export function PersonalNotesSection() {
                   ))}
                 </div>
                 <span className="text-xs font-semibold text-[#000000] flex items-center gap-1">
-                  <span>Read essay</span> &rarr;
+                  <span>Read note</span> &rarr;
                 </span>
               </div>
             </Link>
@@ -176,7 +179,7 @@ export function PersonalNotesSection() {
                 href="/notes"
                 className="text-xs font-mono text-[#555555] hover:text-[#000000] hover:underline inline-flex items-center gap-1"
               >
-                <span>Browse all technical notes and essays &rarr;</span>
+                <span>Browse all field notes &amp; reflections &rarr;</span>
               </Link>
             </div>
           </div>
@@ -185,18 +188,18 @@ export function PersonalNotesSection() {
           <div className="lg:col-span-5 flex flex-col gap-6" data-reveal-group>
             
             {/* Active Focus Header */}
-            <div className="flex items-center justify-between pb-2 border-b border-[#f1f1f1]">
+            <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#1ea64a] animate-pulse" />
                 <span className="text-xs font-mono uppercase tracking-wider text-[#000000] font-semibold">
-                  Currently &bull; Active Focus
+                  Currently &bull; What I&apos;m Exploring
                 </span>
               </div>
               <span className="text-xs font-mono text-[#888888]">In Progress</span>
             </div>
 
             {/* Compact Focus Rows without bulky cards */}
-            <div className="divide-y divide-[#f1f1f1] rounded-2xl bg-[#fafaf8] border border-[#ecece8] p-4">
+            <div className="divide-y divide-[#f1f1f1] rounded-3xl bg-[#fafaf8] border border-[#e6e6e6] p-4 sm:p-5 shadow-2xs">
               {CURRENTLY_DATA.map((item, idx) => (
                 <div key={idx} className="py-3 first:pt-1 last:pb-1 flex items-start gap-3">
                   <div className="w-7 h-7 rounded-lg bg-[#ffffff] border border-[#e6e6e6] flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
@@ -218,7 +221,7 @@ export function PersonalNotesSection() {
             <div className="p-5 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6] shadow-xs relative group transition-all duration-300 hover:shadow-md">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[11px] font-mono uppercase tracking-wider text-[#555555] font-semibold">
-                  Artifact &bull; Pursuits &amp; Sketches
+                  Off-Screen &bull; Pursuits &amp; Sketches
                 </span>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#ffffff] border border-[#e6e6e6] text-[#555555]">
                   Ink Study
