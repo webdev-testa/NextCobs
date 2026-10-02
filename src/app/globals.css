@@ -319,4 +319,21 @@ button, summary { cursor: pointer; }
   .motion-ready [data-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
   .reading-progress-bar { animation: none; transform: scaleX(1); }
   .lightbox-backdrop, .lightbox-sheet, .lightbox-photo, .sticky-note, .sticky-note-new { animation: none !important; }
+  .animate-marquee { animation: none !important; }
 }
+
+/* Infinite Marquee Running Animation */
+@keyframes marquee {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+  will-change: transform;
+}
+

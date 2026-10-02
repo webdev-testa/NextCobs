@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { DEVELOPER_INFO } from "@/data/portfolioData";
 import { ArrowUpRight, Check, Copy, Send } from "lucide-react";
 import confetti from "canvas-confetti";
+import { MascotOwl } from "@/components/MascotOwl";
 
 export function ContactSection() {
   const [copied, setCopied] = useState(false);
@@ -45,7 +46,7 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="w-full bg-[#dceeb1] text-[#000000] py-20 sm:py-28 border-b border-[#bed68b]" data-reveal="quiet">
+    <section id="contact" className="w-full bg-[#dceeb1] text-[#000000] py-20 sm:py-28" data-reveal="quiet">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
@@ -108,7 +109,12 @@ export function ContactSection() {
           </div>
 
           {/* Right Column: Fast inquiry box (5 cols) */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 relative mt-14 lg:mt-0">
+            {/* Studio Owl Mascot — perched on top of the Quick Note card */}
+            <div className="absolute -top-[102px] sm:-top-[108px] -right-6 sm:-right-6 z-10 pointer-events-auto">
+              <MascotOwl mode="footer" />
+            </div>
+
             <form
               onSubmit={handleSendMessage}
               className="p-6 rounded-3xl bg-[#ffffff] border-2 border-[#bed68b] shadow-md flex flex-col gap-4"

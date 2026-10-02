@@ -5,7 +5,7 @@ import Link from "next/link";
 import { DEVELOPER_INFO } from "@/data/portfolioData";
 import { ArrowUpRight } from "lucide-react";
 
-export function Footer() {
+export function Footer({ className = "" }: { className?: string }) {
   const [time, setTime] = useState<string>("");
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="w-full bg-[#ffffff] text-[#000000] py-14 border-t border-[#e6e6e6]">
+    <footer className={`w-full bg-[#ffffff] text-[#000000] py-14 border-t relative ${className || "border-[#e6e6e6]"}`}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           {/* Brand & Monogram */}
@@ -90,7 +90,6 @@ export function Footer() {
 
         <div className="mt-8 pt-4 border-t border-[#f1f1f1] flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-mono text-[#666666]">
           <span>&copy; {new Date().getFullYear()} {DEVELOPER_INFO.name}. All rights reserved.</span>
-          <span className="italic">Practical software solutions with a dash of creative spark.</span>
         </div>
       </div>
     </footer>

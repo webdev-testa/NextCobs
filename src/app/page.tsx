@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
+import { PartnerMarquee } from "@/components/PartnerMarquee";
 import { SelectedWorkSection } from "@/components/SelectedWorkSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import { PersonalNotesSection } from "@/components/PersonalNotesSection";
@@ -16,6 +17,9 @@ export default function Home() {
       {/* Editorial Open Studio Hero with Tactile Note Cluster & Guglieri Headline */}
       <HeroSection />
 
+      {/* Partner Ecosystem Running Marquee: Partnering as a Full Stack Engineer & AI Systems Lead */}
+      <PartnerMarquee />
+
       {/* Selected Work: Exhibit with Hierarchy (LG SM Wiki Flagship + Paired Row + Supporting) */}
       <SelectedWorkSection />
 
@@ -29,7 +33,7 @@ export default function Home() {
       <ContactSection />
 
       {/* Footer */}
-      <Footer />
+      <Footer className="border-t border-[#bed68b]" />
     </main>
   );
 }

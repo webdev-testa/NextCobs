@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { MotionSystem } from "@/components/MotionSystem";
+import { ChatWidget } from "@/components/ChatAssistant";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -59,6 +60,7 @@ export default function RootLayout({
       <body className="font-sans bg-[#ffffff] text-[#000000] antialiased selection:bg-[#000000] selection:text-[#ffffff] min-h-screen flex flex-col">
         <MotionSystem />
         {children}
+        <ChatWidget />
       </body>
     </html>
   );

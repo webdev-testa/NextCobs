@@ -4,16 +4,21 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { DEVELOPER_INFO } from "@/data/portfolioData";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X, Sparkles } from "lucide-react";
+import { MascotOwl } from "@/components/MascotOwl";
 
 export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMac, setIsMac] = useState(false);
   const sentinel = useRef<HTMLDivElement>(null);
   const menuToggle = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
+    if (typeof navigator !== "undefined") {
+      setIsMac(/(Mac|iPhone|iPod|iPad)/i.test(navigator.userAgent || navigator.platform));
+    }
     const observer = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting));
     if (sentinel.current) observer.observe(sentinel.current);
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -91,8 +96,20 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Right Actions: ↗ GitHub + Get in Touch */}
-        <div className="hidden lg:flex items-center gap-5">
+        {/* Right Actions: Ask Owl + ↗ GitHub + Get in Touch */}
+        <div className="hidden lg:flex items-center gap-4">
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent("open-chat"))}
+            aria-label={isMac ? "Ask Owl (Cmd+K)" : "Ask Owl (Ctrl+K)"}
+            className="text-xs font-mono font-medium text-[#222222] hover:text-[#000000] transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#e6e6e6] hover:border-[#000000] bg-[#f7f7f5] hover:bg-[#ffffff] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000]"
+          >
+            <MascotOwl mode="icon" className="w-3.5 h-3.5 text-[#000000]" />
+            <span>Ask Owl</span>
+            <span className="text-[10px] text-[#777777] bg-[#e8e8e5] px-1 py-0.2 rounded font-mono">
+              {isMac ? "⌘K" : "Ctrl+K"}
+            </span>
+          </button>
+
           <a
             href={DEVELOPER_INFO.github}
             target="_blank"
@@ -153,6 +170,17 @@ export function Navbar() {
           ))}
 
           <div className="pt-2 flex flex-col gap-2.5">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                window.dispatchEvent(new CustomEvent("open-chat"));
+              }}
+              className="w-full py-2.5 rounded-full border border-[#000000] text-[#000000] bg-[#f7f7f5] text-xs font-semibold text-center flex items-center justify-center gap-2 active:scale-95 transition-transform"
+            >
+              <MascotOwl mode="icon" className="w-4 h-4 text-[#000000]" />
+              <span>Ask Owl (Studio Companion)</span>
+            </button>
+
             <a
               href={DEVELOPER_INFO.github}
               target="_blank"

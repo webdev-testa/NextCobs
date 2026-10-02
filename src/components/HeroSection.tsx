@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { DEVELOPER_INFO, INITIAL_STICKY_NOTES, StickyNote } from "@/data/portfolioData";
@@ -48,6 +48,28 @@ export function HeroSection() {
   const [newNoteRole, setNewNoteRole] = useState("");
   const [newNoteColor, setNewNoteColor] = useState<StickyNote["color"]>("lime");
   const [newNoteStamp, setNewNoteStamp] = useState<DoodleStampType>("sparkle");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadNotes() {
+      try {
+        const res = await fetch("/api/notes");
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data.success && Array.isArray(data.notes) && data.notes.length > 0) {
+            setStickyNotes(data.notes);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load notes from Turso:", err);
+      }
+    }
+    loadNotes();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleCancelNote = () => {
     setNewNoteContent("");
@@ -58,22 +80,42 @@ export function HeroSection() {
     setIsAddingNote(false);
   };
 
-  const handleLikeNote = (id: string, e?: React.MouseEvent) => {
+  const handleLikeNote = async (id: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
+
+    // Optimistic UI update
     setStickyNotes((prev) =>
       prev.map((note) => (note.id === id ? { ...note, likes: note.likes + 1 } : note))
     );
     if (activeNoteModal && activeNoteModal.id === id) {
       setActiveNoteModal((prev) => (prev ? { ...prev, likes: prev.likes + 1 } : null));
     }
+
+    try {
+      const res = await fetch(`/api/notes/${id}/like`, { method: "POST" });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && typeof data.likes === "number") {
+          setStickyNotes((prev) =>
+            prev.map((note) => (note.id === id ? { ...note, likes: data.likes } : note))
+          );
+          if (activeNoteModal && activeNoteModal.id === id) {
+            setActiveNoteModal((prev) => (prev ? { ...prev, likes: data.likes } : null));
+          }
+        }
+      }
+    } catch (err) {
+      console.error("Failed to persist note like to Turso:", err);
+    }
   };
 
-  const handleAddNote = (e: React.FormEvent) => {
+  const handleAddNote = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newNoteContent.trim()) return;
+    if (!newNoteContent.trim() || isSubmitting) return;
 
+    const tempId = `temp-${Date.now()}`;
     const newNote: StickyNote = {
-      id: `custom-${Date.now()}`,
+      id: tempId,
       author: newNoteAuthor.trim() || "Visitor",
       role: newNoteRole.trim() || "Guest Note",
       content: newNoteContent.trim(),
@@ -84,6 +126,7 @@ export function HeroSection() {
       stamp: newNoteStamp !== "none" ? newNoteStamp : undefined,
     };
 
+    // Optimistic UI update
     setStickyNotes((prev) => [newNote, ...prev]);
     setNewNoteContent("");
     setNewNoteAuthor("");
@@ -98,6 +141,35 @@ export function HeroSection() {
         origin: { y: 0.6 },
         colors: ["#dceeb1", "#c5b0f4", "#f3c9b6", "#c8e6cd", "#ff3d8b"],
       });
+    }
+
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/notes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          author: newNote.author,
+          role: newNote.role,
+          content: newNote.content,
+          color: newNote.color,
+          stamp: newNote.stamp,
+          rotation: newNote.rotation,
+        }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && data.note) {
+          setStickyNotes((prev) =>
+            prev.map((n) => (n.id === tempId ? data.note : n))
+          );
+        }
+      }
+    } catch (err) {
+      console.error("Failed to persist note to Turso:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
