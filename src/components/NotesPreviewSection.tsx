@@ -2,12 +2,11 @@
 
 import React from "react";
 import Link from "next/link";
-import { NOTES_DATA } from "@/data/portfolioData";
+import { getFeaturedNotes } from "@/lib/portfolio-catalog";
 import { ArrowRight, ArrowUpRight, BookOpen } from "lucide-react";
 
 export function NotesPreviewSection() {
-  // Take the first 2 published notes
-  const previewNotes = NOTES_DATA.filter((n) => !n.isDraft).slice(0, 2);
+  const previewNotes = getFeaturedNotes(2);
 
   return (
     <section className="w-full bg-[#ffffff] py-16 sm:py-20 border-b border-[#e6e6e6]">

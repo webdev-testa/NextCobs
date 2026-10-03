@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { DEVELOPER_INFO } from "@/data/portfolioData";
+import { getDeveloperProfile } from "@/lib/portfolio-catalog";
 import { ArrowUpRight } from "lucide-react";
 
 export function Footer({ className = "" }: { className?: string }) {
   const [time, setTime] = useState<string>("");
+  const dev = getDeveloperProfile();
 
   useEffect(() => {
     const updateTime = () => {
@@ -36,7 +37,7 @@ export function Footer({ className = "" }: { className?: string }) {
             </div>
             <div className="flex flex-col">
               <span className="font-semibold text-sm text-[#000000]">
-                {DEVELOPER_INFO.name}
+                {dev.name}
               </span>
               <span className="text-xs font-mono text-[#666666]">
                 Jakarta, ID &bull; {time || "00:00:00"} (UTC+7)
@@ -62,13 +63,13 @@ export function Footer({ className = "" }: { className?: string }) {
               Pursuits
             </Link>
             <a
-              href={`mailto:${DEVELOPER_INFO.email}`}
+              href={`mailto:${dev.email}`}
               className="hover:underline text-[#000000] transition-colors"
             >
               Email
             </a>
             <a
-              href={DEVELOPER_INFO.linkedin}
+              href={dev.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline text-[#000000] transition-colors flex items-center gap-0.5"
@@ -77,7 +78,7 @@ export function Footer({ className = "" }: { className?: string }) {
               <ArrowUpRight className="w-3 h-3" />
             </a>
             <a
-              href={DEVELOPER_INFO.github}
+              href={dev.github}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline text-[#000000] transition-colors flex items-center gap-0.5"
@@ -89,7 +90,7 @@ export function Footer({ className = "" }: { className?: string }) {
         </div>
 
         <div className="mt-8 pt-4 border-t border-[#f1f1f1] flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-mono text-[#666666]">
-          <span>&copy; {new Date().getFullYear()} {DEVELOPER_INFO.name}. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} {dev.name}. All rights reserved.</span>
         </div>
       </div>
     </footer>

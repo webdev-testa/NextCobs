@@ -1,0 +1,22 @@
+{
+  "workbench.editor.customLabels.enabled": true,
+  "workbench.editor.customLabels.patterns": {
+    "**/src/app/page.tsx": "Home Page (page.tsx)",
+    "**/src/app/about/page.tsx": "About Page (page.tsx)",
+    "**/src/app/work/page.tsx": "Work Index (page.tsx)",
+    "**/src/app/work/[slug]/page.tsx": "Project Detail [slug] (page.tsx)",
+    "**/src/app/notes/page.tsx": "Notes Index (page.tsx)",
+    "**/src/app/notes/[slug]/page.tsx": "Note Detail [slug] (page.tsx)",
+    "**/src/app/pursuits/page.tsx": "Pursuits Index (page.tsx)",
+    "**/src/app/pursuits/[slug]/page.tsx": "Pursuit Detail [slug] (page.tsx)",
+    "**/src/app/book-demo/page.tsx": "Book Demo (page.tsx)",
+    "**/src/app/layout.tsx": "Root Layout (layout.tsx)",
+    "**/src/app/api/chat/route.ts": "Chat API (route.ts)",
+    "**/src/app/api/notes/route.ts": "Notes API (route.ts)",
+    "**/src/app/api/notes/[id]/like/route.ts": "Note Likes API (route.ts)",
+    "**/src/app/**/page.tsx": "${dirname} (page.tsx)",
+    "**/src/app/**/route.ts": "${dirname} (route.ts)",
+    "**/src/app/**/layout.tsx": "${dirname} (layout.tsx)"
+  },
+  "workbench.editor.labelFormat": "short"
+}

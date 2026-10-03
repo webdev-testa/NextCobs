@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CURRENTLY_DATA, NOTES_DATA } from "@/data/portfolioData";
+import { getCurrentlyExploring, getFeaturedNotes } from "@/lib/portfolio-catalog";
 import { ArrowRight, ArrowUpRight, BookOpen } from "lucide-react";
 import {
   BookSketchIcon,
@@ -13,8 +13,8 @@ import {
 } from "@/components/SketchIcons";
 
 export function PersonalNotesSection() {
-  const featuredNote = NOTES_DATA[0]; // Why I Work (Philosophy essay)
-  const secondaryNote = NOTES_DATA[1]; // The $0 Backend
+  const [featuredNote, secondaryNote] = getFeaturedNotes(2);
+  const currentlyData = getCurrentlyExploring();
 
   const getIcon = (icon: string) => {
     switch (icon) {
@@ -200,7 +200,7 @@ export function PersonalNotesSection() {
 
             {/* Compact Focus Rows without bulky cards */}
             <div className="divide-y divide-[#f1f1f1] rounded-3xl bg-[#fafaf8] border border-[#e6e6e6] p-4 sm:p-5 shadow-2xs">
-              {CURRENTLY_DATA.map((item, idx) => (
+              {currentlyData.map((item, idx) => (
                 <div key={idx} className="py-3 first:pt-1 last:pb-1 flex items-start gap-3">
                   <div className="w-7 h-7 rounded-lg bg-[#ffffff] border border-[#e6e6e6] flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
                     {getIcon(item.icon)}

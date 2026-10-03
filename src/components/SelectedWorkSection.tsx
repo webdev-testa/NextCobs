@@ -2,14 +2,11 @@
 
 import React from "react";
 import Link from "next/link";
-import { PROJECTS_DATA } from "@/data/portfolioData";
+import { getSelectedFlagshipProjects } from "@/lib/portfolio-catalog";
 import { ArrowRight, ArrowUpRight, CheckCircle2, Cpu, Database, MapPin, ShieldCheck, Terminal } from "lucide-react";
 
 export function SelectedWorkSection() {
-  const lgSmWiki = PROJECTS_DATA.find((p) => p.slug === "lg-sm-wiki") || PROJECTS_DATA[0];
-  const drMeoww = PROJECTS_DATA.find((p) => p.slug === "dr-meoww") || PROJECTS_DATA[1];
-  const byGewa = PROJECTS_DATA.find((p) => p.slug === "bygewa") || PROJECTS_DATA[2];
-  const fleetMetrics = PROJECTS_DATA.find((p) => p.slug === "automated-fleet-metrics") || PROJECTS_DATA[3];
+  const { lgSmWiki, drMeoww, byGewa, fleetMetrics } = getSelectedFlagshipProjects();
 
   return (
     <section id="selected-work" className="scroll-mt-20 w-full bg-[#ffffff] py-16 sm:py-24 border-b border-[#e6e6e6]">

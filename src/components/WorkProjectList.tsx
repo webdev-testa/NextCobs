@@ -3,9 +3,9 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, CheckCircle2, Cpu, ShieldAlert, Wrench } from "lucide-react";
-import { PROJECTS_DATA, Project } from "@/data/portfolioData";
+import { getProjectCategories, getProjectsByCategory, Project } from "@/lib/portfolio-catalog";
 
-const filters = ["All", ...Array.from(new Set(PROJECTS_DATA.map((project) => project.category)))] as const;
+const filters = getProjectCategories();
 
 function pillColor(color: Project["colorBlock"]) {
   const colors: Record<Project["colorBlock"], string> = {
@@ -18,8 +18,8 @@ function pillColor(color: Project["colorBlock"]) {
 }
 
 export function WorkProjectList() {
-  const [filter, setFilter] = useState<(typeof filters)[number]>("All");
-  const projects = useMemo(() => filter === "All" ? PROJECTS_DATA : PROJECTS_DATA.filter((project) => project.category === filter), [filter]);
+  const [filter, setFilter] = useState<string>("All");
+  const projects = useMemo(() => getProjectsByCategory(filter), [filter]);
 
   return (
     <section className="mb-20" aria-labelledby="work-filter-label">
