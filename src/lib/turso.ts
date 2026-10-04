@@ -93,7 +93,26 @@ export async function createStickyNote(note: {
 }): Promise<StickyNote> {
   await ensureTableInitialized();
 
-  const id = `custom-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
+  // Query existing IDs to generate the next clean sequential ID (e.g. note-5, note-6)
+  const existingRows = await db.execute("SELECT id FROM sticky_notes;");
+  let maxNum = 0;
+  const existingIds = new Set<string>();
+
+  for (const row of existingRows.rows) {
+    const rawId = String(row.id || "");
+    existingIds.add(rawId);
+    const match = rawId.match(/^note-(\d+)$/i);
+    if (match) {
+      const num = parseInt(match[1], 10);
+      if (num > maxNum) maxNum = num;
+    }
+  }
+
+  let nextNum = maxNum > 0 ? maxNum + 1 : existingRows.rows.length + 1;
+  while (existingIds.has(`note-${nextNum}`)) {
+    nextNum++;
+  }
+  const id = `note-${nextNum}`;
   const rotation = typeof note.rotation === "number" ? note.rotation : Math.random() * 4 - 2;
   const tag = "Community";
   const likes = 1;

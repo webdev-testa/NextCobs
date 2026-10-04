@@ -29,6 +29,7 @@ interface Message {
   content: string;
   modelUsed?: string;
   isFallback?: boolean;
+  isQuotaExhausted?: boolean;
   timestamp: string;
 }
 
@@ -296,6 +297,7 @@ export function ChatWidget() {
   const [isLoading, setIsLoading] = useState(false);
   const [activeModel, setActiveModel] = useState<string | null>(null);
   const [fallbackNote, setFallbackNote] = useState<string | null>(null);
+  const [isQuotaExhausted, setIsQuotaExhausted] = useState(false);
 
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -389,12 +391,17 @@ export function ChatWidget() {
       const data = await response.json();
 
       if (data.success) {
+        if (data.isQuotaExhausted) {
+          setIsQuotaExhausted(true);
+        }
+
         const assistantMessage: Message = {
           id: `assistant-${Date.now()}`,
           role: "assistant",
           content: data.message,
           modelUsed: data.modelUsed,
           isFallback: data.fallbackOccurred,
+          isQuotaExhausted: data.isQuotaExhausted,
           timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         };
 
@@ -437,8 +444,11 @@ export function ChatWidget() {
       {
         id: "cleared-welcome",
         role: "assistant",
-        content: "Chat history cleared! Soren is ready for your next question 🦉",
-        modelUsed: "ready",
+        content: isQuotaExhausted
+          ? "Hoo! My live AI is resting for today after reaching daily quota 🦉 But ask me about Dito's case studies, tech stack, or contact info and I will pull right from local archives!"
+          : "Chat history cleared! Soren is ready for your next question 🦉",
+        modelUsed: isQuotaExhausted ? "offline-quota-limit" : "ready",
+        isQuotaExhausted,
         timestamp: "Just now",
       },
     ]);
@@ -471,13 +481,25 @@ export function ChatWidget() {
                     <span className="font-semibold text-xs tracking-tight text-[#ffffff] truncate">
                       Soren
                     </span>
-                    <span className="inline-flex items-center gap-1 text-[10px] font-mono bg-[#ffffff]/15 text-[#ffffff] px-1.5 py-0.5 rounded-xs">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#1ea64a] animate-pulse" />
-                      Companion
-                    </span>
+                    {isQuotaExhausted ? (
+                      <span
+                        className="inline-flex items-center gap-1 text-[10px] font-mono bg-[#b45309]/30 text-[#fde68a] border border-[#f59e0b]/40 px-1.5 py-0.5 rounded-xs"
+                        title="Daily AI model limit reached. Live generation is resting until tomorrow."
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#f59e0b]" />
+                        Resting for Today
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-[10px] font-mono bg-[#ffffff]/15 text-[#ffffff] px-1.5 py-0.5 rounded-xs">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#1ea64a] animate-pulse" />
+                        Companion
+                      </span>
+                    )}
                   </div>
                   <span className="text-[10px] font-mono text-[#bbbbbb] truncate">
-                    Dito&apos;s Studio Companion
+                    {isQuotaExhausted
+                      ? "Daily Limit Reached • Offline Archive"
+                      : "Dito's Studio Companion"}
                   </span>
                 </div>
               </div>
@@ -555,6 +577,11 @@ export function ChatWidget() {
                           <div className="mt-2.5 pt-2 border-t border-[#e8e8e5] flex items-center justify-between text-[10px] font-mono text-[#777777]">
                             <div className="flex items-center gap-1.5">
                               <span className="font-sans font-medium text-[#555555]">Soren</span>
+                              {msg.isQuotaExhausted && (
+                                <span className="text-[9px] font-mono px-1.5 py-0.5 bg-[#fef3c7] text-[#92400e] rounded border border-[#fde68a]">
+                                  Offline Archive
+                                </span>
+                              )}
                               <span>•</span>
                               <span>{msg.timestamp}</span>
                             </div>
@@ -624,6 +651,15 @@ export function ChatWidget() {
 
                 {/* Input Area */}
                 <footer className="shrink-0 p-3 bg-[#ffffff] border-t border-[#f1f1f1]">
+                  {isQuotaExhausted && (
+                    <div className="mb-2 px-2.5 py-1.5 rounded-lg bg-[#fffbeb] border border-[#fde68a] text-[#92400e] text-[11px] flex items-center gap-1.5 select-none animate-in fade-in duration-200">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0 text-[#d97706]" />
+                      <span className="flex-1 font-sans">
+                        Daily AI limit reached. Soren is currently answering from local project archives.
+                      </span>
+                    </div>
+                  )}
+
                   <form
                     onSubmit={(e) => {
                       e.preventDefault();
@@ -641,7 +677,11 @@ export function ChatWidget() {
                           handleSendMessage();
                         }
                       }}
-                      placeholder="Type here to ask..."
+                      placeholder={
+                        isQuotaExhausted
+                          ? "Ask about Dr. Meoww, LG Wiki, tech stack, or contact..."
+                          : "Type here to ask..."
+                      }
                       rows={1}
                       disabled={isLoading}
                       className="w-full resize-none bg-[#f7f7f5] hover:bg-[#f2f2ef] focus:bg-[#ffffff] text-[#000000] placeholder:text-[#888888] text-xs sm:text-sm rounded-xl py-2.5 pl-3.5 pr-12 border border-[#e6e6e6] focus:border-[#000000] focus:outline-hidden focus:ring-1 focus:ring-[#000000] transition-all max-h-24 overflow-y-auto leading-normal"

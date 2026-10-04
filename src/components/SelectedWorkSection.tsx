@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { getSelectedFlagshipProjects } from "@/lib/portfolio-catalog";
 import { ProductShowcase } from "@/components/ProductShowcase";
+import { ProjectPreview } from "@/components/ProjectPreview";
 import { ArrowRight } from "lucide-react";
 
 export function SelectedWorkSection() {
@@ -41,7 +42,7 @@ export function SelectedWorkSection() {
               <Link href={`/work/${lgSmWiki.slug}`} className="inline-flex min-h-11 items-center gap-2 mt-4 text-sm font-semibold hover:underline underline-offset-4">View full case study <ArrowRight size={16} aria-hidden="true" /></Link>
             </div>
             <div className="lg:col-span-7">
-              <ProductShowcase src={lgSmWiki.heroImage || "/images/projects/lg-sm-wiki.svg"} alt={lgSmWiki.title} type="minimal" caption="Illustrative preview · Company knowledge search" />
+              <ProjectPreview project={lgSmWiki} />
             </div>
           </div>
         </article>
@@ -54,7 +55,7 @@ export function SelectedWorkSection() {
               </div>
               <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight"><Link href={`/work/${project.slug}`} className="hover:underline underline-offset-4">{project.title}</Link></h3>
               <p className="text-base leading-relaxed text-[#514959] mt-3 mb-6">{project.subtitle}</p>
-              <ProductShowcase src={project.heroImage || `/images/projects/${project.slug}.svg`} alt={project.title} type="minimal" caption="Illustrative product preview" />
+              <ProjectPreview project={project} />
               <p className="text-base leading-relaxed mt-6">{project.summary}</p>
               <p className="text-sm font-semibold leading-relaxed mt-5">{project.framework.result}</p>
               <div className="mt-auto pt-4">

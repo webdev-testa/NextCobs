@@ -20,7 +20,7 @@ export function HomeView() {
       {/* Partner Ecosystem Running Marquee: Partnering as a Full Stack Engineer & AI Systems Lead */}
       <PartnerMarquee />
 
-      {/* Selected Work: Exhibit with Hierarchy (LG SM Wiki Flagship + Paired Row + Supporting) */}
+      {/* Selected Work: Exhibit with Hierarchy (Company Wiki Flagship + Paired Row + Supporting) */}
       <SelectedWorkSection />
 
       {/* Experience: Quiet Reading Interval */}

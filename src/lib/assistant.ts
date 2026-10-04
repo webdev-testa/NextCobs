@@ -17,6 +17,8 @@ export interface AssistantResponse {
   modelUsed: string;
   fallbackOccurred: boolean;
   isOfflineDemo?: boolean;
+  isQuotaExhausted?: boolean;
+  quotaResetNote?: string;
   error?: string;
   attemptedModels?: { model: string; error?: string }[];
 }
@@ -39,19 +41,14 @@ export interface AiProvider {
 
 /**
  * Default fallback models for Google AI Studio free-tier cascade
+ * Prioritizes active, officially available Gemini production models.
  */
 export const DEFAULT_FALLBACK_MODELS = [
-  "gemini-3.8-flash",
-  "gemini-3.7-flash",
-  "gemini-3.6-flash",
-  "gemini-3.5-flash-lite",
-  "gemini-3.5-flash",
-  "gemini-3.1-flash-lite",
-  "gemini-3-flash",
-  "gemini-3.0-flash",
   "gemini-2.5-flash",
   "gemini-2.0-flash",
   "gemini-1.5-flash",
+  "gemini-2.0-flash-lite",
+  "gemini-1.5-flash-8b",
 ];
 
 /**
@@ -154,10 +151,33 @@ export class GoogleAiStudioAdapter implements AiProvider {
   }
 }
 
+// In-memory circuit breaker state for rate limits and daily quota exhaustion
+let quotaExhaustedUntil = 0;
+let lastQuotaReason = "";
+
+export function isQuotaCircuitBreakerActive(): boolean {
+  return Date.now() < quotaExhaustedUntil;
+}
+
+export function tripQuotaCircuitBreaker(reason: string, durationMs = 30 * 60 * 1000): void {
+  quotaExhaustedUntil = Date.now() + durationMs;
+  lastQuotaReason = reason;
+}
+
+export function resetQuotaCircuitBreaker(): void {
+  quotaExhaustedUntil = 0;
+  lastQuotaReason = "";
+}
+
+export function getQuotaResetRemainingSeconds(): number {
+  if (!isQuotaCircuitBreakerActive()) return 0;
+  return Math.max(0, Math.ceil((quotaExhaustedUntil - Date.now()) / 1000));
+}
+
 /**
- * Offline Fallback Matcher
+ * Match a user prompt to a specific project or topic summary from offline catalog
  */
-export function getOfflineAnswer(prompt: string): string {
+export function getOfflineProjectSummary(prompt: string): string | null {
   const p = prompt.toLowerCase();
   const dev = getDeveloperProfile();
 
@@ -208,6 +228,16 @@ Explore his work in depth: [Featured Case Studies →](/work) · [Technical Fiel
 You can also use the [Direct Inquiry Form](/#contact) or [Download Résumé (PDF)](/resume.pdf)!`;
   }
 
+  return null;
+}
+
+/**
+ * Offline Fallback Matcher (general fallback when API key is missing or offline mode)
+ */
+export function getOfflineAnswer(prompt: string): string {
+  const matched = getOfflineProjectSummary(prompt);
+  if (matched) return matched;
+
   return `Hoo! I'm Soren, Dito's studio companion 🦉 Dito is a Software Engineer & AI Systems Lead based in Jakarta who specializes in building high-leverage full-stack and intelligent systems.
 
 Here are a few things you can ask me about:
@@ -217,6 +247,41 @@ Here are a few things you can ask me about:
 - **[Skills & Tech Stack](/work)**: TypeScript, Next.js, Java Spring Boot, Python, Vector DBs
 - **[Engineering Notes & Essays](/notes)**: Architecture essays & deep dives
 - **[Contact & Availability](/#contact)**: Dito's availability and contact details`;
+}
+
+/**
+ * In-character Quota Exhausted / Down for Today response
+ */
+export function getQuotaExhaustedAnswer(prompt: string): string {
+  const matched = getOfflineProjectSummary(prompt);
+  const dev = getDeveloperProfile();
+
+  if (matched) {
+    return `🦉 **Daily AI Limit Reached (Offline Archive Mode)**
+My live generative model has hit its daily API quota and is resting for today. However, I have local project archives ready for you:
+
+${matched}
+
+---
+*Live AI will resume tomorrow. You can also explore [All Case Studies](/work) or [Contact Dito Directly](/#contact).*`;
+  }
+
+  return `Hoo! I've reached my daily AI thinking quota for today 🦉
+
+My live neural model has reached its daily free-tier message limit and is currently resting until tomorrow's reset.
+
+While I can't generate custom answers right now, everything across Dito's portfolio is available to explore:
+
+- **[Selected Case Studies](/work)**: Deep architecture breakdowns of the [LG Sinar Mas AI Wiki](/work/lg-sm-wiki), [Dr. Meoww ERP](/work/dr-meoww), and [byGewa Florist](/work/bygewa)
+- **[Technical Field Notes](/notes)**: Essays on zero-dollar backends, Capacitor webview patterns, and enterprise AI chunking
+- **[About Dito](/about)**: Background, engineering philosophy, and experience
+- **[Download Résumé (PDF)](/resume.pdf)**: Complete technical background & career history
+
+### Need to get in touch directly?
+Dito is actively open to new engineering and consulting opportunities:
+- **Email**: \`${dev.email}\`
+- **Inquiry Form**: [Leave a note on the Contact Form](/#contact)
+- **LinkedIn**: [LinkedIn Profile](${dev.linkedin})`;
 }
 
 /**
@@ -362,6 +427,21 @@ export async function askStudioAssistant(
     };
   }
 
+  // Check circuit breaker first before making any network calls
+  if (isQuotaCircuitBreakerActive()) {
+    const remainingSeconds = getQuotaResetRemainingSeconds();
+    const remainingMinutes = Math.max(1, Math.ceil(remainingSeconds / 60));
+    return {
+      success: true,
+      message: getQuotaExhaustedAnswer(latestUserMessage),
+      modelUsed: "offline-quota-limit",
+      fallbackOccurred: true,
+      isOfflineDemo: true,
+      isQuotaExhausted: true,
+      quotaResetNote: `Daily AI model limit reached. Live generation is paused (cooling down for ~${remainingMinutes} min).`,
+    };
+  }
+
   // If live provider is configured, try it across the seam
   if (activeProvider instanceof GoogleAiStudioAdapter && !activeProvider.isConfigured()) {
     return {
@@ -370,6 +450,7 @@ export async function askStudioAssistant(
       modelUsed: DEFAULT_FALLBACK_MODELS[0],
       fallbackOccurred: false,
       isOfflineDemo: true,
+      isQuotaExhausted: false,
     };
   }
 
@@ -382,17 +463,53 @@ export async function askStudioAssistant(
       message: result.text,
       modelUsed: result.modelUsed,
       fallbackOccurred: result.fallbackOccurred,
+      isQuotaExhausted: false,
       attemptedModels: result.attemptedModels,
     };
   } catch (error: any) {
-    // Graceful offline fallback on provider failure
+    const errorStr = (error?.message || "").toLowerCase();
+    const isQuota =
+      errorStr.includes("429") ||
+      errorStr.includes("resource_exhausted") ||
+      errorStr.includes("quota") ||
+      errorStr.includes("rate limit") ||
+      errorStr.includes("limit exceeded") ||
+      errorStr.includes("exhausted");
+
+    if (isQuota) {
+      // Determine if it mentions daily vs short-term rate limit
+      const isDaily =
+        errorStr.includes("day") ||
+        errorStr.includes("daily") ||
+        errorStr.includes("quota exceeded");
+      
+      // Trip circuit breaker: 1 hour if daily quota, 5 minutes if short rate limit
+      const durationMs = isDaily ? 60 * 60 * 1000 : 5 * 60 * 1000;
+      tripQuotaCircuitBreaker(error?.message || "Quota exceeded", durationMs);
+
+      console.warn("[Studio Assistant] Daily AI quota exhausted, tripped circuit breaker:", error?.message);
+
+      return {
+        success: true,
+        message: getQuotaExhaustedAnswer(latestUserMessage),
+        modelUsed: "offline-quota-limit",
+        fallbackOccurred: true,
+        isOfflineDemo: true,
+        isQuotaExhausted: true,
+        quotaResetNote: "Daily AI model limit reached. Live generation is resting until tomorrow.",
+        error: error?.message,
+      };
+    }
+
+    // Graceful offline fallback on other provider failures (e.g., network disconnect)
     console.warn("[Studio Assistant] Falling back to offline matcher:", error?.message || error);
     return {
       success: true,
       message: getOfflineAnswer(latestUserMessage),
-      modelUsed: DEFAULT_FALLBACK_MODELS[0],
+      modelUsed: DEFAULT_FALLBACK_MODELS[0] || "offline",
       fallbackOccurred: true,
       isOfflineDemo: true,
+      isQuotaExhausted: false,
       error: error?.message,
     };
   }

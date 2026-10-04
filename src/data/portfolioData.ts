@@ -10,6 +10,7 @@ export interface ProjectScreenshot {
   alt: string;
   caption?: string;
   title?: string;
+  aspectRatio?: number;
 }
 
 export interface Project {
@@ -27,6 +28,7 @@ export interface Project {
   bgHex: string;
   heroImage?: string;
   screenshots?: ProjectScreenshot[];
+  previewCount?: number;
   framework: CaseStudyFramework;
   overview: string;
   problem: string;
@@ -339,7 +341,7 @@ export const ABOUT_ESSAY = {
 export const PROJECTS_DATA: Project[] = [
   {
     slug: "lg-sm-wiki",
-    title: "LG SM Wiki",
+    title: "Company Wiki",
     category: "AI & Enterprise",
     subtitle: "An internal AI search tool for company policies and everyday HR questions",
     summary:
@@ -351,13 +353,21 @@ export const PROJECTS_DATA: Project[] = [
     featured: true,
     colorBlock: "mint",
     bgHex: "#c8e6cd",
-    heroImage: "/images/projects/lg-sm-wiki.svg",
+    heroImage: "/images/projects/chat.png",
     screenshots: [
       {
-        src: "/images/projects/lg-sm-wiki.svg",
-        alt: "LG SM Wiki Chat Interface",
+        src: "/images/projects/chat.png",
+        alt: "Company Wiki chat with source-grounded answers",
+        aspectRatio: 1908 / 925,
         title: "Verified Policy Search",
         caption: "Ask a normal question and get an answer linked back to the exact company document.",
+      },
+      {
+        src: "/images/projects/graph fix.png",
+        alt: "Company Wiki knowledge graph connecting company documents and topics",
+        title: "Knowledge Graph",
+        caption: "Explore the connections between documents, departments, and related topics.",
+        aspectRatio: 1912 / 916,
       },
     ],
     framework: {
@@ -440,7 +450,7 @@ export const PROJECTS_DATA: Project[] = [
     slug: "dr-meoww",
     title: "Dr. Meoww",
     category: "Full Stack & Mobile",
-    subtitle: "A clinic tablet app for attendance, patient records, inventory, and payroll",
+    subtitle: "A desktop admin workspace and employee mobile app for clinic operations",
     summary:
       "The clinic was running patient records, stock, attendance, and payroll through paper notebooks and manual calculations. I built a tablet app that puts those workflows in one place without adding a monthly server bill.",
     year: "2026",
@@ -450,13 +460,59 @@ export const PROJECTS_DATA: Project[] = [
     featured: true,
     colorBlock: "lilac",
     bgHex: "#c5b0f4",
-    heroImage: "/images/projects/dr-meoww.svg",
+    heroImage: "/images/projects/Dr. Meow/check absen karyawan.png",
+    previewCount: 3,
     screenshots: [
       {
-        src: "/images/projects/dr-meoww.svg",
-        alt: "Dr. Meoww Clinic Dashboard",
-        title: "Clinic & Patient Queue",
-        caption: "Patient queue, medicine stock, and staff attendance in one screen.",
+        src: "/images/projects/Dr. Meow/check absen karyawan.png",
+        alt: "Dr. Meoww desktop admin attendance dashboard and location map",
+        title: "Desktop Admin · Attendance",
+        caption: "Desktop admin · Review employee attendance and check-in locations.",
+        aspectRatio: 1920 / 869,
+      },
+      {
+        src: "/images/projects/Dr. Meow/home page absen karyawan.jpeg",
+        alt: "Dr. Meoww employee mobile attendance home screen",
+        title: "Employee Mobile · Home",
+        caption: "Employee mobile · Clock in and review attendance from the home screen.",
+        aspectRatio: 746 / 1599,
+      },
+      {
+        src: "/images/projects/Dr. Meow/maps see location.jpeg",
+        alt: "Dr. Meoww employee mobile check-in confirmation with photo, location map, and branch distance validation",
+        title: "Employee Mobile · Check-in Location",
+        caption: "Employee mobile · Confirm the check-in photo and location, with a warning when outside the branch area.",
+        aspectRatio: 746 / 1599,
+      },
+      {
+        src: "/images/projects/Dr. Meow/grooming admin.png",
+        alt: "Dr. Meoww desktop grooming packages and services management",
+        caption: "Desktop admin · Manage grooming packages and services.",
+        aspectRatio: 1920 / 869,
+      },
+      {
+        src: "/images/projects/Dr. Meow/karyawan.png",
+        alt: "Dr. Meoww desktop employee management dashboard",
+        caption: "Desktop admin · Manage clinic staff and employee records.",
+        aspectRatio: 1920 / 869,
+      },
+      {
+        src: "/images/projects/Dr. Meow/cat grooming management.jpeg",
+        alt: "Dr. Meoww employee mobile grooming appointments",
+        caption: "Employee mobile · Track grooming appointments and their progress.",
+        aspectRatio: 746 / 1599,
+      },
+      {
+        src: "/images/projects/Dr. Meow/cat hotel.jpeg",
+        alt: "Dr. Meoww employee mobile cat hotel stays",
+        caption: "Employee mobile · Review cats staying at the clinic and upcoming check-outs.",
+        aspectRatio: 746 / 1599,
+      },
+      {
+        src: "/images/projects/Dr. Meow/kasbon.jpeg",
+        alt: "Dr. Meoww employee mobile cash advance request",
+        caption: "Employee mobile · Submit a cash advance request and check its status.",
+        aspectRatio: 746 / 1599,
       },
     ],
     framework: {
@@ -546,13 +602,44 @@ export async function verifyClinicClockIn(clinicCoords: { lat: number; lng: numb
     featured: true,
     colorBlock: "lime",
     bgHex: "#dceeb1",
-    heroImage: "/images/projects/bygewa.svg",
+    heroImage: "/images/projects/gewa/multiple products.jpeg",
+    previewCount: 3,
     screenshots: [
       {
-        src: "/images/projects/bygewa.svg",
-        alt: "byGewa Ordering & Google Sheets Webhook",
-        title: "Order Flow & Packing Slip",
-        caption: "The customer places an order, delivery is calculated, and the order appears in the owner's Sheet ready to process.",
+        src: "/images/projects/gewa/multiple products.jpeg",
+        alt: "byGewa form with bouquet and floral product selection",
+        caption: "Choose a product · Pick the type of floral arrangement.",
+        aspectRatio: 746 / 1599,
+      },
+      {
+        src: "/images/projects/gewa/different flow for different product type.jpeg",
+        alt: "byGewa custom floral arrangement details and color choices",
+        caption: "Make it yours · Set the size, colors, and arrangement details.",
+        aspectRatio: 746 / 1599,
+      },
+      {
+        src: "/images/projects/gewa/autocomplete and move pin maps.jpeg",
+        alt: "byGewa delivery form with address search and movable map pin",
+        caption: "Set delivery · Search for an address and adjust the map pin.",
+        aspectRatio: 746 / 1599,
+      },
+      {
+        src: "/images/projects/gewa/can bulk order different products at once.jpeg",
+        alt: "byGewa form for ordering several floral products at once",
+        caption: "Add more · Order different products in a single request.",
+        aspectRatio: 746 / 1599,
+      },
+      {
+        src: "/images/projects/gewa/upload inspiration image.jpeg",
+        alt: "byGewa form with an inspiration image upload",
+        caption: "Share a reference · Upload an inspiration image for the arrangement.",
+        aspectRatio: 746 / 1599,
+      },
+      {
+        src: "/images/projects/gewa/edit detail before finaling order.jpeg",
+        alt: "byGewa order review screen before submitting",
+        caption: "Review the order · Check and edit the details before submitting.",
+        aspectRatio: 746 / 1599,
       },
     ],
     framework: {

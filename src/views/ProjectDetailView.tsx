@@ -8,6 +8,7 @@ import { BackButton } from "@/components/BackButton";
 import { CodeSnippet } from "@/components/CodeSnippet";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { ProductShowcase } from "@/components/ProductShowcase";
+import { ProjectPreview } from "@/components/ProjectPreview";
 import {
   ArrowLeft,
   ArrowRight,
@@ -132,16 +133,7 @@ export async function ProjectDetailView({
 
           {/* Primary Product Hero Showcase */}
           <section id="showcase" className="w-full scroll-mt-28" data-reveal>
-            <ProductShowcase
-              src={project.heroImage || `/images/projects/${project.slug}.svg`}
-              alt={`${project.title} Interface Showcase`}
-              url={`${project.slug}.app`}
-              badge={project.category}
-              aspectRatio="video"
-              type="browser"
-              caption={`${project.title} &bull; Main Interface &bull; ${project.role}`}
-              priority
-            />
+            <ProjectPreview project={project} priority />
           </section>
 
           <ReadingProgress items={[
@@ -293,7 +285,7 @@ export async function ProjectDetailView({
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 items-start">
               {(project.screenshots && project.screenshots.length > 0
                 ? project.screenshots
                 : [
@@ -302,16 +294,19 @@ export async function ProjectDetailView({
                       alt: `${project.title} Screen`,
                       title: "Core Workflow",
                       caption: `${project.title} user interface and primary controls.`,
+                      aspectRatio: 1.6,
                     },
                   ]
               ).map((shot, idx) => (
-                <div key={idx} className="flex flex-col gap-2">
+                <div key={idx} className={`flex flex-col gap-2 ${!shot.aspectRatio || shot.aspectRatio > 1 ? "sm:col-span-2 lg:col-span-3" : "w-full max-w-[280px] mx-auto"}`}>
                   <ProductShowcase
                     src={shot.src}
                     alt={shot.alt}
                     url={`${project.slug}.app`}
-                    type="browser"
+                    type="minimal"
                     aspectRatio="video"
+                    imageAspectRatio={shot.aspectRatio}
+                    sizes={shot.aspectRatio && shot.aspectRatio < 1 ? "(max-width: 639px) 80vw, 280px" : "(max-width: 1023px) 90vw, 1200px"}
                     caption={shot.caption || shot.title}
                   />
                 </div>

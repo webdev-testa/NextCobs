@@ -12,6 +12,8 @@ export interface ProductShowcaseProps {
   badge?: string;
   className?: string;
   aspectRatio?: "video" | "wide" | "tall" | "auto";
+  imageAspectRatio?: number;
+  sizes?: string;
   type?: "browser" | "tablet" | "minimal";
   caption?: string;
   priority?: boolean;
@@ -29,6 +31,8 @@ export function ProductShowcase({
   badge,
   className = "",
   aspectRatio = "video",
+  imageAspectRatio,
+  sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px",
   type = "browser",
   caption,
   priority = false,
@@ -83,14 +87,14 @@ export function ProductShowcase({
           )}
 
           {/* Screenshot Media Canvas */}
-          <div className={`relative w-full ${aspectClass} bg-[#0b1120] overflow-hidden`}>
+          <div className={`relative w-full ${imageAspectRatio ? "" : aspectClass} bg-[#0b1120] overflow-hidden`} style={imageAspectRatio ? { aspectRatio: imageAspectRatio } : undefined}>
             {src ? (
               <Image
                 src={src}
                 alt={alt}
                 fill
                 priority={priority}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                sizes={sizes}
                 className={`object-cover object-top transition duration-300 ${comingSoon ? "opacity-35 blur-[1.5px] scale-[1.01]" : ""}`}
               />
             ) : !comingSoon ? (
@@ -187,7 +191,7 @@ export function ProductShowcase({
 
             {/* Canvas Stage: Drafting Artboard */}
             <div className="relative w-full flex-1 min-h-0 bg-[#f7f7f5] bg-figma-grid p-3 sm:p-5 lg:p-6 flex items-center justify-center overflow-auto">
-              <div className="relative w-full aspect-[16/10] max-h-[72dvh] rounded-xl sm:rounded-2xl overflow-hidden border border-[#e6e6e6] shadow-[0_12px_36px_rgba(0,0,0,0.1)] bg-[#0b1120]">
+              <div className="relative max-h-[72dvh] rounded-xl sm:rounded-2xl overflow-hidden border border-[#e6e6e6] shadow-[0_12px_36px_rgba(0,0,0,0.1)] bg-[#0b1120]" style={{ aspectRatio: imageAspectRatio || 1.6, width: imageAspectRatio && imageAspectRatio < 1 ? `min(100%, ${70 * imageAspectRatio}dvh)` : "100%" }}>
                 <Image
                   src={src}
                   alt={alt}

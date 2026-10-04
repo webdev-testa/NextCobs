@@ -90,7 +90,7 @@ export function PursuitsIndexView() {
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-[#000000] leading-tight mb-4">
-            Things I Spend Time On
+            Things I Spend Time On (still placeholders)
           </h1>
 
           <p className="text-base sm:text-lg text-[#555555] max-w-2xl leading-relaxed">

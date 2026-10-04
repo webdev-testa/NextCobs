@@ -401,6 +401,21 @@ button, summary { cursor: pointer; }
 }
 
 /* Case studies reuse the demo's hardcover and page stack. */
+.project-preview { display: grid; gap: 16px; align-items: center; }
+.project-preview-mixed { grid-template-columns: minmax(0, 1fr) minmax(0, .32fr); }
+.project-preview-mixed-trio { grid-template-columns: minmax(0, 1fr) repeat(2, minmax(0, .32fr)); }
+.project-preview-mobile { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+.project-preview-mobile > figure { max-width: 280px; justify-self: center; }
+@media (max-width: 639px) {
+  .project-preview-mixed { grid-template-columns: minmax(0, 1fr); }
+  .project-preview-mixed-trio { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .project-preview-mixed-trio > figure:first-child { grid-column: 1 / -1; }
+  .project-preview-mixed > figure:last-child { max-width: 180px; justify-self: center; }
+  .project-preview-mobile { gap: 8px; }
+  .project-preview-mobile figcaption { font-size: 10px; line-height: 1.5; }
+}
+
+/* Case studies reuse the demo's hardcover and page stack. */
 .book-cover-front {
   transform: perspective(1200px) translateX(0) scale(1) rotateY(0);
   transition: transform 300ms cubic-bezier(.44, 0, .56, 1);

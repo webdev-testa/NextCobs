@@ -28,6 +28,14 @@ const colorClasses: Record<StickyNote["color"], string> = {
   coral: "bg-[#f3c9b6] text-[#000000] border-[#d9a892]",
 };
 
+function formatNoteBadge(id: string): string {
+  const match = id.match(/^note-(\d+)$/i);
+  if (match) return `#${match[1]}`;
+  if (id.startsWith("custom-")) return "#custom";
+  if (id.startsWith("temp-")) return "#new";
+  return `#${id}`;
+}
+
 export interface StudioDeskNotesProps {
   maxDeskNotes?: number;
   className?: string;
@@ -314,7 +322,7 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
               </button>
 
               <span className="text-xs font-mono opacity-60">
-                Studio Note #{activeNoteModal.id}
+                Studio Note {formatNoteBadge(activeNoteModal.id)}
               </span>
             </div>
           </div>
@@ -518,7 +526,7 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
                         <Heart className="w-3 h-3 fill-current text-[#ff3d8b]" aria-hidden="true" />
                         <span>{note.likes}</span>
                       </button>
-                      <span className="text-[10px] font-mono opacity-50">#{note.id}</span>
+                      <span className="text-[10px] font-mono opacity-50">{formatNoteBadge(note.id)}</span>
                     </div>
                   </div>
                 ))}
