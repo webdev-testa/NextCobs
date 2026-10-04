@@ -8,12 +8,19 @@ import { MascotOwl } from "@/components/MascotOwl";
 
 export function ContactSection() {
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
   const [message, setMessage] = useState("");
   const [sender, setSender] = useState("");
   const [sent, setSent] = useState(false);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(DEVELOPER_INFO.email);
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(DEVELOPER_INFO.email);
+      setCopyFailed(false);
+    } catch {
+      setCopyFailed(true);
+      return;
+    }
     setCopied(true);
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       confetti({
@@ -35,14 +42,6 @@ export function ContactSection() {
     )}&body=${encodeURIComponent(message)}`;
 
     setSent(true);
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      confetti({
-        particleCount: 60,
-        spread: 60,
-        origin: { y: 0.75 },
-        colors: ["#dceeb1", "#c5b0f4", "#f3c9b6"],
-      });
-    }
   };
 
   return (
@@ -52,22 +51,19 @@ export function ContactSection() {
           
           {/* Left Column (7 cols) */}
           <div className="lg:col-span-7 flex flex-col">
-            <div className="flex items-center gap-2 mb-6 self-start">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#000000] text-[#ffffff] text-[11px] font-mono tracking-widest uppercase font-medium">
-                Let&apos;s Connect &bull; Get in Touch
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#ffffff] border border-[#bed68b] text-[11px] font-mono text-[#1ea64a] font-semibold">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#1ea64a] animate-pulse" />
+            <div className="flex flex-wrap items-center gap-2 mb-6 self-start">
+              <span className="inline-flex items-center gap-2 text-sm text-[#344524]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#344524]" aria-hidden="true" />
                 {DEVELOPER_INFO.availability}
               </span>
             </div>
 
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#000000] leading-[1.08] mb-6">
-              Let&apos;s build something practical together.
+              Got an idea? Let&apos;s talk.
             </h2>
 
             <p className="text-base sm:text-lg text-[#222222] leading-relaxed mb-8 max-w-xl">
-              I help teams identify technical bottlenecks and develop effective, reliable software solutions. Whether you have an exciting project in mind, want to discuss systems architecture, or just want to say hi, feel free to reach out.
+              Whether you have a project in mind, want to talk code, or just want to say hi, my inbox is always open.
             </p>
 
             {/* Direct Links */}
@@ -103,6 +99,8 @@ export function ContactSection() {
               </a>
             </div>
 
+            {copyFailed && <p role="status" className="text-sm mb-4">Couldn&apos;t copy the address. <a href={`mailto:${DEVELOPER_INFO.email}`} className="underline">Open your email app instead.</a></p>}
+
             <p className="text-xs font-mono text-[#444444]">
               Location: {DEVELOPER_INFO.location}
             </p>
@@ -110,9 +108,9 @@ export function ContactSection() {
 
           {/* Right Column: Fast inquiry box (5 cols) */}
           <div className="lg:col-span-5 relative mt-14 lg:mt-0">
-            {/* Studio Owl Mascot — perched on top of the Quick Note card */}
-            <div className="absolute -top-[102px] sm:-top-[108px] -right-6 sm:-right-6 z-10 pointer-events-auto">
-              <MascotOwl mode="footer" />
+            {/* Studio Soren Mascot — perched on top of the Quick Note card */}
+            <div className="absolute -top-[80px] sm:-top-[96px] right-3 z-10 pointer-events-auto">
+              <MascotOwl mode="footer" sizeClassName="block w-20 sm:w-24 h-auto"/>
             </div>
 
             <form
@@ -160,8 +158,9 @@ export function ContactSection() {
                 className="w-full py-3 min-h-[44px] rounded-full bg-[#000000] text-[#ffffff] text-xs font-bold hover:bg-[#222222] transition-colors flex items-center justify-center gap-2 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2"
               >
                 <Send className="w-3.5 h-3.5" />
-                <span>{sent ? "Opening Mail App..." : "Send Note"}</span>
+                <span>{sent ? "Open email draft again" : "Open email draft"}</span>
               </button>
+              <p className="text-sm text-[#555555] leading-relaxed">Opens your email app; send the message there.</p>
             </form>
           </div>
 

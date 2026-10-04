@@ -16,9 +16,10 @@ import {
   RunningShoeSketchIcon,
   StreetPoleSketchIcon,
 } from "@/components/SketchIcons";
+import { DEVELOPER_INFO } from "@/data/portfolioData";
 
 export const metadata = {
-  title: "Pursuits — Ammardito Shafaat",
+  title: `Pursuits — ${DEVELOPER_INFO.name}`,
   description: "Beyond engineering: stories, games, physical training, and travel.",
 };
 

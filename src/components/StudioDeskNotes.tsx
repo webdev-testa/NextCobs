@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Heart, Maximize2, Plus, X } from "lucide-react";
 import confetti from "canvas-confetti";
+import { StudioDialog } from "@/components/StudioDialog";
 import { DoodleStamp, DoodleStampType } from "@/components/SketchIcons";
 import { getInitialNotes, StickyNote } from "@/lib/portfolio-catalog";
 
@@ -177,24 +178,9 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
   const curatedNotes = stickyNotes.slice(0, maxDeskNotes);
 
   return (
-    <div className={`p-5 sm:p-6 rounded-3xl bg-[#fafaf8] border border-[#e6e6e6] relative shadow-xs ${className}`}>
-      {/* Pushpin badge detail */}
-      <div className="absolute -top-2.5 left-6 flex items-center gap-1.5 z-10 pointer-events-none">
-        <div className="w-4 h-4 rounded-full bg-[#ff3d8b] border-2 border-[#ffffff] shadow-xs flex items-center justify-center">
-          <div className="w-1.5 h-1.5 rounded-full bg-[#ffffff]" />
-        </div>
-        <span className="text-[10px] font-mono uppercase tracking-wider text-[#555555] bg-[#ffffff] px-1.5 py-0.5 rounded border border-[#e6e6e6] shadow-2xs font-semibold">
-          Studio Desk Notes
-        </span>
-      </div>
-
-      <div className="flex items-center justify-between mb-3.5 pt-1">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#1ea64a]" />
-          <span className="text-xs font-mono uppercase tracking-wider text-[#555555] font-semibold">
-            Studio Desk Notes &bull; {stickyNotes.length} pinned
-          </span>
-        </div>
+    <div className={`studio-notes ${className}`}>
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <h2 className="text-lg font-semibold tracking-tight">Studio Desk Notes <span className="ml-2 text-xs font-normal text-[var(--color-muted-ink)]">{stickyNotes.length} pinned</span></h2>
 
         <button
           type="button"
@@ -204,13 +190,13 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
           }}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#ffffff] hover:bg-[#e6e6e6] text-[#000000] text-xs font-semibold border border-[#d0d0d0] transition-colors active:scale-95 shadow-2xs"
         >
-          <Plus className="w-3.5 h-3.5" />
+          <Plus className="w-3.5 h-3.5" aria-hidden="true" />
           <span>Stick a note</span>
         </button>
       </div>
 
-      {/* 4 Curated Sticky Notes side-by-side in 2x2 grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+      {/* A small preview; every note remains available in the wall. */}
+      <div className="grid grid-cols-[minmax(0,220px)] sm:grid-cols-[repeat(2,minmax(0,220px))] lg:grid-cols-[repeat(4,minmax(0,220px))] gap-4 pt-1">
         {curatedNotes.map((note, idx) => {
           const rotations = [
             "-rotate-1 sm:-rotate-1.5",
@@ -223,14 +209,13 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
           return (
             <div
               key={note.id}
-              onClick={() => setActiveNoteModal(note)}
-              className={`cursor-pointer p-3.5 rounded-2xl border shadow-xs transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:rotate-0 flex flex-col justify-between min-h-[145px] ${rotClass} ${colorClasses[note.color]}`}
+              className={`aspect-square min-h-[220px] p-4 rounded-xl transition-transform duration-200 flex flex-col justify-between ${rotClass} ${colorClasses[note.color]}`}
             >
               <div>
                 {/* Note Header */}
-                <div className="flex items-center justify-between gap-1 mb-1.5">
+                <div className="flex flex-col items-start gap-1 mb-3">
                   <div className="flex items-center gap-1.5 min-w-0">
-                    <span className="text-xs font-bold truncate">
+                    <span className="text-sm font-semibold break-words">
                       {note.author}
                     </span>
                     {note.stamp && (
@@ -239,33 +224,33 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
                       </span>
                     )}
                   </div>
-                  <span className="text-[10px] font-mono opacity-65 truncate">
+                  <span className="text-[11px] leading-tight text-[#333333] break-words">
                     {note.role}
                   </span>
                 </div>
 
                 {/* Note Body excerpt */}
-                <p className="text-xs leading-relaxed font-normal text-[#111111] line-clamp-3">
+                <p className="text-sm leading-relaxed text-[#111111] line-clamp-3">
                   &ldquo;{note.content}&rdquo;
                 </p>
               </div>
 
               {/* Note Footer: Likes + Expand icon */}
-              <div className="flex items-center justify-between mt-3 pt-2 border-t border-black/10">
+              <div className="flex items-center justify-between mt-3 pt-1 border-t border-black/10">
                 <button
                   type="button"
                   onClick={(e) => handleLikeNote(note.id, e)}
                   aria-label={`Like note by ${note.author}`}
-                  className="flex items-center gap-1 text-[11px] font-mono font-medium hover:text-[#ff3d8b] transition-colors"
+                  className="flex items-center gap-2 text-sm font-medium hover:text-[#ff3d8b] transition-colors"
                 >
-                  <Heart className="w-3 h-3 fill-current text-[#ff3d8b]" />
+                  <Heart className="w-3 h-3 fill-current text-[#ff3d8b]" aria-hidden="true" />
                   <span>{note.likes}</span>
                 </button>
 
-                <span className="text-[10px] font-mono text-[#333333] flex items-center gap-0.5 opacity-60 hover:opacity-100">
-                  <Maximize2 className="w-2.5 h-2.5" />
-                  <span>View</span>
-                </span>
+                <button type="button" onClick={() => setActiveNoteModal(note)} aria-label={`Read note by ${note.author}`} className="inline-flex items-center gap-1.5 text-xs font-semibold hover:underline underline-offset-4">
+                  <Maximize2 className="w-3.5 h-3.5" aria-hidden="true" />
+                  Read note
+                </button>
               </div>
             </div>
           );
@@ -274,7 +259,6 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
 
       {/* Link to open full interactive modal wall */}
       <div className="mt-3.5 pt-2.5 border-t border-[#ecece8] flex items-center justify-between text-xs font-mono text-[#666666]">
-        <span>Community board</span>
         <button
           type="button"
           onClick={() => setIsBoardOpen(true)}
@@ -288,16 +272,10 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
       {/* Note Reader Modal (Expanded reading state) */}
       {/* ========================================================== */}
       {activeNoteModal && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Note by ${activeNoteModal.author}`}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200"
-          onClick={() => setActiveNoteModal(null)}
-        >
+        <StudioDialog label={`Note by ${activeNoteModal.author}`} onClose={() => setActiveNoteModal(null)}>
           <div
             onClick={(e) => e.stopPropagation()}
-            className={`relative w-full max-w-md p-6 sm:p-7 rounded-3xl border-2 shadow-2xl animate-in zoom-in-95 duration-200 ${colorClasses[activeNoteModal.color]}`}
+            className={`relative w-full max-w-md max-h-[90dvh] overflow-y-auto p-6 sm:p-7 rounded-3xl border-2 shadow-2xl animate-in zoom-in-95 duration-200 ${colorClasses[activeNoteModal.color]}`}
           >
             <button
               onClick={() => setActiveNoteModal(null)}
@@ -307,7 +285,7 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
               <X className="w-4 h-4" />
             </button>
 
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex flex-wrap items-center gap-2 mb-3 pr-10">
               <span className="text-sm font-bold text-[#000000]">
                 {activeNoteModal.author}
               </span>
@@ -331,7 +309,7 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
                 onClick={() => handleLikeNote(activeNoteModal.id)}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/10 hover:bg-black/20 text-xs font-semibold text-[#000000] transition-colors"
               >
-                <Heart className="w-3.5 h-3.5 fill-current text-[#ff3d8b]" />
+                <Heart className="w-3.5 h-3.5 fill-current text-[#ff3d8b]" aria-hidden="true" />
                 <span>{activeNoteModal.likes} likes</span>
               </button>
 
@@ -340,29 +318,23 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
               </span>
             </div>
           </div>
-        </div>
+        </StudioDialog>
       )}
 
       {/* ========================================================== */}
       {/* Full Note Board & Composer Drawer / Modal */}
       {/* ========================================================== */}
       {isBoardOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Community & Studio Sticky Note Wall"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
-          onClick={() => {
-            setIsBoardOpen(false);
-            setIsAddingNote(false);
-          }}
-        >
+        <StudioDialog label="Community & Studio Sticky Note Wall" onClose={() => {
+          setIsBoardOpen(false);
+          setIsAddingNote(false);
+        }}>
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-3xl max-h-[90vh] bg-[#ffffff] rounded-3xl border border-[#e6e6e6] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200"
+            className="relative w-full max-w-3xl max-h-[90dvh] bg-[#ffffff] rounded-3xl border border-[#e6e6e6] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[#f1f1f1] bg-[#fafaf8]">
+            <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-4 border-b border-[#f1f1f1] bg-[#fafaf8]">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#1ea64a] animate-pulse" />
                 <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-[#000000]">
@@ -413,6 +385,8 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
                     <input
                       type="text"
                       placeholder="Your Name / Handle"
+                      aria-label="Your name or handle"
+                      autoFocus
                       value={newNoteAuthor}
                       onChange={(e) => setNewNoteAuthor(e.target.value)}
                       maxLength={30}
@@ -421,6 +395,7 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
                     <input
                       type="text"
                       placeholder="Role / Context (e.g. Visitor, Founder)"
+                      aria-label="Role or context"
                       value={newNoteRole}
                       onChange={(e) => setNewNoteRole(e.target.value)}
                       maxLength={25}
@@ -430,6 +405,7 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
 
                   <textarea
                     placeholder="Write your note... (Press Ctrl+Enter to post)"
+                    aria-label="Your note"
                     value={newNoteContent}
                     onChange={(e) => setNewNoteContent(e.target.value)}
                     onKeyDown={(e) => {
@@ -494,10 +470,10 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
                       </button>
                       <button
                         type="submit"
-                        disabled={!newNoteContent.trim()}
+                        disabled={isSubmitting || !newNoteContent.trim()}
                         className="px-4 py-1.5 rounded-full bg-[#000000] text-[#ffffff] text-xs font-semibold hover:bg-[#222222] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                       >
-                        Post Note
+                        {isSubmitting ? "Posting…" : "Post Note"}
                       </button>
                     </div>
                   </div>
@@ -512,9 +488,9 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
                     className={`p-4 rounded-2xl border shadow-xs flex flex-col justify-between ${colorClasses[note.color]}`}
                   >
                     <div>
-                      <div className="flex items-center justify-between gap-1 mb-2">
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                         <div className="flex items-center gap-1.5 min-w-0">
-                          <span className="text-xs font-bold truncate">
+                          <span className="text-sm font-semibold break-words">
                             {note.author}
                           </span>
                           {note.stamp && (
@@ -523,11 +499,11 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
                             </span>
                           )}
                         </div>
-                        <span className="text-[10px] font-mono opacity-65 truncate">
+                        <span className="text-xs text-[#333333] break-words">
                           {note.role}
                         </span>
                       </div>
-                      <p className="text-xs leading-relaxed text-[#111111]">
+                      <p className="text-sm leading-relaxed text-[#111111]">
                         {note.content}
                       </p>
                     </div>
@@ -536,9 +512,10 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
                       <button
                         type="button"
                         onClick={() => handleLikeNote(note.id)}
-                        className="flex items-center gap-1 text-[11px] font-mono font-medium hover:text-[#ff3d8b] transition-colors"
+                        aria-label={`Like note by ${note.author}`}
+                        className="flex items-center gap-2 text-sm font-medium hover:text-[#ff3d8b] transition-colors"
                       >
-                        <Heart className="w-3 h-3 fill-current text-[#ff3d8b]" />
+                        <Heart className="w-3 h-3 fill-current text-[#ff3d8b]" aria-hidden="true" />
                         <span>{note.likes}</span>
                       </button>
                       <span className="text-[10px] font-mono opacity-50">#{note.id}</span>
@@ -548,7 +525,7 @@ export function StudioDeskNotes({ maxDeskNotes = 4, className = "" }: StudioDesk
               </div>
             </div>
           </div>
-        </div>
+        </StudioDialog>
       )}
     </div>
   );

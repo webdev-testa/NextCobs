@@ -18,11 +18,11 @@ Everything in the code is ready and tested:
 
 | File | Purpose |
 | :--- | :--- |
-| [`src/lib/turso.ts`](file:///C:/Users/LGSM123/Documents/NextCobs/src/lib/turso.ts) | Turso client, auto-table creation (`CREATE TABLE IF NOT EXISTS sticky_notes`), initial note seeding, and query methods. |
-| [`src/app/api/notes/route.ts`](file:///C:/Users/LGSM123/Documents/NextCobs/src/app/api/notes/route.ts) | `GET` (fetch notes) and `POST` (create note with validation & sanitization). |
-| [`src/app/api/notes/[id]/like/route.ts`](file:///C:/Users/LGSM123/Documents/NextCobs/src/app/api/notes/[id]/like/route.ts) | `POST` endpoint to increment note like count. |
-| [`src/components/HeroSection.tsx`](file:///C:/Users/LGSM123/Documents/NextCobs/src/components/HeroSection.tsx) | Optimistic UI updates, background API syncing, and fallback protection. |
-| [`.env.example`](file:///C:/Users/LGSM123/Documents/NextCobs/.env.example) | Example environment variable template. |
+| [`src/lib/turso.ts`](src/lib/turso.ts) | Turso client, auto-table creation (`CREATE TABLE IF NOT EXISTS sticky_notes`), initial note seeding, and query methods. |
+| [`src/app/api/notes/route.ts`](src/app/api/notes/route.ts) | `GET` (fetch notes) and `POST` (create note with validation & sanitization). |
+| [`src/app/api/notes/[id]/like/route.ts`](src/app/api/notes/[id]/like/route.ts) | `POST` endpoint to increment note like count. |
+| [`src/components/StudioDeskNotes.tsx`](src/components/StudioDeskNotes.tsx) | Optimistic UI updates, background API syncing, and fallback protection. |
+| [`.env.example`](.env.example) | Example environment variable template. |
 
 > [!NOTE]
 > Even without credentials, your local dev server runs seamlessly using a fallback local SQLite database (`file:local.db`), so nothing breaks offline.

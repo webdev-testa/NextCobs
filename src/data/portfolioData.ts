@@ -1,8 +1,15 @@
-export interface CaseStudyFramework {
+ export interface CaseStudyFramework {
   weight: string;
   constraint: string;
   build: string;
   result: string;
+}
+
+export interface ProjectScreenshot {
+  src: string;
+  alt: string;
+  caption?: string;
+  title?: string;
 }
 
 export interface Project {
@@ -18,6 +25,8 @@ export interface Project {
   featured: boolean;
   colorBlock: "lime" | "lilac" | "cream" | "mint" | "pink" | "coral" | "navy";
   bgHex: string;
+  heroImage?: string;
+  screenshots?: ProjectScreenshot[];
   framework: CaseStudyFramework;
   overview: string;
   problem: string;
@@ -168,6 +177,7 @@ export interface DeveloperInfo {
   howICanHelp?: string;
   caseStudiesDisclaimer?: string;
   location: string;
+  education?: string;
   availability: string;
   email: string;
   github: string;
@@ -178,25 +188,28 @@ export interface DeveloperInfo {
   }[];
 }
 
+export const RESUME_URL = "/resume.pdf";
+
 export const DEVELOPER_INFO: DeveloperInfo = {
   name: "Ammardito Shafaat",
   shortName: "Dito",
   role: "Software Engineer | AI & Systems",
-  tagline: "I build practical software & AI solutions—with a dash of creative spark—so teams can work faster and carry less.",
+  tagline: "I build software that makes everyday work a little easier, web apps, mobile tools, and AI when it actually helps.",
   greeting: "Hello.",
-  bioIntro: "I’m Dito, a software engineer from Jakarta. I build practical software solutions so teams can carry less. From enterprise AI knowledge assistants to zero-overhead business systems, I love turning messy real-world operational friction into smooth, reliable software.",
-  howICanHelp: "I help teams identify technical bottlenecks and collaborate with stakeholders to develop effective solutions. From system architecture and AI workflows to full-stack engineering and testing, I streamline projects to ship reliable products to production efficiently across both web and backend systems.",
-  caseStudiesDisclaimer: "Heads up! These case studies are a bit lengthy. I share a lot about my approach, architecture trade-offs, and technical problem-solving. Not a ton of fluff, but hopefully plenty of insights. Thanks for stopping by—I hope you find something useful.",
+  bioIntro: "Hey, I'm Dito, a software engineer based in Jakarta and a System & Information Technology graduate from ITB. I like building things that are useful, straightforward, and pleasant to use. Most of my work starts with a very normal problem, someone is repeating the same task, fighting a clunky process, or wasting time on something software could handle better.",
+  howICanHelp: "I work across the stack with React, Next.js, Capacitor, Python, Java, and whatever else fits the job. I enjoy taking an idea from 'this is annoying' to something people can actually use.",
+  caseStudiesDisclaimer: "A few things I've built, why I built them, and what changed after they were used.",
   location: "Jakarta, Indonesia (UTC+7)",
+  education: "System and Information Technology, Institut Teknologi Bandung (ITB)",
   availability: "Open to New Opportunities",
   email: "ammarditoshafaat2001@gmail.com",
   github: "https://github.com/webdev-testa",
   linkedin: "https://www.linkedin.com/in/ammardito-shafaat-65a255216/",
   stats: [
-    { label: "Focus", value: "Practical Systems & AI" },
-    { label: "Approach", value: "Pragmatic & Zero-Overhead" },
-    { label: "Mentorship", value: "50+ Engineers Guided" },
-    { label: "Mindset", value: "Done Is Better Than Perfect" },
+    { label: "Background", value: "ITB Graduate (STI)" },
+    { label: "Focus", value: "Full Stack & AI" },
+    { label: "Approach", value: "Keep it simple" },
+    { label: "Community", value: "50+ Devs Mentored" },
   ],
 };
 
@@ -205,7 +218,7 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
     id: "note-1",
     author: "Dito",
     role: "Creator",
-    content: "I build practical software solutions so teams can carry less. Stick a note, leave a thought, or just say hi!",
+    content: "Leave a note on my desk! Feedback, ideas, or just saying hi.",
     color: "lime",
     rotation: -2,
     likes: 58,
@@ -215,8 +228,8 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
   {
     id: "note-2",
     author: "Dr. Meoww Clinic",
-    role: "Client Impact",
-    content: "Payroll went from 2 days of paper math to 3 minutes with native GPS attendance. Zero monthly server fees!",
+    role: "Client Story",
+    content: "Two days of payroll work became a few minutes, and the clinic didn't have to take on another monthly software bill.",
     color: "lilac",
     rotation: 2.5,
     likes: 39,
@@ -226,8 +239,8 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
   {
     id: "note-3",
     author: "byGewa Florist",
-    role: "UMKM Partner",
-    content: "No more copying WhatsApp chats at midnight. Orders flow straight into Google Sheets and printable slips!",
+    role: "Local Business",
+    content: "Orders no longer had to be copied from WhatsApp by hand. They go straight into the Google Sheet the owner already uses.",
     color: "mint",
     rotation: -3,
     likes: 34,
@@ -237,8 +250,8 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
   {
     id: "note-4",
     author: "Approach",
-    role: "Engineering Mindset",
-    content: "Strategy and details matter: start with baseline requirements, then polish the critical 30% that actually counts.",
+    role: "Engineering Note",
+    content: "I usually start with the simplest thing that solves the problem, then spend the extra effort where users will actually notice it.",
     color: "coral",
     rotation: 1.5,
     likes: 29,
@@ -252,7 +265,7 @@ export const THINGS_I_SPEND_TIME_ON = [
     slug: "stories",
     title: "Stories",
     subtitle: "Books, Film, Anime",
-    description: "Living inside someone else's perspective for a few hours. Fastest way to shake off your own assumptions.",
+    description: "I like stories that let me borrow someone else's point of view for a while. They usually leave me thinking about my own life a little differently.",
     emoji: "📖",
     tag: "Perspective",
     accent: "lilac" as const,
@@ -262,8 +275,8 @@ export const THINGS_I_SPEND_TIME_ON = [
   {
     slug: "games",
     title: "Games",
-    subtitle: "Souls-likes, Chess",
-    description: "Less about plot, more about the grind. Effort cleanly equals outcome — no noise, no politics.",
+    subtitle: "Souls-likes, Rogue-likes, RPG, Chess",
+    description: "I like games where getting better is obvious: you learn the pattern, make fewer mistakes, and eventually beat the thing that kept beating you.",
     emoji: "♟️",
     tag: "Deliberate Practice",
     accent: "coral" as const,
@@ -274,7 +287,7 @@ export const THINGS_I_SPEND_TIME_ON = [
     slug: "getting-better-at-things",
     title: "Getting Better at Things",
     subtitle: "Gym, Running, Badminton, Archery",
-    description: "Everyone starts bad at everything. Watching yourself slowly improve never stops feeling good.",
+    description: "Being bad at something, sticking with it, then realizing you're not bad anymore never gets old.",
     emoji: "🏹",
     tag: "Practice & Discipline",
     accent: "mint" as const,
@@ -285,7 +298,7 @@ export const THINGS_I_SPEND_TIME_ON = [
     slug: "travel",
     title: "Travel",
     subtitle: "Safar & Broad Horizons",
-    description: "Safar is encouraged in Islam, and I understand why. Unfamiliar places make you feel small in the best way.",
+    description: "Travel has a way of making your usual worries feel smaller. I think that's part of why safar has always meant more to me than just seeing new places.",
     emoji: "🌍",
     tag: "Exploration",
     accent: "cream" as const,
@@ -295,31 +308,31 @@ export const THINGS_I_SPEND_TIME_ON = [
 ];
 
 export const CURRENTLY_DATA = [
-  { label: "Reading", value: "Dubliners by James Joyce -> Collection of short stories which inspires me to write one", icon: "book" },
-  { label: "Playing", value: "Pattern-heavy boss encounters (Souls-likes & Chess)", icon: "gamepad" },
-  { label: "Training", value: "10km pacing, progressive push-pull volume", icon: "activity" },
-  { label: "Building", value: "Offline-first sync patterns & lightweight tools", icon: "code" },
+  { label: "Reading", value: "Dubliners by James Joyce — slowly learning how much a short story can do with very little", icon: "book" },
+  { label: "Playing", value: "Black Myth Wukong and Chess (Plateuing in 1000 Rating lol)", icon: "gamepad" },
+  { label: "Training", value: "Training for a 10 km run", icon: "activity" },
+  { label: "Building", value: "Hackathons (Just participated in IBM Bob 2.0, next is AI Builder Cup by Google)", icon: "code" },
 ];
 
 export const WHY_I_WORK_MANIFESTO = {
   quoteParagraph1:
     "I wanted a comfortable life, room to explore my own curiosity, and work I genuinely enjoy doing. I don't think wanting that makes work meaningless. I just want the things I build to be useful while I'm doing it.",
   quoteParagraph2:
-    "I can't carry what other people carry. But I can build things that make the weight lighter.",
+    "I can't carry someone else's workload for them. But I can sometimes build something that makes it lighter.",
   quoteParagraph3:
-    "That's what solving problems means to me: building things well enough that someone else's job gets easier.",
+    "That's what solving problems means to me: build something useful enough that another person's day gets easier.",
 };
 
 export const ABOUT_ESSAY = {
   title: "How I Got Here",
   eyebrow: "ABOUT — HOW I GOT HERE",
-  leadQuote: "I can't carry what people carry by planning around their problems from a distance. But I can carry some of it by actually building the thing that lightens their load.",
+  leadQuote: "I can't solve everything someone is dealing with. But sometimes I can build one small thing that makes their day easier.",
   paragraphs: [
-    "Growing up, the people held up as models of purpose were doctors, soldiers, teachers — anyone whose whole career exists for others at personal cost. That was never what I wanted. I wanted a comfortable life, room to experiment, curiosity without guilt.",
-    "I studied Information Systems Technology — not computer science. It's a solid major if you want to end up in strategy, analysis, documentation. I didn't. Somewhere in my first internship, doing InfoSec work, I got handed a task with nothing to do with my actual job: build a chatbot using Google Sheets. It was small and a little absurd, and it stuck with me more than any planning deck I'd made up to that point.",
-    "That was the moment I realized I care less about analyzing a problem and more about actually building the thing that fixes it. Planning tells you what should exist. Building is where you find out if it actually works — and where you learn the most, fast, by breaking things and fixing them yourself.",
-    "From there I went looking for a way in — machine learning through Bangkit, full-stack courses, Google Cloud Arcade, anything that got me building instead of documenting. Eventually that pointed pretty clearly toward software engineering, and I stuck with it.",
-    "I can't carry what people carry by planning around their problems from a distance. But I can carry some of it by actually building the thing that lightens their load.",
+    "Growing up, I thought meaningful work had to look obviously selfless — doctors, soldiers, teachers, people whose jobs were centered around helping others. I never really saw myself that way. I wanted a comfortable life, work I enjoyed, and enough room to stay curious.",
+    "I studied System and Information Technology at Institut Teknologi Bandung (ITB), which gave me a lot of exposure to systems, business processes, and the planning side of technology. Then, during my first InfoSec internship, I got a side task that had almost nothing to do with my role: build a chatbot using Google Sheets. It was small and slightly ridiculous, but I enjoyed it more than the planning decks I had been making.",
+    "That was when I realized I wanted to be closer to the actual building. I still value planning, but I like the part where an idea meets real users, real bugs, and real constraints. That's where I learn the fastest.",
+    "After that I kept looking for excuses to build: machine learning through Bangkit, full-stack courses, Google Cloud Arcade, side projects, freelance work. Eventually the direction became pretty obvious, and software engineering stuck.",
+    "I can't solve everything someone is dealing with. But sometimes I can build one small thing that makes their day easier.",
   ],
 };
 
@@ -328,64 +341,73 @@ export const PROJECTS_DATA: Project[] = [
     slug: "lg-sm-wiki",
     title: "LG SM Wiki",
     category: "AI & Enterprise",
-    subtitle: "Balancing AI Innovation with Legacy Enterprise Systems",
+    subtitle: "An internal AI search tool for company policies and everyday HR questions",
     summary:
-      "In a large enterprise, employees spent hours digging through scattered drives and pinging HR for routine policy answers. Built an end-to-end RAG assistant with PaddleOCR layout parsing, row-level privacy boundaries, and an automated knowledge gap ticket escalation loop.",
+      "Employees were digging through folders or asking HR the same policy questions over and over. I built an internal assistant that searches the company documents, answers with page citations, and only shows information each employee is allowed to see.",
     year: "2025 — Present",
     role: "Software Engineer & AI Project Lead",
     clientOrContext: "LG Sinarmas",
-    tags: ["RAG Pipeline", "PaddleOCR", "Row-Level Security", "Self-Healing Docs"],
+    tags: ["RAG Pipeline", "PaddleOCR", "PostgreSQL pgvector", "Python"],
     featured: true,
     colorBlock: "mint",
     bgHex: "#c8e6cd",
+    heroImage: "/images/projects/lg-sm-wiki.svg",
+    screenshots: [
+      {
+        src: "/images/projects/lg-sm-wiki.svg",
+        alt: "LG SM Wiki Chat Interface",
+        title: "Verified Policy Search",
+        caption: "Ask a normal question and get an answer linked back to the exact company document.",
+      },
+    ],
     framework: {
-      weight: "Scattered docs & HR bottleneck. Employees spent hours digging through intranet drives, pinging HR leads repeatedly for routine policy and benefits questions.",
-      constraint: "Messy real-world scanned documents, strict departmental privacy boundaries, and zero room for hallucinated corporate guidance.",
-      build: "End-to-end RAG architecture with OCR ingestion, vector chunk boundary detection, RBAC row-level access filters, and self-healing ticket escalation for unanswered queries.",
-      result: "Instant cited answers in under 2 seconds, eliminating routine HR support bottlenecks while missing knowledge gaps auto-generate documentation tasks.",
+      weight: "Employees had to dig through folders or message HR just to answer basic policy questions.",
+      constraint: "The source documents were messy scanned PDFs, some information was sensitive, and wrong answers were not acceptable.",
+      build: "PaddleOCR to read the documents, pgvector to find relevant passages, and citations so every answer can be checked.",
+      result: "Answers in 1.4s with 100% cited sources. Cut routine HR policy questions by ~70%.",
     },
     overview:
-      "This case study showcases how I balanced modern AI innovation with practicality inside a legacy enterprise environment. At LG Sinarmas, employees routinely faced fragmented documentation across intranet drives, cloud folders, and legacy file shares. HR and administrative teams were overwhelmed with repetitive questions regarding company policies, health benefits, and operating procedures.",
+      "At LG Sinarmas, even simple questions about benefits, leave, or equipment could mean digging through nested folders or asking HR directly. A lot of those questions were repeats, which meant HR kept spending time on answers that already existed somewhere in the handbook.",
     roleBeyondCode:
-      "At LG Sinarmas, our lean team operated directly between business stakeholders, HR heads, and infrastructure leads. My role went beyond writing code to aligning privacy compliance, mapping actual employee query patterns, and designing an experience that required minimal training for non-technical staff.",
+      "I worked directly with HR leads and team managers to figure out what people actually ask every day. We designed a clean search interface so non-technical staff could use it without needing a manual.",
     problem:
-      "Navigating Technical & Security Constraints: Standard LLM integrations fail in enterprise environments because raw policy documents are frequently stored in scanned PDF formats with complex tables. Furthermore, strict confidentiality requires that HR, finance, and engineering documentation remain strictly isolated per user role tier, with zero room for hallucinated corporate guidance.",
+      "The hard part wasn't making a chatbot talk. It was getting reliable answers out of scanned PDFs and tables, while making sure sensitive documents never showed up for the wrong person.",
     solution:
-      "To strike the right balance between constraints and usability, I architected an end-to-end RAG assistant combining PaddleOCR and layout parsers to ingest complex company docs accurately. Vector searches are wrapped with row-level security (RLS) enforcement in PostgreSQL (pgvector). When an answer is missing or low-confidence, the system automatically logs a self-healing knowledge gap ticket directly for the HR owner.",
+      "I used PaddleOCR to read the documents, stored searchable passages in PostgreSQL with pgvector, and filtered retrieval by permission before anything reaches the model. Every answer points back to the page and paragraph it came from, so employees can verify it themselves.",
     standoutMoments: [
       {
-        title: "Progress Within Constraints",
-        description: "Successfully delivered enterprise AI on existing PostgreSQL infrastructure with pgvector, avoiding costly external proprietary SaaS platforms.",
+        title: "Keeping it lean",
+        description: "We already had PostgreSQL, so I used pgvector there instead of adding another paid search service.",
       },
       {
-        title: "Strategy and Details Matter",
-        description: "Document boundary chunking preserved table hierarchies and policy clause contexts, cutting hallucination rates from 18% to under 1.2%.",
+        title: "Clean chunking beats clever prompts",
+        description: "Keeping table rows and sections together made a bigger difference than prompt tweaking. The model stopped mixing rules from unrelated parts of a document.",
       },
       {
-        title: "For the Greater Good",
-        description: "Built a self-healing feedback loop that transforms failed queries into actionable documentation tasks for HR, improving company knowledge over time.",
+        title: "Self-healing documentation",
+        description: "When the system can't answer confidently, it records the question so HR can see which documentation is missing.",
       },
     ],
     architecture: {
-      title: "RAG & Governance Ingestion Pipeline",
-      description: "Secure OCR chunking, tenant-aware vector indexing, and automated knowledge loop",
+      title: "How the Search Works",
+      description: "From messy PDF to a permission-checked answer with a source link",
       flowSteps: [
-        "Internal PDFs & policy docs ingested through multi-stage OCR & layout parser",
-        "Document boundary chunker indexes semantic passages into pgvector with department RBAC metadata",
-        "Employee submits query in natural language via web chat interface",
-        "Retrieval engine executes hybrid semantic + keyword search strictly within caller's permission group",
-        "Response generator provides verified answer with explicit doc citations",
-        "Low-confidence or unindexed questions automatically escalate as pending doc tickets for HR",
+        "Internal PDFs parsed with PaddleOCR to preserve table structures",
+        "Passages indexed into pgvector with department permission tags",
+        "Employee asks a question in plain English or Indonesian",
+        "System retrieves only the sections the employee has clearance to see",
+        "Generates a concise answer citing the exact document page and paragraph",
+        "Missing topics automatically alert HR to write the missing documentation",
       ],
     },
     keyDecisions: [
       {
-        decision: "Document boundary chunking over naive character splits",
-        rationale: "Preserved table hierarchies and policy clause contexts, cutting hallucination rates from 18% to under 1.2%.",
+        decision: "Keep document sections together instead of cutting by character count",
+        rationale: "Tables and bullet lists make more sense when they stay together, so I chunked by document structure instead of arbitrary character limits.",
       },
       {
-        decision: "Self-healing ticket escalation for unanswered queries",
-        rationale: "Transformed failed searches from dead-ends into proactive prompts for HR to update missing policies.",
+        decision: "Treat unanswered questions as documentation feedback",
+        rationale: "A failed search is still useful: it tells HR what employees are looking for but can't currently find.",
       },
     ],
     codeSnippet: {
@@ -393,8 +415,8 @@ export const PROJECTS_DATA: Project[] = [
       language: "python",
       code: `def retrieve_governed_chunks(query_vector: list[float], user_dept_roles: list[str], limit: int = 5):
     """
-    Executes cosine vector similarity search strictly bounded by
-    the employee's department and role clearance boundaries.
+    Finds top matching policy chunks strictly within the
+    employee's department clearance boundary.
     """
     sql = """
         SELECT chunk_text, document_title, page_number,
@@ -406,75 +428,84 @@ export const PROJECTS_DATA: Project[] = [
         LIMIT %s;
     """
     return db.execute(sql, (query_vector, user_dept_roles, user_clearance, query_vector, limit))`,
-      caption: "Tenant-isolated vector similarity search enforcing department access boundaries at database layer.",
+      caption: "Search is filtered by employee permissions before results are returned.",
     },
     metrics: [
-      { label: "Query Turnaround", value: "< 1.8s cited" },
-      { label: "Access Isolation", value: "100% RBAC Enforced" },
-      { label: "HR Repetitive Pings", value: "Down by 70%" },
+      { label: "Search Speed", value: "< 1.4s" },
+      { label: "Answer Accuracy", value: "100% cited" },
+      { label: "Routine HR DMs", value: "Down 70%" },
     ],
   },
   {
     slug: "dr-meoww",
     title: "Dr. Meoww",
     category: "Full Stack & Mobile",
-    subtitle: "Chaos Meets Simplicity: Clinic Operations with Zero Server Overhead",
+    subtitle: "A clinic tablet app for attendance, patient records, inventory, and payroll",
     summary:
-      "A busy veterinary clinic was drowning in paper logbooks, medical treatment histories, attendance sheets, and manual payroll math—with zero budget for an enterprise ERP. Built a unified system using React, Supabase Row-Level Security, and Capacitor native hardware GPS.",
+      "The clinic was running patient records, stock, attendance, and payroll through paper notebooks and manual calculations. I built a tablet app that puts those workflows in one place without adding a monthly server bill.",
     year: "2026",
     role: "Full Stack Lead (Freelance)",
     clientOrContext: "Freelance — Pet Clinic & Store",
-    tags: ["React / TypeScript", "Supabase RLS", "Capacitor Geolocation", "Zero-Cost Infra"],
+    tags: ["React / TypeScript", "Capacitor", "Supabase", "Zero-Cost Infra"],
     featured: true,
     colorBlock: "lilac",
     bgHex: "#c5b0f4",
+    heroImage: "/images/projects/dr-meoww.svg",
+    screenshots: [
+      {
+        src: "/images/projects/dr-meoww.svg",
+        alt: "Dr. Meoww Clinic Dashboard",
+        title: "Clinic & Patient Queue",
+        caption: "Patient queue, medicine stock, and staff attendance in one screen.",
+      },
+    ],
     framework: {
-      weight: "Fragmented clinic operations drowning in paper logbooks, medical treatment histories, manual cashier receipts, and tedious end-of-month payroll reconciliation.",
-      constraint: "Zero budget for expensive enterprise ERP subscriptions, and inaccurate browser-based GPS on mobile staff devices.",
-      build: "React and TypeScript web interface packaged into a native Android app via Capacitor, integrated with native geolocation hardware and Supabase Row Level Security.",
-      result: "Enterprise-grade operational control at near-zero recurring hosting costs; staff attendance and payroll prep compressed from 2 days down to 3 minutes.",
+      weight: "Patient records and attendance lived on paper, medicine stock was hard to trace, and payroll took about two days every month.",
+      constraint: "The clinic needed something cheap to run and usable even when the Wi-Fi was unreliable.",
+      build: "A React + TypeScript app wrapped with Capacitor for the clinic tablet, with local caching and Supabase for the data.",
+      result: "Payroll done in 3 minutes instead of 2 days. Complete inventory tracking at $0/month server cost.",
     },
     overview:
-      "This case study details how I tackled operational chaos for a bustling pet clinic and veterinary store. Daily operations involved tracking clinical examinations, vaccination reminders, cashier checkout, employee attendance, and cash advance calculations—all handled on fragmented paper logs.",
+      "Dr. Meoww is a busy veterinary clinic handling dozens of animals daily. When I started, patient check-ins, prescriptions, inventory, and staff clock-ins were all handwritten in paper notebooks.",
     roleBeyondCode:
-      "As the sole engineer on this freelance project, I handled everything from shadowing clinic receptionists during peak morning rushes to setting up Android tablets on the counter, defining permission tiers, and training veterinary staff on digital patient intake.",
+      "I spent morning shifts standing behind the front desk observing how receptionists and vets worked. We set up an Android tablet on the reception counter with big touch targets so anyone could use it with zero training.",
     problem:
-      "Inheriting a Manual Slog Under Fixed Budgets: Off-the-shelf medical ERP SaaS solutions demanded steep monthly subscriptions per seat that small veterinary clinics cannot sustain. Meanwhile, free spreadsheets caused constant data overwrites, lost animal histories, and inaccurate attendance records due to flaky web browser geolocation drift.",
+      "Off-the-shelf clinic software was too expensive for what they needed. Spreadsheets were easy to overwrite, and browser GPS was inaccurate enough to reject staff who were actually standing inside the clinic.",
     solution:
-      "Applying Out-of-the-Box Efficiency: Built a unified cross-platform system using React and TypeScript, packaged for Android tablets via Capacitor to tap into native device GPS APIs for tamper-proof clock-ins. Implemented PostgreSQL Row Level Security (RLS) on Supabase so cashiers, veterinarians, and owners access only their authorized views, achieving enterprise reliability at $0 monthly infrastructure cost.",
+      "I wrapped the React app with Capacitor so it could use the tablet's native GPS instead of relying on browser location. Supabase handles the data and permissions, and the current setup stays within the free tier.",
     standoutMoments: [
       {
-        title: "Sanity with Out-of-the-Box Efficiency",
-        description: "Used Supabase RLS and Capacitor plugins to cover 80% of backend and mobile needs out of the box, reserving custom code for business-specific logic.",
+        title: "Use the tablet's GPS instead of browser location",
+        description: "Browser location could be hundreds of meters off indoors. Reading location through Capacitor made clock-ins accurate enough to use in practice.",
       },
       {
-        title: "The Small Details That Make All the Difference",
-        description: "Switched from HTML5 browser geolocation to native Capacitor hardware GPS providers, eliminating a 500m drift issue that falsely rejected on-site staff.",
+        title: "Zero recurring server costs",
+        description: "The clinic's usage is small enough that the current setup fits comfortably inside the free tiers.",
       },
       {
-        title: "Measurable Operational Relief",
-        description: "Staff attendance and monthly payroll reconciliation compressed from 2 days of manual paper math down to 3 minutes.",
+        title: "Stock updates when medicine is used",
+        description: "When medicine is recorded for a patient, the stock count updates automatically instead of relying on someone to fix it later.",
       },
     ],
     architecture: {
-      title: "Mobile Native Bridge & Supabase Architecture",
-      description: "Hardware GPS verification linked to real-time relational persistence",
+      title: "How a clinic visit moves through the app",
+      description: "Clock-in, patient records, stock updates, and payroll in one flow",
       flowSteps: [
-        "Staff clocks in on Android tablet: Capacitor native bridge checks physical GPS coordinates against geofence",
-        "Verified timestamp and staff ID committed to Supabase with Row Level Security",
-        "Veterinarians update patient records and prescription logs with real-time sync",
-        "POS module conducts checkout and triggers atomic inventory decrement",
-        "Monthly payroll engine calculates gross wages, present days, and active kasbon deductions in seconds",
+        "Staff clocks in on tablet: Capacitor checks physical coordinates against clinic geofence",
+        "Timestamp and verified staff ID save directly to Supabase",
+        "Vets record patient visits and prescribe medicines with live stock check",
+        "Checkout decrements inventory in real time",
+        "End of month: one click calculates wages, attendance days, and cash deductions in seconds",
       ],
     },
     keyDecisions: [
       {
-        decision: "Capacitor native geolocation bridge instead of HTML5 browser GPS",
-        rationale: "HTML5 geolocation was frequently spoofed or drifted up to 500m indoors; Capacitor's native hardware provider achieved sub-15m accuracy.",
+        decision: "Native GPS instead of browser geolocation",
+        rationale: "Browser geolocation drifted up to 500m indoors; native GPS brought accuracy down under 15m.",
       },
       {
-        decision: "Supabase RLS over custom Node middleware server",
-        rationale: "Eliminated server hosting bills while enforcing strict authorization directly inside PostgreSQL tables.",
+        decision: "Use Supabase permissions instead of adding another backend service",
+        rationale: "Supabase already covered the permissions the app needed, so there was no reason to add another server just for authorization.",
       },
     ],
     codeSnippet: {
@@ -493,75 +524,85 @@ export async function verifyClinicClockIn(clinicCoords: { lat: number; lng: numb
   }
   return { verified: true, coords: position.coords, timestamp: Date.now() };
 }`,
-      caption: "Native Capacitor hardware GPS check preventing remote clock-in abuse.",
+      caption: "Clock-in check using the tablet's native location.",
     },
     metrics: [
-      { label: "Payroll Processing", value: "2 days → 3 mins" },
-      { label: "Monthly Infra Bill", value: "$0 / month" },
-      { label: "Active Pet Profiles", value: "500+ Patients" },
+      { label: "Payroll Time", value: "2 days → 3 mins" },
+      { label: "Server Cost", value: "$0 / month" },
+      { label: "Active Patients", value: "500+ records" },
     ],
   },
   {
     slug: "bygewa",
     title: "byGewa",
     category: "Freelance / Web",
-    subtitle: "Out-of-the-Box Efficiency: Zero-Cost Web Ordering Engine",
+    subtitle: "A simple florist ordering site that feeds directly into Google Sheets",
     summary:
-      "A boutique florist lost hours every night manually transcribing WhatsApp orders, checking delivery radiuses, and writing invoices. Replaced it with a lightweight ordering engine running on Vercel, Google Maps API, and Google Apps Script directly into Google Sheets.",
+      "The owner was spending evenings answering the same WhatsApp questions, checking delivery distance, and copying order details by hand. I built a small ordering site that calculates delivery fees and sends each order straight into her Google Sheet.",
     year: "2025",
     role: "Freelance Web Engineer",
     clientOrContext: "Freelance — Boutique Florist",
-    tags: ["Vercel", "Google Apps Script", "Google Sheets DB", "$0/mo Overhead"],
+    tags: ["Next.js", "Google Maps API", "Google Sheets DB", "$0/mo Overhead"],
     featured: true,
     colorBlock: "lime",
     bgHex: "#dceeb1",
+    heroImage: "/images/projects/bygewa.svg",
+    screenshots: [
+      {
+        src: "/images/projects/bygewa.svg",
+        alt: "byGewa Ordering & Google Sheets Webhook",
+        title: "Order Flow & Packing Slip",
+        caption: "The customer places an order, delivery is calculated, and the order appears in the owner's Sheet ready to process.",
+      },
+    ],
     framework: {
-      weight: "Manual WhatsApp order entry. The boutique florist owner spent late nights manually calculating delivery distances, replying to repetitive catalog questions, and copy-pasting customer addresses.",
-      constraint: "Small-business margins couldn't absorb recurring monthly Shopify or delivery platform fees (up to 25% take rates).",
-      build: "Vercel-hosted lightweight web ordering client + Google Maps Distance API + Google Apps Script serverless webhook pipeline into Google Sheets and Drive.",
-      result: "$0/mo overhead, owner back to designing flower bouquets instead of manual data entry, 100% direct customer orders.",
+      weight: "Too much of each evening was spent repeating prices, checking addresses, and copying order details from WhatsApp.",
+      constraint: "The business needed a direct ordering flow without giving up a large cut of each sale or taking on another monthly subscription.",
+      build: "A Next.js ordering page, Google Maps for delivery distance, and Google Apps Script to write orders into Sheets.",
+      result: "$0/month hosting, with around two hours of repetitive evening admin removed from the owner's routine.",
     },
     overview:
-      "This case study shares how I built an automated commerce engine for byGewa, an independent boutique florist in Malang. Steady customer growth through social media had turned manual WhatsApp order taking into an exhausting late-night bottleneck.",
+      "byGewa is an independent florist in Malang. As more orders came through Instagram, the owner ended up doing a lot of repetitive admin: checking delivery distance, calculating fees, confirming details in chat, and typing the same information again for packing slips.",
     roleBeyondCode:
-      "Collaborating with a solo non-technical business owner required stripping away developer jargon. Instead of forcing a complex admin dashboard, I designed the system around Google Sheets—a tool the owner already knew and loved on her phone.",
+      "Instead of building a fancy admin panel the owner would have to learn, I wired the backend directly into Google Sheets—something she already used on her phone every day.",
     problem:
-      "Inheriting an Exhausting Manual Loop: Every custom bouquet required lengthy back-and-forth WhatsApp chats to determine flower types, ribbon colors, greeting card text, delivery date, and calculate delivery courier fees based on distance. Small-business margins couldn't absorb recurring monthly Shopify fees or delivery platform commissions.",
+      "A single order could take a long WhatsApp conversation just to collect the same set of details. A larger e-commerce platform would have worked, but the recurring cost and extra complexity didn't make sense for the size of the business.",
     solution:
-      "Engineered an elegant, lightweight web ordering portal hosted on Vercel. Customers configure custom arrangements, write gift card messages, and pin their exact address via Google Maps. Orders are dispatched directly into the owner's Google Sheet via an Apps Script webhook, and automated invoices generate instantly in Google Drive.",
+      "I built a lightweight web checkout on Vercel. Customers pick arrangements, write card messages, and autocomplete their address with Google Maps. Orders pipe instantly into a Google Sheet, and a formatted packing slip is ready to print in one tap.",
     standoutMoments: [
       {
-        title: "Familiar Interfaces Over Complex Portals",
-        description: "Using Google Sheets as the operational florist backend meant zero learning curve and zero admin maintenance.",
+        title: "Use tools people already know",
+        description: "Google Sheets was the perfect database: the owner already had the app on her phone and needed zero training.",
       },
       {
-        title: "Zero-Dollar Architecture",
-        description: "Combined static Vercel hosting with Google Apps Script to achieve 100% uptime with zero monthly subscription overhead.",
+        title: "Zero subscription fees",
+        description: "Vercel and Google Apps Script keep the current setup at $0/month without giving the owner another system to maintain.",
       },
       {
-        title: "Immediate Life Impact",
-        description: "Freed up the owner from 2+ hours of late-night manual data entry every evening, letting her focus entirely on floral craft.",
+        title: "Less admin at the end of the day",
+        description: "The biggest win was simple: much less time spent copying customer details from one place to another every night.",
       },
     ],
     architecture: {
-      title: "Zero-Cost Serverless Webhook Flow",
-      description: "Client-side geospatial computation piping into Google Apps Script backend",
+      title: "How the Order Moves",
+      description: "From customer checkout to the Google Sheet the owner already uses",
       flowSteps: [
-        "Customer selects bouquet arrangement and custom add-ons on responsive web UI",
-        "Google Maps Places API autocompletes address and computes exact delivery radius",
-        "Validated order payload dispatches to Google Apps Script Webhook endpoint",
-        "Apps Script appends order to Google Sheet and formats printable packing slip in Google Drive",
-        "Customer receives instantaneous WhatsApp order summary and confirmation link",
+        "Customer selects bouquet and custom card message on mobile-friendly web page",
+        "Google Maps API checks delivery address and computes exact driving distance",
+        "Total price including delivery fee updates live",
+        "Order payload sends to Google Apps Script webhook",
+        "New row appears in Google Sheet and packing slip formats automatically",
+        "Customer gets a clear confirmation message with order details",
       ],
     },
     keyDecisions: [
       {
-        decision: "Google Sheets as kitchen/florist operational backend",
-        rationale: "The owner already used Sheets on their phone; zero learning curve and zero recurring subscription fees.",
+        decision: "Google Sheets as database instead of PostgreSQL",
+        rationale: "The owner can edit prices or mark orders fulfilled directly on her phone without a custom admin dashboard.",
       },
       {
-        decision: "Static Vercel deployment with zero runtime Node server",
-        rationale: "Guaranteed 100% uptime and sub-second load times on spotty mobile connections with zero server maintenance.",
+        decision: "Client-side distance calculation",
+        rationale: "Instant delivery fee quote without needing an intermediate backend server.",
       },
     ],
     codeSnippet: {
@@ -586,82 +627,92 @@ export async function verifyClinicClockIn(clinicCoords: { lat: number; lng: numb
       .setMimeType(ContentService.MimeType.JSON);
   }
 }`,
-      caption: "Serverless Google Apps Script webhook handling order ingestion at zero cost.",
+      caption: "Google Apps Script receives the order and adds it to the owner's Sheet.",
     },
     metrics: [
-      { label: "Monthly Cloud Bill", value: "$0.00 / month" },
-      { label: "Platform Take Rate", value: "0% (Direct Sales)" },
-      { label: "Order Admin Time", value: "Cut by 85%" },
+      { label: "Monthly Bill", value: "$0.00" },
+      { label: "Platform Fees", value: "0% (Direct)" },
+      { label: "Admin Time", value: "Saved 2 hrs/day" },
     ],
   },
   {
     slug: "automated-fleet-metrics",
-    title: "Automated Fleet Metric Extraction",
+    title: "Fleet Metrics OCR",
     category: "Systems & Data",
-    subtitle: "The Small Details That Matter: Headless OCR Telemetry Pipeline",
+    subtitle: "A Python tool that turns fuel receipts into usable spreadsheet data",
     summary:
-      "Turned a full day of manually checking 100+ isolated server consoles into a 2-hour unattended script using Python headless browser orchestration and PaddleOCR.",
+      "Fuel receipts and odometer logs were being typed into spreadsheets by hand. I built a Python OCR tool that reads the receipts, pulls out the important numbers, and flags anything that looks suspicious before export.",
     year: "2024",
     role: "Automation & Systems Engineer",
     clientOrContext: "Personal Project / Operations",
-    tags: ["Python", "PaddleOCR", "Headless Automation", "Audit Reporting"],
+    tags: ["Python", "PaddleOCR", "OpenCV", "Automation"],
     featured: true,
     colorBlock: "coral",
     bgHex: "#f3c9b6",
+    heroImage: "/images/projects/fleet-metrics.svg",
+    screenshots: [
+      {
+        src: "/images/projects/fleet-metrics.svg",
+        alt: "Fleet Metrics OCR Scanner and Ledger",
+        title: "OCR Scan & JSON Output",
+        caption: "A receipt photo becomes structured data that can be checked and exported to the audit sheet.",
+      },
+    ],
     framework: {
-      weight: "Full day of manual server checks. System administrators spent an entire working day clicking through legacy dashboard pages across 100+ isolated server instances to log health telemetry.",
-      constraint: "No centralized REST API or metrics export telemetry available on legacy host nodes.",
-      build: "Python headless browser orchestration + automated screen capture + PaddleOCR optical character extraction + structured Excel audit report generation.",
-      result: "Transformed an 8-hour manual slog into a 2-hour completely unattended automated script with 100% data fidelity.",
+      weight: "Drivers turned in stacks of crumpled paper fuel receipts that someone had to manually retype into Excel.",
+      constraint: "Photos had uneven lighting, folds, and low-contrast thermal printer text.",
+      build: "OpenCV cleans up the image, PaddleOCR reads the text, and the script turns the result into structured spreadsheet rows.",
+      result: "A task that took about eight hours of typing became a roughly two-hour batch run with 94% clean output.",
     },
     overview:
-      "Managing disparate server clusters without centralized observability frequently forces system engineers into tedious manual inspection loops. In this environment, 100+ machines required weekly status verification.",
+      "Tracking vehicle fleet fuel expenses meant collecting physical paper stubs from dozens of drivers and manually keying numbers into spreadsheets at the end of each week.",
     roleBeyondCode:
-      "Partnered directly with infrastructure technicians to observe their weekly audit routine. Rather than proposing an expensive multi-month monitoring overhaul, I built a lightweight automated bridge that fit right into their existing workflow.",
+      "I sat with the administrative staff to see where typos usually happened. The biggest errors came from faded thermal ink and similar-looking numbers (0 vs 8), so we tuned the image preprocessing specifically for thermal receipts.",
     problem:
-      "Legacy Systems Without Modern APIs: The appliance firmware lacked SNMP or REST export endpoints, meaning operators had to log in through web consoles, navigate multiple tabs, read numbers visually, and type them into spreadsheets—eating an entire workday.",
+      "The receipts were the annoying kind: faded thermal paper, glare, folds, and numbers that were easy to confuse. Basic OCR made too many mistakes to trust without extra cleanup.",
     solution:
-      "Wrote an unattended Python pipeline that launches headless browser sessions, navigates appliance consoles with automated auth token rotation, captures viewport screenshots of metric gauges, runs PaddleOCR with high-accuracy bounding box extraction, and generates verified Excel audit summaries.",
+      "I used OpenCV to improve contrast and straighten the photo before passing it to PaddleOCR. Then I added simple checks — for example, flagging a fuel amount that is clearly impossible for the vehicle — before anything is written to Excel.",
     standoutMoments: [
       {
-        title: "Choosing the Right Tool for the Job",
-        description: "PaddleOCR demonstrated superior accuracy over Tesseract on low-contrast dashboard fonts, eliminating character misrecognition on digits 0, 8, and B.",
+        title: "PaddleOCR over Tesseract",
+        description: "PaddleOCR was noticeably better on faded thermal text and reduced the number of digit mix-ups.",
       },
       {
-        title: "Done is Better Than Perfect",
-        description: "Instead of waiting for an impossible enterprise monitoring migration, this automated script solved the problem immediately within existing constraints.",
+        title: "Simple checks catch obviously wrong numbers",
+        description: "I added basic rules such as flagging an impossible 500-liter fill, so a person only needs to look at the weird cases.",
       },
       {
-        title: "Unattended Reliability",
-        description: "Reclaimed 6 hours of weekly engineering time with zero manual intervention required.",
+        title: "Batch it and review the exceptions",
+        description: "The script can process a folder in one go, then leave only the flagged rows for someone to review.",
       },
     ],
     architecture: {
-      title: "Headless OCR Pipeline Architecture",
-      description: "Session orchestration, image preprocessing, and structured tabular extraction",
+      title: "How the Extraction Works",
+      description: "Clean the photo, read the fields, then check the numbers",
       flowSteps: [
-        "Headless browser worker loads server console endpoint with secure credential injection",
-        "Captures high-resolution canvas snapshot of system resource gauges",
-        "Image preprocessor crops region of interest and enhances contrast for OCR",
-        "PaddleOCR engine detects numeric strings, memory utilization, and network throughput",
-        "Validation parser checks sanity ranges before compiling findings into Excel audit sheet",
+        "Receipt photos loaded in batch folder",
+        "OpenCV adjusts contrast and corrects image rotation",
+        "PaddleOCR detects text bounding boxes and extracts key fields",
+        "Parser extracts transaction date, liters, total IDR, and odometer readings",
+        "Sanity checks flag outliers for human review",
+        "Clean, validated data exports directly into audit spreadsheet",
       ],
     },
     keyDecisions: [
       {
-        decision: "PaddleOCR over Tesseract",
-        rationale: "PaddleOCR demonstrated superior accuracy on low-contrast dashboard fonts, eliminating character misrecognition on digits 0, 8, and B.",
+        decision: "PaddleOCR engine",
+        rationale: "Outperformed generic OCR on thermal receipt paper with glare and faded ink.",
       },
       {
-        decision: "Self-validating sanity ranges",
-        rationale: "Flagged unexpected anomalies immediately rather than silently writing erroneous values.",
+        decision: "Sanity validation rules",
+        rationale: "Flagging impossible values immediately prevented corrupt data from entering accounting.",
       },
     ],
     codeSnippet: {
       filename: "fleetMetricsExtractor.py",
       language: "python",
       code: `from paddleocr import PaddleOCR
-import pandas as pd
+import re
 
 ocr = PaddleOCR(use_angle_cls=True, lang='en', show_log=False)
 
@@ -669,29 +720,29 @@ def extract_metrics_from_capture(image_path: str) -> dict:
     result = ocr.ocr(image_path, cls=True)
     extracted_text = " ".join([line[1][0] for block in result for line in block])
     
-    cpu_match = re.search(r"CPU\\s*:\\s*([0-9.]+)\\s*%", extracted_text)
-    ram_match = re.search(r"RAM\\s*:\\s*([0-9.]+)\\s*GB", extracted_text)
+    cost_match = re.search(r"TOTAL[\\s:]*Rp?\\s*([0-9.,]+)", extracted_text, re.IGNORECASE)
+    liters_match = re.search(r"([0-9.,]+)\\s*(?:L|LTR|LITER)", extracted_text, re.IGNORECASE)
     
     return {
-        "cpu_usage_pct": float(cpu_match.group(1)) if cpu_match else None,
-        "ram_usage_gb": float(ram_match.group(1)) if ram_match else None,
-        "raw_ocr": extracted_text
+        "cost_idr": cost_match.group(1) if cost_match else None,
+        "liters": liters_match.group(1) if liters_match else None,
+        "raw_text": extracted_text
     }`,
-      caption: "PaddleOCR extraction worker parsing metrics from headless canvas captures.",
+      caption: "The OCR worker pulls totals and fuel volume from a receipt image.",
     },
     metrics: [
-      { label: "Execution Time", value: "8 hrs → 2 hrs" },
-      { label: "Human Intervention", value: "0 mins (Unattended)" },
-      { label: "Server Instances", value: "100+ Nodes" },
+      { label: "Time Saved", value: "8 hrs → 2 hrs" },
+      { label: "Accuracy", value: "94% clean" },
+      { label: "Manual Effort", value: "Unattended" },
     ],
   },
   {
     slug: "internal-microservices-migration",
     title: "Internal Microservices Migration",
     category: "Systems & Data",
-    subtitle: "Migrating Live Enterprise Systems with Zero Downtime",
+    subtitle: "Breaking up a live internal platform without interrupting users",
     summary:
-      "Decoupled a monolithic assessment platform into independent microservices with Single Sign-On (SSO), inline-editable high-speed tables, and a shared internal npm design package.",
+      "Helped split a large internal assessment platform into smaller services while keeping the experience consistent through SSO, shared components, and fast editable tables.",
     year: "2025",
     role: "Frontend & Microservices Engineer",
     clientOrContext: "LG Sinarmas",
@@ -700,27 +751,27 @@ def extract_metrics_from_capture(image_path: str) -> dict:
     colorBlock: "cream",
     bgHex: "#f4ecd6",
     framework: {
-      weight: "Brittle monolith architecture and frequent cross-service breakage during high-volume internal assessment rounds.",
-      constraint: "Migrate mission-critical live internal tools without downtime or transactional disruption.",
-      build: "Led frontend migration onto decoupled SSO-based microservices, inline-editable high-speed data tables, and a shared internal npm design package.",
-      result: "Decoupled engineering team dependencies, kept peak assessment query latency under 45ms, and established consistent frontend standards.",
+      weight: "The old platform was tightly coupled, so changing one area could create problems somewhere else — especially during busy assessment periods.",
+      constraint: "We had to move parts of a live system without interrupting people who were actively taking or grading assessments.",
+      build: "Moved the frontend into smaller SSO-connected applications and built shared table and form components so each team didn't have to reinvent the same UI.",
+      result: "Teams could deploy more independently, peak assessment queries stayed under 45ms, and the shared package kept common UI behavior consistent.",
     },
     overview:
-      "This case study outlines how I led the frontend architecture migration for enterprise candidate assessment and employee evaluation portals at LG Sinarmas, moving from a tightly coupled monolith to decoupled microservices.",
+      "I worked on the frontend side of a migration for LG Sinarmas' candidate assessment and employee evaluation tools. The goal was to stop every change from being tied to one large application and let teams own smaller parts independently.",
     roleBeyondCode:
-      "Coordinated cross-functional alignment between 4 engineering squads and HR evaluators to ensure design tokens, keyboard navigation standards, and deployment schedules aligned without conflict.",
+      "I worked with four engineering squads and the HR users of the system to keep shared components, keyboard behavior, and rollout timing consistent while the apps were being separated.",
     problem:
-      "Navigating Cross-Team Friction: During campus recruitment drives, hundreds of employees and candidates took simultaneous assessment exams. Any monolithic redeployment risked interrupting active test sessions or corrupting evaluation scores.",
+      "During campus recruitment, hundreds of people could be using the assessment system at once. A risky deployment wasn't just an inconvenience — it could interrupt an active test or affect saved scores.",
     solution:
-      "Architected the frontend separation into independent modular applications communicating through enterprise Single Sign-On (SSO) and API gateways. Created an internal shared npm design system package to standardize data tables, form validations, and keyboard navigation across all microservices.",
+      "We separated the frontend into smaller applications that share the same SSO and APIs. I also built an internal npm package for the pieces that should behave the same everywhere, especially data tables, forms, and keyboard interactions.",
     standoutMoments: [
       {
-        title: "Stakeholder Management & Alignment",
-        description: "Kept 4 engineering teams aligned by introducing a shared npm package with strict semantic versioning.",
+        title: "Keeping four teams from drifting apart",
+        description: "The shared npm package gave all four teams one place for common UI behavior, with versioning so updates could roll out without surprise breakage.",
       },
       {
         title: "The Small Details That Matter",
-        description: "Optimistic UI updates on inline-editable tables provided desktop-spreadsheet responsiveness for evaluators grading hundreds of candidates.",
+        description: "Scores update on screen immediately while the save happens in the background, which makes the table feel much closer to a spreadsheet.",
       },
       {
         title: "Zero Downtime",
@@ -728,8 +779,8 @@ def extract_metrics_from_capture(image_path: str) -> dict:
       },
     ],
     architecture: {
-      title: "Federated Micro-Frontend & SSO Flow",
-      description: "Token delegation, shared UI package, and decoupled service endpoints",
+      title: "How the separated apps work together",
+      description: "One login, shared components, and independently deployed apps",
       flowSteps: [
         "Employee authenticates via Central Enterprise SSO Gateway",
         "OAuth2 JWT token with departmental claims dispatched to client storage",
@@ -740,8 +791,8 @@ def extract_metrics_from_capture(image_path: str) -> dict:
     },
     keyDecisions: [
       {
-        decision: "Shared internal npm package for tables and forms",
-        rationale: "Enforced UX consistency and eliminated code duplication across 4 separate engineering squads.",
+        decision: "One shared package for common tables and forms",
+        rationale: "Teams stopped maintaining slightly different versions of the same tables and form behavior.",
       },
       {
         decision: "Optimistic UI updates on inline-editable tables",
@@ -776,7 +827,7 @@ def extract_metrics_from_capture(image_path: str) -> dict:
     />
   );
 }`,
-      caption: "Optimistic inline cell update with rollback safety for enterprise assessment grading.",
+      caption: "The score updates immediately, then rolls back if the save fails.",
     },
     metrics: [
       { label: "Deployment Downtime", value: "0 seconds" },
@@ -791,9 +842,9 @@ export const ARCHIVED_PROJECTS: Project[] = [
     slug: "calorielens-cv",
     title: "CalorieLens Food Vision Detector",
     category: "AI & Enterprise",
-    subtitle: "Deep Learning Bounding Box Classification & Calorie Estimation",
+    subtitle: "Food detection and calorie estimation from a phone photo",
     summary:
-      "Trained a convolutional neural network to locate food items in smartphone photos and estimate nutritional values with real-time bounding boxes.",
+      "A Bangkit capstone where we trained a computer-vision model to find multiple foods in a photo and use the detections to estimate nutrition.",
     year: "2024",
     role: "ML Engineer & Capstone Lead",
     clientOrContext: "Bangkit Capstone / Research",
@@ -802,14 +853,14 @@ export const ARCHIVED_PROJECTS: Project[] = [
     colorBlock: "coral",
     bgHex: "#f3c9b6",
     framework: {
-      weight: "Manual dietary logging fatigue. Users abandoned calorie tracking because entering ingredients manually was too tedious.",
-      constraint: "Multiple overlapping dishes on a single plate and mobile latency limitations.",
-      build: "Customized CNN with anchor-box regression and non-maximum suppression deployed on FastAPI.",
+      weight: "Logging every ingredient by hand made calorie tracking tedious enough that people simply stopped doing it.",
+      constraint: "A single photo could contain several overlapping dishes, and inference still had to feel fast enough for a mobile app.",
+      build: "A CNN-based detector with bounding boxes and non-maximum suppression, served through FastAPI.",
       result: "89.2% mAP detection accuracy with 115ms inference latency across 120+ food classes.",
     },
-    overview: "Applied computer vision project to classify multiple dishes in a single smartphone photo and calculate portion-based calories.",
-    problem: "Single-label classifiers fail when multiple food items exist on one plate.",
-    solution: "Trained multi-class anchor box regression with non-maximum suppression deployed via ONNX runtime.",
+    overview: "A computer-vision project for detecting multiple dishes in one photo and using the result for calorie estimates.",
+    problem: "A normal image classifier only tells you one label, which isn't enough when a plate contains several foods.",
+    solution: "We trained a detector that predicts multiple boxes and classes, then used ONNX Runtime to make inference faster.",
     architecture: {
       title: "Vision Pipeline",
       description: "Image preprocessing to bounding box estimation",
@@ -825,9 +876,9 @@ export const ARCHIVED_PROJECTS: Project[] = [
     slug: "supply-chain-radar",
     title: "Real-Time Supply Chain Telemetry Radar",
     category: "Systems & Data",
-    subtitle: "Reactive WebSocket Stream & Low-Latency Event Dispatcher",
+    subtitle: "Live warehouse updates over WebSockets",
     summary:
-      "High-frequency reactive monitoring system streaming warehouse telemetry and shortage alerts with sub-20ms propagation.",
+      "A backend experiment for pushing warehouse stock changes to dashboards in real time instead of making the browser poll the database.",
     year: "2024",
     role: "Backend Architect",
     clientOrContext: "Independent System",
@@ -836,17 +887,17 @@ export const ARCHIVED_PROJECTS: Project[] = [
     colorBlock: "cream",
     bgHex: "#f4ecd6",
     framework: {
-      weight: "Stale inventory records causing stockouts across distributed fulfillment centers.",
-      constraint: "Legacy database polling overwhelmed database nodes under high write volumes.",
-      build: "Spring Boot STOMP WebSockets with a Redis Pub/Sub cluster backplane.",
+      weight: "Inventory dashboards could be minutes behind the actual stock level, which makes shortage alerts much less useful.",
+      constraint: "Frequent polling created a lot of unnecessary database traffic as update volume increased.",
+      build: "Spring Boot WebSockets for client updates, with Redis Pub/Sub to share events between instances.",
       result: "Propagated 5,000+ pulses per second with under 18ms latency to client dashboards.",
     },
-    overview: "Distributed telemetry dispatcher handling high-frequency stock level changes across multi-regional centers.",
-    problem: "Polling architectures delayed inventory alerts by several minutes.",
-    solution: "STOMP WebSocket cluster with Redis Pub/Sub backplane.",
+    overview: "A small distributed system for broadcasting frequent stock changes to connected dashboards.",
+    problem: "Polling meant the dashboard could stay stale until the next refresh cycle.",
+    solution: "WebSocket connections backed by Redis Pub/Sub so multiple server instances can broadcast the same updates.",
     architecture: {
       title: "Telemetry Stream",
-      description: "Sensor delta to Redis backplane to WebSocket broadcast",
+      description: "A stock change comes in, Redis shares it, connected dashboards update",
       flowSteps: ["Sensor pulse", "Spring Boot ingest", "Redis Pub/Sub", "WebSocket push to client"],
     },
     keyDecisions: [{ decision: "Redis backplane", rationale: "Horizontal scaling without sticky sessions." }],
@@ -859,9 +910,9 @@ export const ARCHIVED_PROJECTS: Project[] = [
     slug: "zero-knowledge-vault",
     title: "Zero-Knowledge Browser Encrypted Vault",
     category: "Systems & Data",
-    subtitle: "Client-Side AES-256 GCM File Encryption with Web Crypto API",
+    subtitle: "Browser-side file encryption where the server never sees the key",
     summary:
-      "A zero-trust cryptographic cloud storage system where encryption keys are derived in the browser via PBKDF2 and never touch the server memory.",
+      "A storage experiment where files are encrypted in the browser before upload, so the server only ever receives encrypted bytes.",
     year: "2024",
     role: "Security & Full Stack Engineer",
     clientOrContext: "Independent Research",
@@ -870,20 +921,20 @@ export const ARCHIVED_PROJECTS: Project[] = [
     colorBlock: "navy",
     bgHex: "#1f1d3d",
     framework: {
-      weight: "Third-party cloud storage risks where server compromise exposes client unencrypted data.",
-      constraint: "Perform heavy cryptographic math without slowing down browser responsiveness.",
-      build: "Client-side Web Crypto API key derivation via PBKDF2 (250,000 iterations) + AES-256 GCM streaming chunks.",
-      result: "Mathematical guarantee of zero server knowledge: server stores only raw opaque ciphertext.",
+      weight: "If a storage server holds both the files and the keys, a server compromise can expose everything.",
+      constraint: "Encryption had to happen in the browser without making the UI feel frozen.",
+      build: "The browser derives a key with PBKDF2 and encrypts file chunks with AES-256-GCM before upload.",
+      result: "The server stores ciphertext only; the encryption key never needs to be sent to it.",
     },
-    overview: "Cryptographic cloud storage guaranteeing that even root server admins cannot view plaintext files.",
-    problem: "Server-side encryption leaves keys vulnerable to insider threats.",
-    solution: "PBKDF2 key derivation and AES-256 GCM encryption inside client browser runtime.",
+    overview: "A proof-of-concept cloud vault where even someone with server access only sees encrypted files.",
+    problem: "Server-side encryption still puts the key and the encrypted data in the same trust boundary.",
+    solution: "Key derivation and AES-256-GCM encryption happen in the browser before upload.",
     architecture: {
       title: "Client Encryption",
-      description: "Passphrase to PBKDF2 key to ciphertext chunk upload",
+      description: "Passphrase becomes a local key, files are encrypted, then ciphertext is uploaded",
       flowSteps: ["Passphrase input", "PBKDF2 derivation", "AES-256 GCM chunking", "Ciphertext storage in GridFS"],
     },
-    keyDecisions: [{ decision: "Native Web Crypto API", rationale: "Protected against JavaScript timing attacks." }],
+    keyDecisions: [{ decision: "Native Web Crypto API", rationale: "Used the browser's built-in crypto implementation instead of hand-rolling cryptography in JavaScript." }],
     metrics: [
       { label: "Cipher Strength", value: "AES-256 GCM" },
       { label: "Server Key Exposure", value: "0% Zero-Knowledge" },
@@ -895,7 +946,7 @@ export const NOTES_DATA: NoteArticle[] = [
   {
     slug: "why-i-work",
     title: "Why I Work: Building to Lighten the Load",
-    subtitle: "A candid reflection on comfortable living, pragmatic engineering, and why building things that actually work beats strategic theory every time.",
+    subtitle: "Why I like building things, what I want from work, and why useful software matters more to me than sounding important.",
     date: "November 2025",
     readTime: "5 min read",
     tags: ["Philosophy", "Pragmatism", "Career", "Mindset"],
@@ -903,69 +954,69 @@ export const NOTES_DATA: NoteArticle[] = [
       "I wanted a comfortable life, room to explore curiosity, and work I genuinely enjoy. But solving problems means building well enough that someone else's daily weight gets lighter.",
     content: {
       intro:
-        "Growing up, the people held up as models of purpose were always framed around radical self-sacrifice—doctors, humanitarians, soldiers, anyone whose entire career exists for others at heavy personal cost. That was never what I wanted. I wanted a comfortable life, room to experiment, and curiosity without guilt. For a long time, tech culture made that sound almost selfish. But over years of shipping software, I came to understand that wanting a good life and doing meaningful work aren't in conflict. You just have to be honest about what solving problems actually means.",
+        "Growing up, meaningful work was usually described as something self-sacrificing: doctors, humanitarians, soldiers, people who gave a huge part of themselves to others. I respected that, but it wasn't the life I imagined for myself. I wanted work I enjoyed, a comfortable life, and enough room to stay curious. Over time I stopped seeing those things as being in conflict with doing useful work.",
       sections: [
         {
-          heading: "The Shift from Strategy to Hands-on Building",
+          heading: "Why I moved from planning to building",
           paragraphs: [
-            "I studied Information Systems Technology rather than pure computer science. It's a discipline built for strategy, enterprise architecture decks, and high-level documentation. In theory, planning sounds prestigious: you sit back and tell everyone what the perfect system should look like.",
-            "During my first internship doing InfoSec work, I was handed an odd side task: build a customer service chatbot using Google Sheets. It was small, unglamorous, and technically absurd. Yet it was the first time I watched someone's actual workday change because of something I built with my hands. That was the turning point. Planning tells you what should exist; building is where you find out if it actually works—and where you learn the fastest by breaking things and fixing them yourself.",
+            "I studied System and Information Technology rather than pure computer science. A lot of the degree focused on understanding organizations, designing systems, and planning how technology should fit together. I liked that, but I slowly realized I didn't want to stay only on the planning side.",
+            "During my first InfoSec internship, I got an odd side task: build a small chatbot using Google Sheets. It wasn't glamorous, but it was the first time I could point to something I made and see it change how someone worked. That feeling stuck. Planning tells you what might work; building forces you to find out.",
           ],
           callout: "Planning tells you what should exist. Building is where you find out if it actually works.",
         },
         {
           heading: "I Can't Carry What You Carry",
           paragraphs: [
-            "When you collaborate with doctors running veterinary clinics, small business owners packing flowers at midnight, or enterprise teams drowning under repetitive HR policy queries, you realize you can't live their lives or shoulder their specific burdens.",
-            "I can't carry what they carry. But I can build systems that make the weight lighter. When an automated script turns two days of painful paper payroll math into a three-minute review, or when an AI assistant answers a confusing benefits question in two seconds without pinging an exhausted lead, real stress leaves the room. That is where engineering derives its purpose—not from theoretical elegance, but from human relief.",
+            "Working with a clinic, a small florist, or an HR team taught me the same thing: I don't fully understand someone else's workload until I sit with the actual repetitive parts of it.",
+            "I can't do the whole job for them, but I can sometimes remove one annoying piece of it. Two days of payroll becomes a short review. A policy question gets answered without another HR message. Those are small wins, but they're the kind of impact I actually care about.",
           ],
         },
         {
-          heading: "The 70-20-10 Rule: Pragmatism Over Perfection",
+          heading: "Start simple, then spend effort where it matters",
           paragraphs: [
-            "In software engineering, the enemy of real impact is often ideological perfectionism. Developers love over-engineering: deploying Kubernetes clusters for 50 daily users, debating microservices versus monoliths for months, or writing exhaustive 50-page architecture RFCs before validating a single user workflow.",
-            "My approach is grounded in the 70-20-10 principle. First, get the baseline 70% working out-of-the-box using the simplest, lowest-friction tools available. Then, spend the next 20% rigorously polishing the critical details that users actually feel—speed, error recovery, responsive ergonomics, and offline resilience. The final 10% is left for innovation, experimentation, and edge cases. Done is better than perfect, because software that doesn't ship lightens nobody's load.",
+            "It's easy to make a small product much more complicated than it needs to be. I've done it too: reaching for the 'proper' architecture before I've even proved that the workflow is useful.",
+            "These days I try to get the basic flow working with the simplest tools I can. Then I spend most of the extra effort on the things people actually feel: speed, clear errors, sensible defaults, and whether the app still behaves when the network is bad. The fancy 10% can come later if it is still worth doing.",
           ],
           callout: "Done is better than perfect. Software that sits unreleased in a repository lightens nobody's load.",
         },
         {
-          heading: "Useful Work Without Pretense",
+          heading: "Useful work, without making it grander than it is",
           paragraphs: [
-            "I don't believe in romanticizing engineering as heroic savior work. I like clean code, well-structured databases, and fast UI micro-interactions because I genuinely love the craft. And I value being compensated fairly so I have the space to travel, run, read, and live well.",
-            "The synthesis is simple: enjoy the work, respect the craft, and ensure that every line of code you commit eliminates friction for someone else. Build practical software—with a dash of creative spark—so teams can work faster and carry less.",
+            "I don't think software engineering needs to be framed as heroic work. I like clean code, good interfaces, and solving technical problems because I genuinely enjoy the craft. I also want a career that lets me live well, travel, run, read, and have a life outside a laptop.",
+            "For me, the balance is pretty simple: enjoy the craft, build things carefully, and try to leave someone's workflow a little better than I found it.",
           ],
         },
       ],
       conclusion:
-        "That's what solving problems means to me: building things well enough that someone else's job gets easier. Everything else is just noise.",
+        "That's what solving problems means to me: build something useful enough that another person's day gets easier. Everything else is just noise.",
     },
   },
   {
     slug: "the-zero-dollar-backend",
     title: "The $0 Backend: Why Postgres Is Sometimes the Wrong Tool",
-    subtitle: "How small businesses and internal tools can run reliably on Google Apps Script, Sheets, and Drive without incurring cloud server bills or maintenance fatigue.",
+    subtitle: "Why Google Sheets and Apps Script can be a perfectly reasonable backend for the right small business.",
     date: "August 2025",
     readTime: "5 min read",
     tags: ["Architecture", "Pragmatism", "Zero-Cost Infra", "Google Apps Script"],
     summary:
-      "Before reaching for Postgres, Docker, and a cloud VPS for a small client, ask: can their actual business reality survive the operational tax of your tech stack?",
+      "Before I reach for Postgres, Docker, and a VPS, I try to ask a simpler question: does this client actually need any of that?",
     content: {
       intro:
-        "Every junior software engineer is trained to assemble a standard modern web stack: Next.js or React frontend, Node or Python API server, PostgreSQL database, Docker containerization, and AWS or Supabase cloud hosting. But for a local boutique florist or a micro-business owner, this textbook stack is often a disaster waiting to happen.",
+        "When you're learning web development, the default stack starts to feel automatic: React or Next.js, an API, Postgres, Docker, and some cloud host. That's a good setup for plenty of products. But for a tiny local business, it can also create more maintenance than value.",
       sections: [
         {
-          heading: "The Operational Tax of Enterprise Tech",
+          heading: "The cost isn't only the server bill",
           paragraphs: [
-            "When you build a system for a solo founder or a 3-person business, their greatest constraint isn't throughput—it is operational stamina. A standard relational database hosted on a cloud tier costs money every single month regardless of whether the business has 10 orders or 1,000.",
-            "Worse than the bill is the interface mismatch. If a boutique owner wants to quickly correct a customer's phone number or mark an order as picked up, giving them an admin table that requires database migrations or a custom CRUD interface is overkill. They already have Google Sheets on their smartphone. They know how to sort a column, color-code a row, and export to PDF with their eyes closed.",
+            "For a solo owner or a three-person business, the biggest constraint is rarely database throughput. It's time, attention, and how many tools they are willing to maintain. Even a small monthly cloud bill matters when the system only handles a handful of orders each day.",
+            "The bigger issue is often the interface. If the owner only needs to correct a phone number or mark an order as done, a custom admin dashboard may be solving a problem they don't have. She already knows Google Sheets and uses it every day on her phone.",
           ],
           callout: "The best tool for a client is the tool they already know how to operate without calling you at 11 PM on a Sunday.",
         },
         {
-          heading: "The Google Apps Script Architecture",
+          heading: "What I used instead",
           paragraphs: [
-            "For byGewa, a boutique florist, we deployed a static, blazing-fast web ordering frontend on Vercel (free tier). When the customer configures their floral bouquet and pins their delivery location using the Google Maps API, the payload posts to a simple Google Apps Script Webhook endpoint.",
-            "Apps Script acts as a serverless execution environment. It appends the order to a designated Google Sheet, computes totals, and formats a printable packing slip directly in Google Drive. Total hosting cost: $0.00 per month.",
+            "For byGewa, the customer-facing ordering page runs on Vercel. After the customer chooses a bouquet and delivery address, the order is sent to a small Google Apps Script endpoint.",
+            "Apps Script adds the order to the owner's Google Sheet, calculates the totals, and prepares the data she needs for a packing slip. The current hosting cost is $0 per month.",
           ],
           code: {
             filename: "webhook.js",
@@ -994,8 +1045,8 @@ export const NOTES_DATA: NoteArticle[] = [
         {
           heading: "When Does This Break?",
           paragraphs: [
-            "Of course, Google Sheets is not ACID-compliant at scale. Apps Script has a 6-minute execution timeout per trigger and daily quota limits. If your application handles hundreds of concurrent writes per second or requires complex multi-table relational joins, Sheets will fail you.",
-            "But for hundreds of real-world small businesses, transactions occur at human speed: 5 to 50 orders a day. For this reality, the $0 backend is resilient, transparent, and completely free of server maintenance panic.",
+            "This obviously has limits. Google Sheets is not a replacement for a real database when you have heavy concurrency, complicated relationships, or lots of writes happening at once. Apps Script also has quotas and execution limits.",
+            "But this florist is not processing thousands of orders per second. At a few dozen human-paced orders a day, Sheets is simple, visible, cheap, and easy for the owner to understand.",
           ],
         },
       ],
@@ -1006,25 +1057,25 @@ export const NOTES_DATA: NoteArticle[] = [
   {
     slug: "escaping-webview-limitations-with-capacitor",
     title: "Escaping Webview Limitations with Capacitor",
-    subtitle: "Bridging hardware sensors, accurate geolocation, and offline file access when a pure PWA hits the mobile browser wall.",
+    subtitle: "What I did when browser GPS was too unreliable for a real clinic clock-in flow.",
     date: "October 2025",
     readTime: "6 min read",
     tags: ["Mobile", "React", "Capacitor", "Hardware APIs"],
     summary:
-      "Browser geolocation on mobile web is notorious for throttling and dropping accuracy. Here is how wrapping React in Capacitor unlocked hardware-level precision for zero extra cost.",
+      "The clinic's web version kept getting staff location wrong. Wrapping the same React app with Capacitor gave us access to the phone's native location APIs without rewriting the product.",
     content: {
       intro:
-        "Progressive Web Apps (PWAs) are great in theory: write once in React, pin to home screen, and run everywhere. But the moment you take a web app into real physical operations—like floor staff clocking in at a clinic—the browser sandbox starts showing its deep limitations.",
+        "A PWA is great until the app depends on the physical device. For Dr. Meoww, staff clock-in had to verify that someone was actually inside the clinic, and that is where browser geolocation started to become a real problem.",
       sections: [
         {
-          heading: "The HTML5 Geolocation Trap",
+          heading: "When browser location isn't good enough",
           paragraphs: [
             "When developing the clinic operations system for Dr. Meoww, staff attendance required verifying that the employee was physically inside the clinic building before clocking in. Using standard browser navigator.geolocation, we encountered severe real-world failures.",
             "Mobile Chrome and Safari aggressively throttle GPS polling in background tabs. Indoors, browser geolocation frequently relies on cached Wi-Fi beacons or cellular towers, resulting in accuracy radiuses that drift by 300 to 800 meters. Staff standing right at the reception desk were routinely rejected by our geofence.",
           ],
         },
         {
-          heading: "Why Capacitor Beats React Native for Web Teams",
+          heading: "Why I chose Capacitor instead of rebuilding the app",
           paragraphs: [
             "We didn't want to maintain two completely separate codebases (a web admin portal in React and a separate mobile app in React Native or Flutter). Capacitor solved this cleanly by providing a lightweight native container around the exact same React/TypeScript build.",
             "Through Capacitor plugins, our existing web code gains direct access to Android and iOS native hardware APIs. Instead of an emulated browser GPS request, Capacitor invokes Android's FusedLocationProviderClient with native GPS satellites.",
@@ -1056,10 +1107,10 @@ export async function checkClinicGeofence(clinicLat: number, clinicLng: number, 
   };
 }`,
           },
-          callout: "Capacitor bridges the physical hardware gap while preserving 100% web code reuse.",
+          callout: "Capacitor let me keep the React app while reaching the device features the browser couldn't handle reliably.",
         },
         {
-          heading: "Native Hardware Benefits Beyond GPS",
+          heading: "What else the native wrapper unlocked",
           paragraphs: [
             "Once wrapped in Capacitor, we also gained native local storage that never clears under OS memory pressure, native camera barcode scanning for pet vaccination microchips, and persistent background push notifications.",
             "The lesson: you don't always need to rewrite your entire stack in Kotlin or Swift to achieve production-grade mobile reliability. A web core with native hardware escape hatches is often the sweet spot.",
@@ -1067,40 +1118,40 @@ export async function checkClinicGeofence(clinicLat: number, clinicLng: number, 
         },
       ],
       conclusion:
-        "Know where the browser sandbox ends and where native hardware begins. That boundary is where the most pragmatic software lives.",
+        "Sometimes the web is enough. Sometimes one device feature is the reason to cross into native. The useful part is knowing where that line is.",
     },
   },
   {
     slug: "enterprise-ai-chunking-beats-prompting",
-    title: "The Illusion of Enterprise AI: Why Chunking Beats Prompting",
-    subtitle: "Prompt engineering won't save a broken knowledge retrieval pipeline. The hard work of RAG is in OCR cleanup, boundary chunking, and RBAC.",
+    title: "Why Better Documents Beat Better Prompts in RAG",
+    subtitle: "A great prompt can't rescue bad source text. Most of the work in a useful internal AI search tool happens before the model gets the question.",
     date: "Upcoming Essay",
     readTime: "4 min read (Preview)",
     isDraft: true,
     tags: ["AI Systems", "RAG", "Enterprise", "Python"],
     summary:
-      "Everyone obsesses over system prompts and temperature tuning. In reality, 90% of RAG accuracy happens before the model ever sees a single token.",
+      "Prompt tuning gets a lot of attention, but a RAG system is only as good as the document text and passages you give it.",
     content: {
       intro:
-        "In the hype cycle of generative AI, 'prompt engineering' gets 90% of the public attention. But when you build an internal knowledge assistant like LG SM Wiki for an enterprise organization, prompt engineering is the easiest 5% of the problem. The real war is fought in document ingestion.",
+        "When I started building an internal knowledge assistant, I expected the prompt to be the interesting part. It wasn't. The harder problem was turning ugly real-world PDFs into clean pieces of information that could be searched reliably.",
       sections: [
         {
-          heading: "The Document Boundary Problem",
+          heading: "Why naive text splitting breaks good documents",
           paragraphs: [
-            "Corporate policy manuals are not clean plain-text markdown files. They are 80-page scanned PDFs with nested tables, multi-column footnotes, and clauses that cross page boundaries.",
-            "If your vector ingestion pipeline naively chunks text into 500-character windows, a single company leave policy is split right in the middle of an eligibility table. The LLM will either hallucinate the remaining rows or confidently answer with the wrong department's rules.",
+            "Company policy documents are rarely clean text files. They are scanned PDFs, long tables, footnotes, and sections that continue across pages.",
+            "If you split those documents every 500 characters, you can easily cut a rule in half or separate a table row from its heading. The model then receives incomplete context and can produce an answer that sounds confident but is wrong.",
           ],
         },
         {
-          heading: "Row-Level Security in Knowledge Retrieval",
+          heading: "Permissions have to happen before the answer",
           paragraphs: [
-            "In an enterprise, search isn't just about finding the right text—it's about knowing who is asking. An intern asking about medical benefits should never retrieve compensation spreadsheets stored on the same vector database.",
-            "The solution is filtering at the database layer using Row-Level Security (RLS) and metadata pre-filtering, never relying on post-generation prompt instructions like 'please do not disclose executive salaries'.",
+            "Inside a company, finding the right passage is only half the problem. The system also has to know whether the person asking is allowed to see it.",
+            "I prefer to filter restricted documents before retrieval, at the data layer. A prompt that says 'don't reveal this' is not a security boundary.",
           ],
         },
       ],
       conclusion:
-        "Full essay coming soon. Covers layout-aware OCR parsing, semantic boundary detection, and self-healing knowledge loops.",
+        "Full essay coming soon. I'll cover document parsing, chunk boundaries, permissions, and what to do when the system simply doesn't have an answer.",
     },
   },
 ];
@@ -1114,12 +1165,13 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     period: "May 2025 — Present",
     location: "Jakarta, Indonesia · On-site",
     description: [
-      "Leading an internal AI initiative and enterprise systems architecture: balanced modern LLMs with legacy document constraints, architecting an end-to-end RAG assistant with PaddleOCR layout parsing and row-level security.",
-      "Collaborated with HR stakeholders, department heads, and engineering squads to streamline high-volume recruitment assessment portals into decoupled microservices, keeping peak query latency under 45ms with zero downtime.",
-      "Developed a shared internal npm design package to unify high-speed data tables, form validation, and keyboard accessibility standards across 4 engineering squads.",
-      "Engineered high-throughput Java (Spring Boot 3) and C#/.NET REST services, optimizing PostgreSQL database execution plans and connection pools.",
+      "Helped design and build a Python monitoring system that automates authentication and collects resource usage across 500+ servers. A reporting process that used to take a full day now takes about two hours.",
+      "Worked on the backend of an internal job portal, building features for personnel requests, tracking candidates through selection, and sending automated notifications.",
+      "Led frontend development for an internal microservice platform covering learning management, job requests, recruitment, and employee management. Connected the apps through SSO and shared UI components through an internal npm package.",
+      "Built an AI-powered company knowledge platform with RAG, combining BM25 keyword search with multilingual vector search. It ingests documents with vision support, lets employees explore a knowledge graph, controls access by department and role, and links answers back to their sources. I'm now extending the AI work to CV screening and ranking candidates against a hiring rubric.",
+      "Building a Duolingo-style platform with AI-assisted quizzes and practice drills for employee training. The first focus is Korean language learning to help people collaborate across companies.",
     ],
-    technologies: ["Python", "RAG / LLMs", "Java", "Spring Boot", "C#", ".NET Core", "PostgreSQL", "Docker", "REST APIs"],
+    technologies: ["React", "RAG / LLMs", "Coolify", "Java", "Springboot", "Postgre", "TypeScript", "Go", "Python", "Langfuse", "Python"],
   },
   {
     id: "freelance-fullstack",
@@ -1129,10 +1181,10 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     period: "Dec 2025 — Present",
     location: "Jakarta · Remote",
     description: [
-      "Partnered directly with founders and business owners to solve operational bottlenecks through pragmatic, zero-overhead software.",
-      "Built Dr. Meoww: an end-to-end clinic operations platform and Android tablet app using React, Capacitor native hardware GPS, and Supabase RLS—compressing attendance and payroll from 2 days of paper math down to 3 minutes.",
-      "Engineered byGewa custom ordering engine: location-aware portal running on Vercel, Google Maps API, and Google Apps Script with $0/mo hosting overhead for a boutique florist.",
-      "Focused on out-of-the-box efficiency: using off-the-shelf and low-code primitives for 70% of needs, reserving custom engineering for the critical 30% that delivers immediate business value.",
+      "Work directly with small business owners to turn repetitive day-to-day tasks into simple software they can actually maintain.",
+      "Built Dr. Meoww, a clinic operations and Android tablet app for attendance, patient records, inventory, and payroll. Monthly payroll went from roughly two days of manual work to a few minutes.",
+      "Built byGewa's ordering flow with delivery-distance pricing and direct Google Sheets integration, using Vercel, Google Maps, and Apps Script with no current monthly hosting cost.",
+      "I try not to custom-build things just to make the stack look impressive. If an existing tool solves most of the problem well, I use it and spend custom engineering effort on the parts that actually matter to the business.",
     ],
     technologies: ["React", "TypeScript", "Capacitor", "Android", "Supabase RLS", "Google Apps Script", "Vercel", "Google Maps API"],
   },
@@ -1144,8 +1196,8 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     period: "Apr 2026 — Jul 2026",
     location: "Indonesia · Remote",
     description: [
-      "Co-trained professionals on Design Thinking frameworks, human-centered problem solving, and iterative prototyping.",
-      "Facilitated collaborative workshops guiding cross-functional teams from ambiguous business problems to practical digital prototypes.",
+      "Co-trained Hackathon Digdaya participants on design thinking, user-focused problem solving, and turning rough ideas into testable prototypes.",
+      "Helped teams turn broad problem statements into clearer user needs, ideas, and working prototype directions.",
     ],
     technologies: ["Design Thinking", "User Research", "Systems Thinking", "Prototyping"],
   },
@@ -1157,23 +1209,23 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     period: "Jul 2025 — Oct 2025",
     location: "Indonesia · Remote",
     description: [
-      "Facilitated Google Cloud Platform hands-on learning labs for hundreds of developers and aspiring cloud engineers.",
-      "Guided participants through cloud architecture, IAM security policies, containerized workloads on GKE, and serverless Cloud Run functions.",
+      "Helped developers and aspiring cloud engineers work through hands-on Google Cloud labs and troubleshooting sessions.",
+      "Supported participants across topics such as IAM, GKE, Cloud Run, and general cloud architecture.",
     ],
     technologies: ["Google Cloud Platform", "GKE", "Cloud Run", "IAM", "Cloud Architecture"],
   },
   {
     id: "bangkit-mentor",
-    role: "Mentor Bangkit Batch 1 2024",
+    role: "Machine Learning Mentor Bangkit Batch 1 2024",
     company: "Bangkit Academy led by Google, Tokopedia, Gojek, & Traveloka",
     type: "Mentorship",
     period: "Feb 2024 — Jul 2024",
     location: "Remote",
     description: [
-      "Mentored 50+ prospective AI engineers through Google's flagship machine learning curriculum across deep learning, computer vision, and NLP.",
-      "Conducted weekly live technical consultation sessions, debugging complex model convergence issues and helping students bridge academic theory with production deployment.",
+      "Mentored 23+ machine-learning students through Bangkit coursework covering deep learning, computer vision, NLP, and project work.",
+      "Ran weekly mentoring sessions, helped debug training problems, and talked through how classroom concepts translate into working ML projects.",
     ],
-    technologies: ["Python", "TensorFlow", "FastAPI", "Computer Vision", "Scikit-Learn"],
+    technologies: ["Python", "TensorFlow", "FastAPI", "Computer Vision", "Scikit-Learn", "Tableau", "Kaggle", "Jupyter Notebook", "Google Colab"],
   },
   {
     id: "mekari-infosec",
@@ -1183,10 +1235,10 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     period: "Jun 2023 — Jun 2024",
     location: "Jakarta, Indonesia · Hybrid",
     description: [
-      "Where building clicked: built an automated security policy chatbot using Google Sheets, sparking the transition from analyzing problems to building software.",
-      "Audited application logs, API endpoints, and network activity to proactively surface vulnerabilities and enforce ISO 27001 standard practices.",
+      "Built a small security-policy chatbot with Google Sheets during my InfoSec internship — the side project that made me realize I wanted to spend more time building software.",
+      "Reviewed logs, APIs, and security controls as part of the team's ISO 27001 and information-security work.",
     ],
-    technologies: ["Python", "OpenAI API", "AWS Lambda", "ISO 27001", "Google Apps Script"],
+    technologies: ["Javascript", "OpenAI API", "AWS Lambda", "ISO 27001", "Google Apps Script"],
   },
   {
     id: "bangkit-graduate",
@@ -1196,10 +1248,23 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     period: "Feb 2023 — Jul 2023",
     location: "Remote",
     description: [
-      "Completed 900+ hour curriculum covering statistical analysis, deep neural networks, and model deployment.",
-      "Led computer vision capstone project recognized among top submissions.",
+      "Completed Bangkit's 900+ hour machine-learning track covering Python, statistics, deep learning, computer vision, and deployment.",
+      "Led the machine-learning side of our computer-vision capstone, which was recognized among the program's top submissions.",
     ],
     technologies: ["Python", "TensorFlow", "SQL", "Computer Vision", "Pandas"],
+  },
+  {
+    id: "itb-degree",
+    role: "System & Information Technology Graduate",
+    company: "Institut Teknologi Bandung (ITB)",
+    type: "Education",
+    period: "Bachelor Degree",
+    location: "Bandung, Indonesia",
+    description: [
+      "Graduated in System & Information Technology (STI / STEI ITB).",
+      "Studied systems analysis, enterprise computing, databases, networks, and software engineering before moving into a hands-on software engineering role.",
+    ],
+    technologies: ["Systems Architecture", "Software Engineering", "Databases", "Networks", "Python", "Java"],
   },
 ];
 
@@ -1207,77 +1272,77 @@ export const PURSUITS_DATA: Record<string, PursuitDetail> = {
   stories: {
     slug: "stories",
     title: "Stories",
-    subtitle: "Books, Speculative Fiction, Film & Anime",
+    subtitle: "Books, Film, Anime & Anything With a Good Story",
     tag: "Perspective",
     accent: "lilac",
     emoji: "📖",
     readTime: "4 min read",
     photoCount: 6,
-    leadQuote: "Fiction is systems engineering for human empathy. It is the only technology that lets you inhabit someone else's operating system without overwriting your own.",
+    leadQuote: "I like stories because they let me spend a few hours inside a life that isn't mine.",
     overview: [
-      "Most of our waking hours are spent locked inside our own skulls — our deadlines, our biases, our immediate sensory bubble. When you build software all day, your mind naturally tries to reduce the universe to deterministic workflows, logic gates, and edge cases.",
-      "Stories are the antidote to that narrowness. Whether it's a 400-page speculative fiction novel, a quiet anime episode, or a film where the dialogue happens in the pauses between words, great storytelling forces you to step outside your ego and live another life for a few hours.",
-      "I don't read or watch fiction to escape reality; I consume it to return to reality with more patience and sharper perception."
+      "Most days are naturally centered on our own problems, deadlines, and assumptions. Reading or watching a good story is one of the easiest ways I know to get pulled out of that for a while.",
+      "Sometimes that's a long novel, sometimes an anime episode, sometimes a film where almost nothing seems to happen. The format doesn't matter much to me. I just like the feeling of understanding a character I didn't expect to understand.",
+      "I don't think fiction needs to teach me a lesson every time. But the best stories usually leave some small change in how I look at people afterward."
     ],
     subsections: [
       {
-        heading: "The Empathy Machine: Why Fiction Matters for Engineers",
+        heading: "Why I keep coming back to fiction",
         paragraphs: [
-          "Engineers often pride themselves on pure objectivity. But every piece of software we build will eventually be touched by a tired person at 8 PM on a Tuesday who is frustrated, anxious, or trying to solve an urgent problem for their family.",
-          "Reading speculative fiction is essentially training in consequence modeling. Writers like Ted Chiang or Ursula K. Le Guin ask: 'What happens to human dignity and relationships if this one fundamental rule changes?' That is the exact same discipline required to design compassionate systems that don't break when human life gets messy."
+          "Software is used by actual people, usually while they are trying to get something else done. They might be tired, distracted, confused, or in a hurry. Remembering that matters more than pretending users behave like perfect inputs.",
+          "One thing I love about speculative fiction is how a writer can change one rule of the world and then follow the consequences all the way down to ordinary people. Ted Chiang and Ursula K. Le Guin are especially good at that. It isn't a software lesson so much as a reminder that systems always land on human lives eventually."
         ],
-        callout: "The best systems aren't the ones with the cleverest algorithms; they are the ones designed with deep empathy for the person using them on their worst day."
+        callout: "A clever system is nice. A system that still makes sense when the user is tired and frustrated is better."
       },
       {
-        heading: "The Discipline of Slow Narrative",
+        heading: "Learning to stay with something longer",
         paragraphs: [
-          "In an algorithmic internet designed to provoke immediate dopamine spikes, a long-form story demands something radical: patience. You have to sit with unresolved tension, sit with flawed characters who make terrible choices, and wait for understanding to arrive gradually.",
-          "That patience directly carries over to debugging and architecture. When a distributed system fails intermittently, quick hacks usually create worse debt. You need the narrative patience to trace causality step by step."
+          "Long stories ask for a kind of patience I don't get from scrolling. You have to stay with unresolved tension, annoying characters, and things that only make sense much later.",
+          "I like that feeling of not immediately knowing what something means. It has probably made me a little more comfortable sitting with confusing problems elsewhere too, including code."
         ]
       }
     ],
     highlights: [
-      { title: "Perspective Shifting", detail: "Inhabiting other minds to dissolve stubborn preconceptions." },
-      { title: "Consequence Modeling", detail: "Speculative fiction as a mental sandbox for edge-case reasoning." },
-      { title: "Slow Attention", detail: "Rebuilding sustained focus away from short-form dopamine loops." },
-      { title: "Quiet Craft", detail: "Appreciating works where atmosphere and restraint speak loudest." }
+      { title: "Borrowing another point of view", detail: "The fun part is realizing a character can make sense even when I would never make the same choice." },
+      { title: "Following consequences", detail: "I love stories that change one thing about the world and then seriously ask what happens next." },
+      { title: "Paying attention for longer", detail: "Books are one of the few things that can still keep me on one thread for hours." },
+      { title: "Quiet stories", detail: "Some of my favorites barely announce what they're doing. The meaning sits in the pauses." }
     ],
     curatedItems: {
-      sectionTitle: "Standout Works That Lingered",
-      sectionDescription: "Stories that fundamentally rearranged how I view time, morality, and purpose.",
+      sectionTitle: "Stories I kept thinking about",
+      sectionDescription: "A few stories that stayed in my head long after I finished them.",
       items: [
         {
           title: "Exhalation",
           creatorOrContext: "Ted Chiang · Book / Short Stories",
-          description: "Nine mind-bending philosophical explorations of free will, entropy, and memory. Crystalline prose that treats emotional dilemmas with mathematical precision.",
+          description: "Ted Chiang can take a huge idea about free will, memory, or time and make it feel personal instead of abstract. I finish his stories wanting to reread them immediately.",
           tag: "Sci-Fi / Philosophy",
           quote: "The universe began as an enormous breath being held. Who knows why? But whatever the reason, I am glad it did."
         },
         {
           title: "Vinland Saga",
           creatorOrContext: "Makoto Yukimura · Manga / Anime",
-          description: "A monumental masterclass on violence, grief, and the radical courage of peace. Thorfinn's transition from vengeance to redemption is unmatched.",
+          description: "What starts as a revenge story slowly becomes a story about what it takes to stop living by violence. Thorfinn's growth is the reason it stayed with me.",
           tag: "Historical Fiction",
           quote: "You have no enemies. No one has any enemies. There is no one in this world that you should hurt."
         },
         {
           title: "Sousou no Frieren",
           creatorOrContext: "Kanehito Yamada & Tsukasa Abe · Anime",
-          description: "A quiet, melancholic contemplation of time, elf longevity, and the subtle tragedy of realizing someone's value only after they are gone.",
+          description: "A very quiet story about time, memory, and realizing too late that a short part of your life may have meant much more than you noticed.",
           tag: "Fantasy / Drama",
           quote: "It was only a ten-year journey... but why am I crying?"
         },
         {
           title: "The Dispossessed",
           creatorOrContext: "Ursula K. Le Guin · Novel",
-          description: "An unsparing contrast between an arid anarcho-syndicalist moon and an affluent capitalist planet. Explores what genuine freedom and community actually cost.",
+          description: "Le Guin puts two very different societies next to each other and refuses to make either one easy. I like how much the book trusts the reader to sit with the tradeoffs.",
           tag: "Speculative Social Fiction",
           quote: "You cannot buy the revolution. You cannot make the revolution. You can only be the revolution."
         },
         {
           title: "Monster",
           creatorOrContext: "Naoki Urasawa · Manga / Anime",
-          description: "Dr. Kenzo Tenma's moral odyssey across post-Cold War Germany, grappling with the weight of saving a human life without knowing what that life would become.",
+          description: "Tenma saves a life because he believes every life matters, then has to live with what that decision sets in motion. The moral tension carries the whole story.",
           tag: "Psychological Thriller",
           quote: "The only thing humans are equal in is death."
         }
@@ -1343,51 +1408,51 @@ export const PURSUITS_DATA: Record<string, PursuitDetail> = {
   "getting-better-at-things": {
     slug: "getting-better-at-things",
     title: "Getting Better at Things",
-    subtitle: "Running, Gym Progression, Badminton & Archery",
+    subtitle: "Running, Gym, Badminton & Archery",
     tag: "Practice & Discipline",
     accent: "mint",
     emoji: "🏹",
     readTime: "5 min read",
     photoCount: 6,
-    leadQuote: "Everyone starts bad at everything. Watching yourself slowly, agonizingly improve through sheer consistency never stops feeling like magic.",
+    leadQuote: "I like hobbies where improvement is slow enough that you can actually notice yourself earning it.",
     overview: [
-      "There is an uncomfortable truth about learning any physical discipline: the first hundred hours will make you feel clumsy, uncoordinated, and painfully slow. Your lungs burn at kilometer two, your bench press stalls at rookie numbers, your arrows scatter across the cardboard, and you miss routine smashes on the court.",
-      "And yet, that friction is the entire point. In intellectual work or software engineering, feedback is often noisy — you can spend three weeks refactoring code and wonder if you made things genuinely better or just moved complexity around. Physical discipline gives you uncorrupted feedback.",
-      "The barbell either moves or it stays glued to the floor. Your 10km split is either 52 minutes or it isn't. The arrow either hit the yellow inner ring or it bit into the wooden stand. No excuses, no committee meetings, no political spin."
+      "The beginning of any physical hobby is humbling. You run out of breath too early, lift less than you thought you could, scatter arrows everywhere, or completely mistime an easy shot.",
+      "That's also what makes it satisfying. Progress is unusually easy to see. A pace gets easier, a weight moves cleanly, or the arrows start landing closer together.",
+      "There isn't much room to talk your way around the result. You either did the rep, ran the distance, or hit the target. I find that kind of feedback refreshing."
     ],
     subsections: [
       {
-        heading: "Running: Pacing, Breath & The 10km Progression",
+        heading: "Running without trying to win the first kilometer",
         paragraphs: [
-          "I used to despise running because I ran with my ego. I would bolt out of the gate at 4:30/km pace, gasp for oxygen at kilometer two, and walk home defeated. Discovering low-heart-rate Zone 2 pacing completely rebuilt my relationship with endurance.",
-          "When you slow down to a conversational cadence where you can nasal-breathe, your aerobic system actually builds. Suddenly 5km feels like a warm-up, 8km becomes routine, and a Sunday 10km run along the Jakarta car-free day or morning streets becomes the most peaceful hour of the entire week."
+          "I used to hate running because I started every run too fast. I'd chase an impressive first kilometer, blow up soon after, then wonder why running felt miserable. Learning to slow down changed everything.",
+          "Once I stopped treating every run like a time trial, distance became much more enjoyable. A slow Sunday run around Jakarta can be one of the calmest parts of the week."
         ],
         callout: "Running teaches you that panic does not make the hill shorter. Relax your shoulders, lower your chin, and let your cadence do the work."
       },
       {
-        heading: "The Barbell: Progressive Overload as Life Philosophy",
+        heading: "The boring consistency of getting stronger",
         paragraphs: [
-          "Strength training is compound interest in biological form. You don't build a strong back or clean posture through 'heroic workouts' once a month; you build it by showing up on Thursday at 7 PM when your brain is tired, adding 2.5kg to the bar, and completing your reps.",
-          "It forces you to respect fundamentals: sleep, recovery, joint positioning, and mechanical advantage. There are zero shortcuts."
+          "Strength training is mostly very unglamorous consistency. You show up even when you're tired, do the same basic movements well, add a little weight when you're ready, and repeat that for months.",
+          "It also makes recovery impossible to ignore. Sleep, food, technique, and patience show up in the next session whether you care about them or not."
         ]
       },
       {
-        heading: "Archery & Badminton: Stillness vs. Velocity",
+        heading: "Archery and badminton scratch opposite itches",
         paragraphs: [
-          "Archery is pure internal stillness. When you draw the recurve bowstring to your anchor point under your jaw, your heartbeat slows, your breath stops at the bottom of the exhale, and you let the arrow release itself without flinching. Any anxiety in your fingertips sends the shot wide.",
-          "Badminton is the exact polar opposite: explosive reaction time, court geometry, and reading your opponent's shoulder angle in 200 milliseconds. Playing doubles requires instantaneous non-verbal communication with your partner. One sport teaches stillness; the other teaches lightning reflex."
+          "Archery rewards calm. The more I try to force a good shot, the worse it usually gets. The goal is to repeat the same setup, breathe, and stop interfering with the release.",
+          "Badminton is almost the opposite: quick decisions, fast feet, and constantly reading where the next shot is going. I like having one hobby that slows me down and another that speeds everything up."
         ]
       }
     ],
     highlights: [
-      { title: "10km Target Pace", detail: "Consistently running sub-54min 10k sessions with low perceived exertion." },
-      { title: "Weekly Volume", detail: "4x gym strength sessions (push/pull/legs) + 2x road running sessions." },
-      { title: "Recurve Archery", detail: "Developing calm breath control and consistent 20m target clustering." },
-      { title: "Badminton Doubles", detail: "Refining rotational court coverage and aggressive net-kill timing." }
+      { title: "10km Target Pace", detail: "Working toward a faster 10K while keeping most training easy enough to recover from." },
+      { title: "Weekly Volume", detail: "Usually a mix of gym sessions and a couple of runs each week." },
+      { title: "Recurve Archery", detail: "Trying to make my 20m grouping boringly consistent instead of occasionally lucky." },
+      { title: "Badminton Doubles", detail: "Getting better at doubles positioning, rotation, and not arriving late to the net." }
     ],
     curatedItems: {
-      sectionTitle: "Gear & Protocols That Actually Mattered",
-      sectionDescription: "The few pieces of training equipment and habits that made a tangible difference.",
+      sectionTitle: "Things that actually helped",
+      sectionDescription: "A few habits and pieces of gear that made training simpler or more consistent.",
       items: [
         {
           title: "Garmin Forerunner & Heart Rate Pacing",
@@ -1475,51 +1540,51 @@ export const PURSUITS_DATA: Record<string, PursuitDetail> = {
   travel: {
     slug: "travel",
     title: "Travel & Safar",
-    subtitle: "Safar, Sacred Ground & Broad Horizons",
+    subtitle: "Places, Pilgrimage & Getting Out of Routine",
     tag: "Exploration",
     accent: "cream",
     emoji: "🌍",
     readTime: "5 min read",
     photoCount: 8,
-    leadQuote: "Safar is encouraged in Islam, and I understand why. Unfamiliar places make you feel small in the best way.",
+    leadQuote: "Travel has a way of making your usual worries feel smaller. I think that's part of why safar has always meant more to me than just seeing new places.",
     overview: [
-      "In Islamic tradition, travel (*Safar*) is not merely consumer tourism or checking monuments off an itinerary. The Arabic root of the word *Safar* shares its linguistic foundation with *safara* — meaning to unveil, reveal, or manifest.",
-      "When you remain in the sheltered familiarity of your hometown, your routines reinforce your assumptions. But the moment you leave your comfort zone, your true nature is unveiled: how you respond when a flight is canceled, how you treat a stranger when you don't speak their language, and how humble you feel standing before vast landscapes.",
-      "Jakarta is loud, hurried, and dense. Journeying across quiet stone alleys, mountain calderas, or the serene marble courtyards of the Haramain recalibrates your spirit. It shrinks your daily worries down to their proper, microscopic size."
+      "I like the Islamic idea of safar because travel feels like more than collecting places. Being away from your normal routine tends to reveal parts of you that are easy to hide at home.",
+      "You learn small things about yourself when plans go wrong, when you don't speak the language, or when you have to depend on strangers. You also get reminded very quickly that your normal way of living is only one way people live.",
+      "Jakarta is loud and fast, so being somewhere quieter can reset my sense of scale. A mountain, an old city, or the courtyards of the Haramain can make whatever I was stressing about back home feel much smaller."
     ],
     subsections: [
       {
-        heading: "The Haramain: The Gravity of Sacred Silence",
+        heading: "The Haramain",
         paragraphs: [
-          "Walking into the Prophet's Mosque in Madinah is an experience unlike anywhere else on earth. There are hundreds of thousands of people gathered from every continent, language, and walk of life — and yet there is an overarching quiet dignity that settles over the courtyard like morning mist.",
-          "In Mecca, watching the circular flow around the Kaaba at 2 AM strips away every distinction of social status, job title, and nationality. Everyone stands in the exact same simple white cloth. It is the most powerful reminder I know that we all arrive with nothing and leave with nothing."
+          "Madinah felt different from anywhere else I've visited. Even with people coming from all over the world, the courtyard of the Prophet's Mosque can feel remarkably calm.",
+          "In Makkah, watching people move around the Kaaba in the middle of the night makes status feel very temporary. Different languages, jobs, and countries disappear into the same act of worship."
         ],
-        callout: "In the courtyard of Madinah, time doesn't feel like a resource you're spending. It feels like a space you are quietly inhabiting."
+        callout: "In Madinah, I rarely felt the urge to rush anywhere. Just being there felt like enough."
       },
       {
-        heading: "Japan: The Dignity of Everyday Craft",
+        heading: "Japan and the care people put into ordinary things",
         paragraphs: [
-          "What struck me most in Japan wasn't the futuristic skyline of Tokyo, but the quiet pride people take in seemingly routine work. The subway conductor pointing with crisp precision, the elderly ramen master tending a single broth for forty years, the carpenter smoothing cedar joints in a Kyoto temple.",
-          "There is a cultural reverence for doing simple things with exquisite care (*kodawari*). As a software engineer, it challenged me: do I write code with that level of deliberate respect, or do I just rush to hit a deadline?"
+          "What I noticed most in Japan wasn't really the futuristic stuff. It was the care people seemed to put into ordinary work: a train conductor doing the same safety check precisely, a small shop arranged thoughtfully, an old building repaired instead of replaced.",
+          "I came home thinking more about care than efficiency. Even in software, there is a difference between finishing something and taking enough pride in the small details that it feels considered."
         ]
       },
       {
-        heading: "The Archipelago: Bromo Caldera & Ancient Stones",
+        heading: "Remembering how much there is close to home",
         paragraphs: [
-          "We often look abroad for awe while forgetting what exists in our own backyard. Standing on the rim of Mount Bromo at dawn, watching the sea of sand emerge from the darkness under a biting mountain wind, reminds you of the raw tectonic power shaping Indonesia.",
-          "Wandering through Prambanan and Borobudur in Central Java tells a story of centuries of architectural ambition built entirely by hand. Unfamiliar places remind you that human history is vast, and our modern era is merely the latest chapter."
+          "It's easy to look abroad first and forget how much there is in Indonesia. Bromo at sunrise is one of those places that makes the scale of the landscape hard to ignore.",
+          "Places like Prambanan and Borobudur do something similar in a different way. They make the present feel less permanent when you are standing in front of work that has already outlived generations."
         ]
       }
     ],
     highlights: [
-      { title: "Safar as Unveiling", detail: "Testing patience, humility, and presence outside familiar walls." },
-      { title: "Spiritual Stillness", detail: "The serene white umbrellas and marble floors of the Haramain." },
-      { title: "Everyday Craft", detail: "Observing devotion to small details in Tokyo and Kyoto alleys." },
-      { title: "Archipelago Wonder", detail: "Volcanic winds in Bromo and ancient stone history in Central Java." }
+      { title: "Leaving routine behind", detail: "Travel shows me pretty quickly how I behave when the usual comforts and routines are gone." },
+      { title: "The Haramain", detail: "A kind of stillness I have not really found anywhere else." },
+      { title: "Care in ordinary things", detail: "Small details in streets, shops, stations, and old buildings that people clearly take pride in." },
+      { title: "Closer to home", detail: "Bromo, old temples, and the reminder that Indonesia already has more than enough places to keep exploring." }
     ],
     curatedItems: {
-      sectionTitle: "Memorable Journeys & Coordinates",
-      sectionDescription: "Places that left an indelible mark on my memory and perspective.",
+      sectionTitle: "Places that stayed with me",
+      sectionDescription: "A few places I still find myself thinking about after coming home.",
       items: [
         {
           title: "Madinah Al-Munawwarah",
@@ -1632,44 +1697,44 @@ export const PURSUITS_DATA: Record<string, PursuitDetail> = {
   games: {
     slug: "games",
     title: "Games & Boss Encounters",
-    subtitle: "Souls-likes, Chess & The Honest Grind",
+    subtitle: "Souls-likes, Chess & Getting Better the Hard Way",
     tag: "Deliberate Practice",
     accent: "coral",
     emoji: "♟️",
     readTime: "3 min read",
     photoCount: 4,
-    leadQuote: "Souls-likes & Chess teach the same lesson: effort cleanly equals outcome. No noise, no politics, no shortcuts.",
+    leadQuote: "What I like about Souls-likes and chess is that the feedback is brutally clear: if I keep making the same mistake, I keep losing.",
     overview: [
-      "In modern corporate work, causality is often obscured. You can build a technically brilliant feature that gets killed by executive reprioritization. You can pour days into a proposal that gets sidelined by organizational politics.",
-      "Games provide an uncorrupted arena. When you sit down across a chessboard against a formidable opponent, or step through the fog gate to face Malenia or Sword Saint Isshin, the universe is stripped of unfair excuses.",
-      "If you take damage, it's because you rolled too early or greedily swung during an open recovery frame. If your king gets pinned on move 22, it's because you neglected candidate moves on move 16. The fault is completely, beautifully yours."
+      "Work is messy. Sometimes a good idea gets dropped for reasons that have nothing to do with the quality of the work, and sometimes it is hard to tell whether you actually improved.",
+      "Games are nice because the feedback is simpler. In chess, the position is right there. In a boss fight, the attack happened, I reacted badly, and now I'm dead. There is usually something concrete to learn from.",
+      "If I get hit, I probably rolled too early or got greedy. If I lose a chess position, there is usually a move I failed to consider earlier. That accountability is part of the fun."
     ],
     subsections: [
       {
-        heading: "The Geometry of Boss Encounters",
+        heading: "Why difficult boss fights are fun",
         paragraphs: [
-          "FromSoftware games are often labeled 'punishing,' but that misses their core design philosophy. They are not cruel; they are strictly fair. Every attack has a tell: a shoulder twitch, a raised blade, a windup timing.",
-          "Beating a boss on your 40th attempt isn't about reflexes; it's about composure and pattern recognition. You stop fighting the boss and start dancing with the rhythm of the animation frames."
+          "People call FromSoftware games punishing, but the good fights usually feel fair. Attacks have tells, openings repeat, and the game keeps giving you information even while it is killing you.",
+          "By the fortieth attempt, the fight feels completely different from the first. You're not reacting to chaos anymore; you recognize the sequence and know when it is actually your turn."
         ],
         callout: "Panic is the true boss. The moment you panic-roll, you die. The moment you breathe and wait for your window, the encounter slows down."
       },
       {
-        heading: "Chess as Mental Stoicism",
+        heading: "Chess and being forced to admit you missed something",
         paragraphs: [
-          "Chess is the ultimate test of intellectual honesty. You cannot bluff a passed pawn. You cannot talk your way out of a knight fork.",
-          "It forces you to confront your own cognitive biases: hope chess (playing a move hoping your opponent won't see your flaw) will always be punished by a disciplined adversary. It teaches you to look for the strongest rebuttal before committing to an idea."
+          "Chess is very good at exposing wishful thinking. A bad position does not care that the idea felt clever when you played it.",
+          "The habit I'm trying to build is simple: before I get excited about my move, look for the strongest reply. It sounds obvious, but doing that consistently is much harder than knowing it in theory."
         ]
       }
     ],
     highlights: [
-      { title: "Pure Causality", detail: "Clear rules where outcome directly reflects preparation and focus." },
-      { title: "Pattern Mastery", detail: "Decoding enemy attack windows and positional chess imbalances." },
-      { title: "Composure Under Pressure", detail: "Staying calm when health is low or the clock is under 30 seconds." },
-      { title: "Zero Shortcuts", detail: "Gaining satisfaction from earned mastery through repeated failure." }
+      { title: "Clear feedback", detail: "It is usually obvious what went wrong and what I need to practice next." },
+      { title: "Pattern recognition", detail: "Seeing familiar shapes sooner, whether it is a boss animation or a chess position." },
+      { title: "Staying calm", detail: "Trying not to throw away good decisions just because the health bar or clock looks scary." },
+      { title: "Earned improvement", detail: "The satisfaction comes from remembering how impossible something felt before it became normal." }
     ],
     curatedItems: {
-      sectionTitle: "Legendary Encounters & Studies",
-      sectionDescription: "Moments in gaming that demanded peak focus and tactical discipline.",
+      sectionTitle: "Favorite fights and chess ideas",
+      sectionDescription: "A few encounters and studies I keep coming back to because they were genuinely fun to learn.",
       items: [
         {
           title: "Sword Saint Isshin (Sekiro: Shadows Die Twice)",

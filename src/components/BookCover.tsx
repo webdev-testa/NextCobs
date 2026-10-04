@@ -1,15 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 
 export interface BookCoverProps {
-  coverSrc: string;
+  coverSrc?: string;
+  children?: React.ReactNode;
+  responsive?: boolean;
   alt?: string;
   backColor?: string; // Color of the back cover peeking through on the right
   shaderShadow?: string;
   hasStrap?: boolean;
   strapSrc?: string;
+  strapPosition?: number;
   isInteractive?: boolean;
   width?: number;
   height?: number;
@@ -18,18 +21,19 @@ export interface BookCoverProps {
 
 export function BookCover({
   coverSrc,
+  children,
+  responsive = false,
   alt = "Book Cover",
   backColor = "rgb(209, 82, 73)",
   shaderShadow = "inset -2px 0px 2px 0px rgba(255, 255, 255, 0.5)",
   hasStrap = false,
   strapSrc = "/images/books/book-strap.png",
+  strapPosition = 42.89,
   isInteractive = true,
   width = 315,
   height = 450,
   className = "",
 }: BookCoverProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
   // Exact 5 stepped page insets from Toan's Framer bundle
   const pageLayers = [
     { right: "10px", zIndex: 1 },
@@ -39,17 +43,15 @@ export function BookCover({
     { right: "22px", zIndex: 5 },
   ];
 
-  const shouldAnimate = isInteractive && isHovered;
-
   return (
     <div
-      className={`group relative select-none cursor-pointer flex items-center justify-center ${className}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className={`book-cover relative select-none flex items-center justify-center ${className}`}
+      data-interactive={isInteractive}
       style={{
-        width: `${width}px`,
-        height: `${height}px`,
-        aspectRatio: "0.7 / 1",
+        width: responsive ? "100%" : `${width}px`,
+        maxWidth: `${width}px`,
+        height: responsive ? "auto" : `${height}px`,
+        aspectRatio: `${width} / ${height}`,
         overflow: "visible",
       }}
     >
@@ -125,7 +127,7 @@ export function BookCover({
           Exact Framer 3D perspective, scale, translate, and rotate
           ======================================================== */}
       <div
-        className="framer-jx8l0x absolute inset-0 z-10 flex items-center justify-start overflow-visible"
+        className="book-cover-front framer-jx8l0x absolute inset-0 z-10 flex items-center justify-start overflow-visible"
         data-framer-name="Cover container"
         style={{
           borderTopLeftRadius: "4px",
@@ -133,11 +135,6 @@ export function BookCover({
           borderBottomRightRadius: "40px",
           borderBottomLeftRadius: "4px",
           transformOrigin: "50% 50%",
-          transform: shouldAnimate
-            ? "perspective(1200px) translateX(-24px) scale(1.02) rotateY(-16deg)"
-            : "perspective(1200px) translateX(0px) scale(1) rotateY(0deg)",
-          transition: "transform 0.3s cubic-bezier(0.44, 0, 0.56, 1)",
-          willChange: "transform",
         }}
       >
         {/* Cover Cover (framer-inqfqs) - Full-bleed artwork */}
@@ -151,14 +148,13 @@ export function BookCover({
             borderBottomLeftRadius: "4px",
           }}
         >
-          <Image
+          {coverSrc ? <Image
             src={coverSrc}
             alt={alt}
             fill
             className="object-cover"
             sizes={`${width}px`}
-            priority
-          />
+          /> : children}
         </div>
 
         {/* Shader (framer-4tvwyf) - Edge highlight & 1px boundary */}
@@ -229,7 +225,7 @@ export function BookCover({
                 height: "106px",
                 width: "101%",
                 left: "calc(50% - 101% / 2)",
-                top: "calc(42.89% - 53px)",
+                top: `calc(${strapPosition}% - 53px)`,
                 zIndex: 1,
               }}
             >

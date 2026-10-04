@@ -3,10 +3,11 @@ import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { getPublishedNotes } from "@/lib/portfolio-catalog";
+import { DEVELOPER_INFO } from "@/data/portfolioData";
 import { ArrowLeft, ArrowUpRight, BookOpen, Clock } from "lucide-react";
 
 export const metadata = {
-  title: "Notes & Essays — Ammardito Shafaat",
+  title: `Notes & Essays — ${DEVELOPER_INFO.name}`,
   description: "Technical essays on systems architecture, zero-cost backends, and engineering reality.",
 };
 

@@ -3,13 +3,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { ABOUT_ESSAY } from "@/data/portfolioData";
+import { BlurredPortrait } from "@/components/BlurredPortrait";
+import { ABOUT_ESSAY, DEVELOPER_INFO } from "@/data/portfolioData";
 import { getDeveloperProfile, getCareerExperience } from "@/lib/portfolio-catalog";
 import { ArrowLeft, ArrowRight, Quote, ArrowUpRight } from "lucide-react";
 
 export const metadata = {
-  title: "About — Ammardito Shafaat",
-  description: "How I Got Here: from Information Systems to machine learning and software engineering. I build practical software solutions so teams can carry less.",
+  title: `About — ${DEVELOPER_INFO.name}`,
+  description: ABOUT_ESSAY.leadQuote || "How I Got Here: background, philosophy, and engineering approach.",
 };
 
 export function AboutView() {
@@ -50,14 +51,11 @@ export function AboutView() {
         {/* Author Illustrated Bio Card */}
         <section className="mb-8 p-6 sm:p-7 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6] flex flex-col sm:flex-row items-center gap-6 sm:gap-8" data-reveal>
           <div className="shrink-0 flex flex-col items-center" data-reveal="photo">
-            <div className="p-2.5 bg-[#ffffff] rounded-2xl border border-[#e6e6e6] shadow-sm transform -rotate-1 hover:rotate-0 transition-transform">
+            <div className="p-2.5 bg-[#ffffff] rounded-2xl border border-[#e6e6e6] shadow-sm transform -rotate-1 hover:rotate-0 transition-transform group">
               <div className="relative w-36 sm:w-44 aspect-square rounded-xl overflow-hidden bg-[#ffffff]">
-                <Image
-                  src="/images/sketches/avatar-sketch.png"
-                  alt="Ammardito Shafaat sketch"
-                  fill
-                  sizes="180px"
-                  className="object-contain"
+                <BlurredPortrait
+                  alt={`Portrait placeholder of ${dev.name} — still choosing my best looking photo`}
+                  sizes="(max-width: 640px) 144px, 176px"
                 />
               </div>
               <p className="text-xs font-mono text-[#666666] text-center mt-2 italic">
@@ -88,7 +86,10 @@ export function AboutView() {
                 📍 Jakarta, Indonesia
               </span>
               <span className="px-2.5 py-1 rounded-full bg-[#ffffff] border border-[#e6e6e6] text-[#333333]">
-                ⚙️ LG Sinarmas &bull; AI Lead
+                🎓 ITB &bull; System & Info Tech
+              </span>
+              <span className="px-2.5 py-1 rounded-full bg-[#ffffff] border border-[#e6e6e6] text-[#333333]">
+                ⚙️ LG Sinarmas &bull; Software Engineer
               </span>
               <span className="px-2.5 py-1 rounded-full bg-[#ffffff] border border-[#e6e6e6] text-[#333333]">
                 📖 Speculative Fiction
@@ -132,7 +133,7 @@ export function AboutView() {
             </p>
 
             <p>
-              I studied Information Systems Technology — not computer science. It&apos;s a solid major if you want to end up in strategy, analysis, documentation. I didn&apos;t. Somewhere in my first internship, doing InfoSec work, I got handed a task with nothing to do with my actual job: build a chatbot using Google Sheets. It was small and a little absurd, and it stuck with me more than any planning deck I&apos;d made up to that point.
+              I studied System and Information Technology at Institut Teknologi Bandung (ITB) — not pure computer science. It&apos;s a solid major if you want to understand enterprise architecture, strategy, and systems analysis. I didn&apos;t want to just plan; I wanted to ship. Somewhere in my first internship, doing InfoSec work, I got handed a task with nothing to do with my actual job: build a chatbot using Google Sheets. It was small and a little absurd, and it stuck with me more than any planning deck I&apos;d made up to that point.
             </p>
 
             {/* Pull Quote */}

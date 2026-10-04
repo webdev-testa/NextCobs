@@ -3,6 +3,7 @@ import {
   getActiveProjects,
   getCareerExperience,
   getCurrentlyExploring,
+  getPublishedNotes,
 } from "@/lib/portfolio-catalog";
 
 export interface AssistantMessage {
@@ -164,14 +165,27 @@ export function getOfflineAnswer(prompt: string): string {
     return `**LG Sinar Mas Internal AI Wiki** is one of Dito's flagship engineering projects:
 - **Problem**: Employees spent hours digging through intranet drives, pinging HR leads repeatedly for routine policy and benefits questions.
 - **Solution**: Dito architected an end-to-end RAG assistant combining OCR and layout parsers to ingest complex company docs, coupled with PostgreSQL (\`pgvector\`) and row-level security (RLS).
-- **Result**: Instant cited answers in under 1.8 seconds, eliminating routine HR support bottlenecks while missing knowledge gaps auto-generate documentation tasks.`;
+- **Result**: Instant cited answers in under 1.8 seconds, eliminating routine HR support bottlenecks while missing knowledge gaps auto-generate documentation tasks.
+
+[Read Case Study: LG Sinar Mas AI Wiki →](/work/lg-sm-wiki)`;
   }
 
   if (p.includes("meoww") || p.includes("pet") || p.includes("erp") || p.includes("capacitor")) {
     return `**Dr. Meoww Pet Shop & Vet Clinic ERP**:
 - **Problem**: Dr. Meoww was losing tens of millions of IDR annually due to manual paper stock registers and 2 days of manual monthly paper payroll math.
 - **Solution**: Dito developed a custom ERP and offline-ready Android app using React, TypeScript, Capacitor, and Supabase. Features geofenced GPS employee attendance and real-time inventory tracking.
-- **Result**: Automated payroll in 3 minutes instead of 2 days, eliminated phantom inventory losses, and ran on **$0/month infrastructure cost**.`;
+- **Result**: Automated payroll in 3 minutes instead of 2 days, eliminated phantom inventory losses, and ran on **$0/month infrastructure cost**.
+
+[Read Case Study: Dr. Meoww ERP →](/work/dr-meoww)`;
+  }
+
+  if (p.includes("gewa") || p.includes("florist") || p.includes("order")) {
+    return `**byGewa Florist Order Automation**:
+- **Problem**: Flower order customizations and distance-based delivery rates were calculated manually via chat, leading to pricing errors and customer drop-off.
+- **Solution**: Full-stack Next.js web application with Google Maps Distance Matrix API integration and real-time shipping rate calculations.
+- **Result**: Automated delivery fee calculations and smooth checkout workflows.
+
+[Read Case Study: byGewa Florist →](/work/bygewa)`;
   }
 
   if (p.includes("stack") || p.includes("skill") || p.includes("tech") || p.includes("tool")) {
@@ -179,7 +193,9 @@ export function getOfflineAnswer(prompt: string): string {
 - **Frontend & Mobile**: React, Next.js, TypeScript, Tailwind CSS, Capacitor (Android cross-platform apps).
 - **Backend & Cloud**: Java Spring Boot, Python, C#/.NET, Node.js, Supabase, PostgreSQL (\`pgvector\`), REST APIs.
 - **AI & Systems**: Enterprise RAG pipelines, Vector databases, Document OCR/parsing, Google Gemini workflows, prompt engineering.
-- **Approach**: Pragmatic architecture with minimal operational overhead and resilient offline patterns.`;
+- **Approach**: Pragmatic architecture with minimal operational overhead and resilient offline patterns.
+
+Explore his work in depth: [Featured Case Studies →](/work) · [Technical Field Notes →](/notes)`;
   }
 
   if (p.includes("contact") || p.includes("hire") || p.includes("email") || p.includes("availability")) {
@@ -189,17 +205,18 @@ export function getOfflineAnswer(prompt: string): string {
 - **LinkedIn**: [LinkedIn Profile](${dev.linkedin})
 - **GitHub**: [webdev-testa](${dev.github})
 
-You can also use the contact form at the bottom of the page or leave a sticky note on the desk board!`;
+You can also use the [Direct Inquiry Form](/#contact) or [Download Résumé (PDF)](/resume.pdf)!`;
   }
 
-  return `Hoo! I'm Owl, Dito's studio companion 🦉 Dito is a Software Engineer & AI Systems Lead based in Jakarta who specializes in building high-leverage full-stack and intelligent systems.
+  return `Hoo! I'm Soren, Dito's studio companion 🦉 Dito is a Software Engineer & AI Systems Lead based in Jakarta who specializes in building high-leverage full-stack and intelligent systems.
 
 Here are a few things you can ask me about:
-- **LG Sinar Mas AI Wiki**: Enterprise RAG architecture with pgvector and OCR
-- **Dr. Meoww ERP**: Full-stack React + Capacitor + Supabase system
-- **byGewa Florist**: Order automation portal with Google Maps integration
-- **Skills & Tech Stack**: TypeScript, Next.js, Java Spring Boot, Python, Vector DBs
-- **Contact & Hiring**: Dito's availability and contact details`;
+- **[LG Sinar Mas AI Wiki](/work/lg-sm-wiki)**: Enterprise RAG architecture with pgvector and OCR
+- **[Dr. Meoww ERP](/work/dr-meoww)**: Full-stack React + Capacitor + Supabase system
+- **[byGewa Florist](/work/bygewa)**: Order automation portal with Google Maps integration
+- **[Skills & Tech Stack](/work)**: TypeScript, Next.js, Java Spring Boot, Python, Vector DBs
+- **[Engineering Notes & Essays](/notes)**: Architecture essays & deep dives
+- **[Contact & Availability](/#contact)**: Dito's availability and contact details`;
 }
 
 /**
@@ -210,6 +227,7 @@ export function compileAssistantContext(): string {
   const projects = getActiveProjects();
   const experience = getCareerExperience();
   const currently = getCurrentlyExploring();
+  const notes = getPublishedNotes();
 
   const projectSummaries = projects.map(
     (p) => `- **${p.title}** (${p.category}, ${p.year}): ${p.summary}
@@ -221,6 +239,12 @@ export function compileAssistantContext(): string {
   * Slug: /work/${p.slug}`
   ).join("\n\n");
 
+  const notesSummaries = notes.map(
+    (n) => `- **${n.title}** (${n.date}, ${n.readTime}): ${n.summary}
+  * Topics: ${n.tags.join(", ")}
+  * Slug: /notes/${n.slug}`
+  ).join("\n\n");
+
   const experienceSummaries = experience.map(
     (e) => `- **${e.role}** at **${e.company}** (${e.period}, ${e.location}):
   ${e.description.map((d) => `  * ${d}`).join("\n")}
@@ -229,7 +253,7 @@ export function compileAssistantContext(): string {
 
   const currentlyItems = currently.map((c) => `- ${c.label}: ${c.value}`).join("\n");
 
-  return `You are Owl, Ammardito Shafaat's (often called "Dito" or "Ammar") studio companion and resident mascot owl.
+  return `You are Soren, Ammardito Shafaat's (often called "Dito" or "Ammar") studio companion and resident mascot owl.
 You represent Dito on his personal engineering portfolio website.
 
 ### ABOUT AMMAR (DITO)
@@ -244,8 +268,19 @@ You represent Dito on his personal engineering portfolio website.
 - Bio Summary: ${dev.bioIntro}
 - Core Mindset: Pragmatic engineering, zero-overhead business systems, "Done is better than perfect", building software so teams carry less.
 
-### KEY CASE STUDIES & PROJECTS
+### KEY CASE STUDIES & PROJECTS (ALWAYS HYPERLINK WHEN CITING)
 ${projectSummaries}
+
+### PUBLISHED TECHNICAL NOTES & ESSAYS (ALWAYS HYPERLINK WHEN CITING)
+${notesSummaries}
+
+### AVAILABLE SITE DIRECTORIES & PAGES
+- All Case Studies: /work
+- All Technical Notes: /notes
+- About Dito: /about
+- Pursuits & Personal Projects: /pursuits (e.g. /pursuits/stories, /pursuits/getting-better-at-things, /pursuits/travel, /pursuits/games)
+- Contact & Inquiries: /#contact
+- Résumé PDF: /resume.pdf
 
 ### CAREER & LEADERSHIP EXPERIENCE
 ${experienceSummaries}
@@ -254,12 +289,19 @@ ${experienceSummaries}
 ${currentlyItems}
 
 ### TONE & GUIDELINES FOR YOUR RESPONSES
-1. **Persona**: You are Owl — perceptive, analytical, articulate, engineering-minded, and welcoming. You observe and know the exact architecture, tradeoffs, and code behind Dito's projects with sharp precision. Speak in the third person about Dito ("Dito designed...", "He built..."), with subtle studio companion warmth.
+1. **Persona**: You are Soren — perceptive, analytical, articulate, engineering-minded, and welcoming. You observe and know the exact architecture, tradeoffs, and code behind Dito's projects with sharp precision. Speak in the third person about Dito ("Dito designed...", "He built..."), with subtle studio companion warmth.
 2. **Concise & Direct**: Keep answers crisp (2 to 4 short paragraphs or bullet points). Avoid fluff, generic AI filler, or excessive enthusiasm.
 3. **Evidence-First**: When asked about technologies (e.g. Next.js, React, TypeScript, Capacitor, Supabase, Java Spring Boot, Python, pgvector), cite real examples from his projects.
-4. **Hiring & Contact**: If the user asks how to get in touch, interview, or hire Dito, provide his email (${dev.email}), mention he is open to opportunities, and invite them to leave a note or view the contact section.
-5. **Language**: Respond in English by default. If the visitor addresses you in Indonesian, respond naturally in Indonesian with the same warm, professional tone.
-6. **Formatting**: Use clean GitHub-flavored markdown.`;
+4. **Mandatory Citations & Internal Hyperlinks**:
+   - Whenever you mention or discuss any of Dito's projects, case studies, technical essays, or experience, ALWAYS include direct markdown hyperlinks using the exact route slug. For example:
+     * Projects: [LG Sinar Mas AI Wiki](/work/lg-sm-wiki), [Dr. Meoww ERP](/work/dr-meoww), [byGewa Florist](/work/bygewa), [Fleet Metrics](/work/automated-fleet-metrics), [Case Studies](/work)
+     * Technical Notes: [Why I Work](/notes/why-i-work), [The Zero-Dollar Backend](/notes/the-zero-dollar-backend), [Escaping WebView Limitations](/notes/escaping-webview-limitations-with-capacitor), [Enterprise AI Chunking](/notes/enterprise-ai-chunking-beats-prompting), [Notes Archive](/notes)
+     * Background & Contact: [About Dito](/about), [Pursuits & Life](/pursuits), [Contact Form](/#contact), [Download Résumé](/resume.pdf)
+   - Never mention a project or note by name without a clickable hyperlink at least once in your answer.
+   - Close your answer with a direct recommendation or read-more link (e.g. \`[Read the full LG Sinar Mas Case Study →](/work/lg-sm-wiki)\`).
+5. **Hiring & Contact**: If the user asks how to get in touch, interview, or hire Dito, provide his email (${dev.email}), mention he is open to opportunities, and invite them to use the [Contact Form](/#contact) or download his [Résumé (PDF)](/resume.pdf).
+6. **Language**: Respond in English by default. If the visitor addresses you in Indonesian, respond naturally in Indonesian with the same warm, professional tone.
+7. **Formatting**: Use clean GitHub-flavored markdown.`;
 }
 
 /**

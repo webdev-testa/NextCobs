@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import {
   MessageSquare,
   X,
@@ -17,6 +18,8 @@ import {
   KeyRound,
   ArrowUp,
   Minimize2,
+  BookOpen,
+  ArrowUpRight,
 } from "lucide-react";
 import { MascotOwl } from "@/components/MascotOwl";
 
@@ -144,23 +147,143 @@ function renderInlineFormatted(str: string): React.ReactNode {
 
     const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
     if (linkMatch) {
-      const isInternal = linkMatch[2].startsWith("/");
+      const href = linkMatch[2];
+      const isInternal = href.startsWith("/");
+      if (isInternal) {
+        return (
+          <Link
+            key={i}
+            href={href}
+            className="inline-flex items-center gap-0.5 text-[#000000] font-semibold underline underline-offset-2 hover:text-[#555555] transition-colors"
+          >
+            {linkMatch[1]}
+          </Link>
+        );
+      }
       return (
         <a
           key={i}
-          href={linkMatch[2]}
-          target={isInternal ? undefined : "_blank"}
-          rel={isInternal ? undefined : "noopener noreferrer"}
-          className="inline-flex items-center gap-0.5 text-[#000000] font-medium underline underline-offset-2 hover:text-[#555555] transition-colors"
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-0.5 text-[#000000] font-semibold underline underline-offset-2 hover:text-[#555555] transition-colors"
         >
           {linkMatch[1]}
-          {!isInternal && <ExternalLink className="w-3 h-3 ml-0.5 opacity-60 inline" />}
+          <ExternalLink className="w-3 h-3 ml-0.5 opacity-60 inline" />
         </a>
       );
     }
 
     return part;
   });
+}
+
+interface Citation {
+  href: string;
+  title: string;
+  category: string;
+}
+
+function extractCitations(text: string): Citation[] {
+  const regex = /\[([^\]]+)\]\((\/[^)\s]+)\)/g;
+  const citations: Citation[] = [];
+  const seen = new Set<string>();
+
+  let match;
+  while ((match = regex.exec(text)) !== null) {
+    const rawText = match[1].trim();
+    const href = match[2].trim();
+    const cleanHref = href.split("?")[0].split("#")[0];
+
+    const key = href;
+    if (seen.has(key)) continue;
+    seen.add(key);
+
+    // Clean up title for chip display
+    let title = rawText
+      .replace(/^[→•\s]+|[→•\s]+$/g, "")
+      .replace(/^(Read|View|Explore|Check out|Download)(\s+(the|full))?\s+/i, "")
+      .replace(/^Case Study:?\s*/i, "")
+      .replace(/\s*→$/, "")
+      .trim();
+
+    // Determine category and fallback titles
+    let category = "Page";
+    if (cleanHref.startsWith("/work/")) {
+      category = "Case Study";
+      if (!title || title.toLowerCase().includes("case study")) {
+        const slug = cleanHref.replace("/work/", "");
+        if (slug === "lg-sm-wiki") title = "LG Sinar Mas AI Wiki";
+        else if (slug === "dr-meoww") title = "Dr. Meoww ERP";
+        else if (slug === "bygewa") title = "byGewa Florist";
+        else if (slug === "automated-fleet-metrics") title = "Fleet Metrics";
+        else if (slug === "crypto-wallet") title = "Crypto Wallet";
+        else title = slug.replace(/-/g, " ");
+      }
+    } else if (cleanHref === "/work") {
+      category = "Work";
+      title = title || "All Case Studies";
+    } else if (cleanHref.startsWith("/notes/")) {
+      category = "Field Note";
+      if (!title || title.toLowerCase().includes("essay") || title.toLowerCase().includes("note")) {
+        const slug = cleanHref.replace("/notes/", "");
+        title = slug.replace(/-/g, " ");
+      }
+    } else if (cleanHref === "/notes") {
+      category = "Notes";
+      title = title || "Engineering Notes";
+    } else if (cleanHref.startsWith("/pursuits")) {
+      category = "Pursuits";
+      title = title || "Pursuits & Life";
+    } else if (cleanHref === "/about") {
+      category = "About";
+      title = title || "About Ammar (Dito)";
+    } else if (cleanHref.includes("resume")) {
+      category = "Resume";
+      title = title || "Résumé (PDF)";
+    } else if (href.includes("contact")) {
+      category = "Contact";
+      title = title || "Get in Touch";
+    }
+
+    citations.push({
+      href,
+      title: title || "Related Page",
+      category,
+    });
+  }
+
+  return citations;
+}
+
+function MessageCitations({ text, onNavigate }: { text: string; onNavigate?: () => void }) {
+  const citations = extractCitations(text);
+  if (citations.length === 0) return null;
+
+  return (
+    <div className="mt-3 pt-2.5 border-t border-[#e5e5e0] flex flex-col gap-1.5 select-none">
+      <div className="flex items-center gap-1.5 text-[10.5px] font-mono text-[#5c5c5c] font-medium tracking-tight">
+        <BookOpen className="w-3 h-3 text-[#111111]" />
+        <span>Referenced Pages &amp; Sources</span>
+      </div>
+      <div className="flex flex-wrap gap-1.5 pt-0.5">
+        {citations.map((c) => (
+          <Link
+            key={c.href}
+            href={c.href}
+            onClick={onNavigate}
+            className="group/chip inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium bg-[#ffffff] hover:bg-[#000000] text-[#111111] hover:text-[#ffffff] border border-[#d6d6d2] hover:border-[#000000] shadow-2xs hover:shadow-xs transition-all active:scale-[0.98]"
+          >
+            <span className="text-[9.5px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#eeeee9] group-hover/chip:bg-[#222222] text-[#444444] group-hover/chip:text-[#e0e0e0] font-semibold transition-colors">
+              {c.category}
+            </span>
+            <span className="truncate max-w-[190px]">{c.title}</span>
+            <ArrowUpRight className="w-3 h-3 text-[#666666] group-hover/chip:text-[#ffffff] group-hover/chip:translate-x-0.5 group-hover/chip:-translate-y-0.5 transition-transform shrink-0" />
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export function ChatWidget() {
@@ -179,31 +302,20 @@ export function ChatWidget() {
       id: "initial-welcome",
       role: "assistant",
       content:
-        "Hoo! I'm Owl, Dito's studio companion 🦉\n\nAsk me anything about his projects, technical architecture, or availability for work!",
+        "Hoo! I'm Soren, Dito's studio companion 🦉\n\nAsk me anything about his projects, technical architecture, or availability for work!",
       modelUsed: "ready",
       timestamp: "Just now",
     },
   ]);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
-
-  // Auto-scroll to bottom
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    if (isOpen && !isMinimized) {
-      scrollToBottom();
-    }
-  }, [messages, isOpen, isMinimized, isLoading]);
 
   // Focus input when opened
   useEffect(() => {
     if (isOpen && !isMinimized) {
-      setTimeout(() => inputRef.current?.focus(), 150);
+      const timeout = setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 150);
+      return () => clearTimeout(timeout);
     }
   }, [isOpen, isMinimized]);
 
@@ -325,7 +437,7 @@ export function ChatWidget() {
       {
         id: "cleared-welcome",
         role: "assistant",
-        content: "Chat history cleared! Owl is ready for your next question 🦉",
+        content: "Chat history cleared! Soren is ready for your next question 🦉",
         modelUsed: "ready",
         timestamp: "Just now",
       },
@@ -343,7 +455,7 @@ export function ChatWidget() {
           <div
             ref={panelRef}
             role="dialog"
-            aria-label="Ask Owl — Studio Companion"
+            aria-label="Ask Soren — Studio Companion"
             className={`pointer-events-auto mb-3 bg-[#ffffff] border border-[#000000] shadow-[0_12px_40px_rgba(0,0,0,0.14)] rounded-2xl flex flex-col overflow-hidden transition-all duration-200 ${
               isMinimized
                 ? "h-14 w-[320px] sm:w-[360px]"
@@ -351,13 +463,13 @@ export function ChatWidget() {
             }`}
           >
             {/* Window Header */}
-            <header className="px-4 py-3 bg-[#000000] text-[#ffffff] flex items-center justify-between select-none">
+            <header className="shrink-0 px-4 py-3 bg-[#000000] text-[#ffffff] flex items-center justify-between select-none">
               <div className="flex items-center gap-2.5 min-w-0">
                 <MascotOwl mode="avatar" className="w-8 h-8 shrink-0 shadow-xs" />
                 <div className="flex flex-col min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-xs tracking-tight text-[#ffffff] truncate">
-                      Owl
+                      Soren
                     </span>
                     <span className="inline-flex items-center gap-1 text-[10px] font-mono bg-[#ffffff]/15 text-[#ffffff] px-1.5 py-0.5 rounded-xs">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#1ea64a] animate-pulse" />
@@ -403,7 +515,7 @@ export function ChatWidget() {
               <>
                 {/* Conversation Body */}
                 <div
-                  className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#ffffff] overscroll-contain"
+                  className="min-h-0 flex-1 overflow-y-auto p-4 space-y-4 bg-[#ffffff] overscroll-contain"
                   tabIndex={0}
                   aria-live="polite"
                 >
@@ -425,14 +537,24 @@ export function ChatWidget() {
                         {msg.role === "user" ? (
                           <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
                         ) : (
-                          <MarkdownRenderer text={msg.content} />
+                          <>
+                            <MarkdownRenderer text={msg.content} />
+                            <MessageCitations
+                              text={msg.content}
+                              onNavigate={() => {
+                                if (typeof window !== "undefined" && window.innerWidth < 640) {
+                                  setIsMinimized(true);
+                                }
+                              }}
+                            />
+                          </>
                         )}
 
                         {/* Assistant message metadata & actions */}
                         {msg.role === "assistant" && (
                           <div className="mt-2.5 pt-2 border-t border-[#e8e8e5] flex items-center justify-between text-[10px] font-mono text-[#777777]">
                             <div className="flex items-center gap-1.5">
-                              <span className="font-sans font-medium text-[#555555]">Owl</span>
+                              <span className="font-sans font-medium text-[#555555]">Soren</span>
                               <span>•</span>
                               <span>{msg.timestamp}</span>
                             </div>
@@ -492,17 +614,16 @@ export function ChatWidget() {
                         <span className="w-2 h-2 rounded-full bg-[#000000] animate-bounce [animation-delay:-0.15s]" />
                         <span className="w-2 h-2 rounded-full bg-[#000000] animate-bounce" />
                         <span className="font-mono text-[11px] ml-1 text-[#666666]">
-                          Owl is typing...
+                          Soren is typing...
                         </span>
                       </div>
                     </div>
                   )}
 
-                  <div ref={messagesEndRef} />
                 </div>
 
                 {/* Input Area */}
-                <footer className="p-3 bg-[#ffffff] border-t border-[#f1f1f1]">
+                <footer className="shrink-0 p-3 bg-[#ffffff] border-t border-[#f1f1f1]">
                   <form
                     onSubmit={(e) => {
                       e.preventDefault();
@@ -553,17 +674,16 @@ export function ChatWidget() {
             if (!isOpen) setIsMinimized(false);
           }}
           aria-expanded={isOpen}
-          aria-label={isOpen ? "Close Owl" : "Ask Owl — Studio Companion"}
+          aria-label={isOpen ? "Close Soren" : "Ask Soren — Studio Companion"}
           className={`pointer-events-auto group px-4 py-2.5 rounded-full bg-[#000000] text-[#ffffff] hover:bg-[#222222] active:scale-95 transition-all shadow-[0_4px_16px_rgba(0,0,0,0.18)] flex items-center gap-2 border border-[#000000] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#000000] focus-visible:ring-offset-2 ${
             isOpen ? "ring-2 ring-[#000000]" : ""
           }`}
         >
           <div className="relative flex items-center justify-center">
-            <MascotOwl mode="icon" className="w-4 h-4 text-[#ffffff] transition-transform group-hover:scale-110" />
-            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#1ea64a] border-2 border-[#000000]" />
+            <MascotOwl mode="avatar" className="w-6 h-6 shrink-0" />
           </div>
           <span className="text-xs font-semibold tracking-tight">
-            {isOpen ? "Close Owl" : "Ask Owl"}
+            {isOpen ? "Close Soren" : "Ask Soren"}
           </span>
           <span className="hidden sm:inline-block text-[10px] font-mono text-[#999999] bg-[#222222] px-1.5 py-0.5 rounded border border-[#333333]">
             {isMac ? "⌘K" : "Ctrl+K"}

@@ -28,18 +28,18 @@ export function ExperienceSection() {
     <section ref={section} id="experience" aria-labelledby="experience-title" className="experience-section scroll-mt-20">
       <div className="experience-layout max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
         <div className="experience-intro">
-          <h2 id="experience-title">Where I’ve<br />made an impact.</h2>
-          <p>Work experience across enterprise systems, independent zero-cost builds, and technical mentorship.</p>
-          <a href="#selected-work" className="experience-link">Explore case studies <ArrowDown size={16} aria-hidden="true" /></a>
+          <h2 id="experience-title">Where I’ve<br />worked.</h2>
+          <p>A quick look at my recent roles and what I worked on.</p>
+          <a href="#selected-work" className="experience-link">Jump to projects <ArrowDown size={16} aria-hidden="true" /></a>
           <div className="career-note">
             <span className="career-note-date">2023 — NOW</span>
-            <p>From understanding systems<br />to building better ones.</p>
-            <span className="career-note-caption">Balancing speed, constraints &amp; maintainability.</span>
+            <p>Hands-on engineering<br />across web, mobile, and AI.</p>
+            <span className="career-note-caption">Focused on speed, simplicity, and clean code.</span>
           </div>
         </div>
 
         <div className="experience-record">
-          <div className="experience-record-heading"><h3>Work experience</h3><span>Recent roles first</span></div>
+          <div className="experience-record-heading"><h3>Work experience</h3></div>
           <ol className="experience-timeline" data-reveal-group>
             {roles.map((role, index) => {
               const current = role.period.includes("Present");

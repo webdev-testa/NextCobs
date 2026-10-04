@@ -10,7 +10,7 @@ import { Footer } from "@/components/Footer";
 
 export function HomeView() {
   return (
-    <main className="min-h-screen bg-[#ffffff] text-[#000000] flex flex-col relative selection:bg-[#000000] selection:text-[#ffffff]">
+    <main className="portfolio-home min-h-screen bg-[#ffffff] text-[#000000] flex flex-col relative selection:bg-[#000000] selection:text-[#ffffff]">
       {/* Editorial Navigation */}
       <Navbar />
 

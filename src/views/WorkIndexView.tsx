@@ -4,10 +4,10 @@ import { ArrowLeft } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WorkProjectList } from "@/components/WorkProjectList";
-import { ARCHIVED_PROJECTS } from "@/data/portfolioData";
+import { ARCHIVED_PROJECTS, DEVELOPER_INFO } from "@/data/portfolioData";
 
 export const metadata = {
-  title: "Case Studies — Ammardito Shafaat",
+  title: `Case Studies — ${DEVELOPER_INFO.name}`,
   description: "Detailed case studies on balancing technical innovation with practical constraints, legacy systems, and real-world outcomes.",
 };
 
@@ -15,7 +15,7 @@ export function WorkIndexView() {
   return (
     <div className="min-h-screen bg-white text-black flex flex-col">
       <Navbar />
-      <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 w-full">
+      <main className="flex-1 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-12 sm:py-16 w-full">
         <div className="mb-8">
           <Link href="/" className="inline-flex min-h-11 items-center gap-1.5 text-xs font-mono text-[#666] hover:text-black">
             <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" /> Back to Home
@@ -30,7 +30,7 @@ export function WorkIndexView() {
             How I Approach Problems &amp; Build Solutions
           </h1>
           <p className="text-base sm:text-lg text-[#555] max-w-2xl leading-relaxed">
-            Every case study begins with the reality of the problem: navigating technical constraints, balancing innovation with practicality, and delivering measurable outcomes.
+            Every case study begins with the reality of the problem: navigating technical constraints, balancing innovation with practicality, and delivering measurable outcomes. Pick a book to read the full story.
           </p>
         </header>
 

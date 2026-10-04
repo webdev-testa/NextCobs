@@ -27,13 +27,19 @@ export function Footer({ className = "" }: { className?: string }) {
   }, []);
 
   return (
-    <footer className={`w-full bg-[#ffffff] text-[#000000] py-14 border-t relative ${className || "border-[#e6e6e6]"}`}>
+    <footer className={`portfolio-footer w-full bg-[#ffffff] text-[#000000] py-14 border-t relative ${className || "border-[#e6e6e6]"}`}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           {/* Brand & Monogram */}
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-[#000000] text-[#ffffff] flex items-center justify-center font-bold text-xs">
-              AS
+              {dev.name
+                .split(" ")
+                .map((w) => w[0])
+                .filter(Boolean)
+                .slice(0, 2)
+                .join("")
+                .toUpperCase()}
             </div>
             <div className="flex flex-col">
               <span className="font-semibold text-sm text-[#000000]">

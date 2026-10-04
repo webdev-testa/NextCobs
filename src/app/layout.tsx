@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { MotionSystem } from "@/components/MotionSystem";
 import { ChatWidget } from "@/components/ChatAssistant";
+import { DEVELOPER_INFO } from "@/data/portfolioData";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -25,26 +26,23 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ammardito Shafaat — Software Engineer | AI & Systems",
-  description:
-    "I build practical software & AI solutions—with a dash of creative spark—so teams can work faster and carry less.",
+  title: `${DEVELOPER_INFO.name} — ${DEVELOPER_INFO.role}`,
+  description: DEVELOPER_INFO.tagline,
   keywords: [
-    "Ammardito Shafaat",
+    DEVELOPER_INFO.name,
+    DEVELOPER_INFO.role,
     "Software Engineer",
-    "AI & Systems",
     "Full Stack Engineer",
     "React",
     "Next.js",
     "TypeScript",
-    "Jakarta",
     "Portfolio",
     "Case Studies",
   ],
-  authors: [{ name: "Ammardito Shafaat" }],
+  authors: [{ name: DEVELOPER_INFO.name }],
   openGraph: {
-    title: "Ammardito Shafaat — Software Engineer | AI & Systems",
-    description:
-      "I build practical software & AI solutions—with a dash of creative spark—so teams can work faster and carry less.",
+    title: `${DEVELOPER_INFO.name} — ${DEVELOPER_INFO.role}`,
+    description: DEVELOPER_INFO.tagline,
     type: "website",
     locale: "en_US",
   },

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllNotes, getNoteWithNeighbors } from "@/lib/portfolio-catalog";
+import { getAllNotes, getNoteWithNeighbors, getDeveloperProfile } from "@/lib/portfolio-catalog";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { BackButton } from "@/components/BackButton";
@@ -26,6 +26,7 @@ export async function NoteDetailView({
   }
 
   const { note, prevNote, nextNote } = noteData;
+  const dev = getDeveloperProfile();
 
   return (
     <div className="min-h-screen bg-[#ffffff] text-[#000000] flex flex-col selection:bg-[#000000] selection:text-[#ffffff]">
@@ -149,12 +150,18 @@ export async function NoteDetailView({
           {/* Author Footnote */}
           <div className="p-6 rounded-2xl bg-[#ffffff] border border-[#e6e6e6] flex items-center gap-4 mt-6" data-reveal="quiet">
             <div className="w-10 h-10 rounded-full bg-[#000000] text-[#ffffff] flex items-center justify-center font-bold text-sm shrink-0">
-              AS
+              {dev.name
+                .split(" ")
+                .map((w) => w[0])
+                .filter(Boolean)
+                .slice(0, 2)
+                .join("")
+                .toUpperCase()}
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-sm text-[#000000]">Ammardito Shafaat</span>
+              <span className="font-bold text-sm text-[#000000]">{dev.name}</span>
               <span className="text-xs text-[#666666]">
-                Software Engineer | AI &amp; Systems based in Jakarta. Building practical software solutions with a dash of creative spark.
+                {dev.role} based in {dev.location}. {dev.tagline}
               </span>
             </div>
           </div>

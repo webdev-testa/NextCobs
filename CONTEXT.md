@@ -6,8 +6,8 @@ This document establishes the ubiquitous domain language, architectural seams, a
 
 Follow the principles from `codebase-design`:
 
-- **Module**: Anything with an interface and an implementation (functions, classes, stateful slices, UI containers). Never substitute *component*, *service*, or *unit*.
-- **Interface**: Everything a caller must know to use the module correctly (parameters, return types, ordering constraints, error modes). Never substitute *API* or *signature*.
+- **Module**: Anything with an interface and an implementation (functions, classes, stateful slices, UI containers). Never substitute _component_, _service_, or _unit_.
+- **Interface**: Everything a caller must know to use the module correctly (parameters, return types, ordering constraints, error modes). Never substitute _API_ or _signature_.
 - **Implementation**: The body of code inside a module, hidden from callers.
 - **Depth**: Leverage at the interface. A module is **deep** when it encapsulates substantial behavior behind a small, simple interface.
 - **Seam**: The location where a module's interface lives, allowing behavior to vary without editing the call site.
@@ -20,6 +20,7 @@ Follow the principles from `codebase-design`:
 ## Domain Concepts
 
 ### 1. Studio Desk Notes
+
 - **Concept**: The interactive visitor guestbook and desk pinboard on the portfolio.
 - **Domain Responsibilities**:
   - Loading visitor notes from persistent storage (Turso LibSQL in production, in-memory fake in test).
@@ -28,7 +29,8 @@ Follow the principles from `codebase-design`:
   - Wall modal view and new note form submission with validation.
 - **Good Seam**: A `NotesRepository` adapter seam separating UI state management from SQL persistence.
 
-### 2. Studio Assistant (Owl)
+### 2. Studio Assistant (Soren)
+
 - **Concept**: Dito's studio companion owl, representing his engineering background, architectural decision-making, and project insights to visitors.
 - **Domain Responsibilities**:
   - Ingesting verified portfolio facts, case studies, and career history into prompt context.
@@ -37,6 +39,7 @@ Follow the principles from `codebase-design`:
 - **Good Seam**: An `AiProvider` adapter seam separating prompt assembly and fallback sequencing from the Google AI Studio HTTP transport.
 
 ### 3. Portfolio Catalog
+
 - **Concept**: The static repository of case studies, career experience, personal reflections/notes, and off-screen pursuits.
 - **Domain Responsibilities**:
   - Pre-indexing case studies and notes by slug.
@@ -45,4 +48,5 @@ Follow the principles from `codebase-design`:
 - **Good Seam**: A high-leverage in-process query interface (`getProjectWithNeighbors`, `getPublishedNotes`, `getFeaturedProjects`) that hides raw array representations from page views.
 
 ### 4. Studio Companion Mascot
-- **Concept**: Mascot Owl (`MascotOwl`), Dito's sole resident vector mascot representing nocturnal stamina, wisdom, and analytical vision. Mascot Cat has been retired.
+
+- **Concept**: Mascot Soren (`MascotOwl`), Dito's sole resident vector mascot representing nocturnal stamina, wisdom, and analytical vision. Mascot Cat has been retired.

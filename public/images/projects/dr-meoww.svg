@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="100%" height="100%">
+  <defs>
+    <linearGradient id="purpleBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#181329"/>
+      <stop offset="100%" stop-color="#261b40"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="750" fill="url(#purpleBg)"/>
+
+  <!-- Top Tablet App Header -->
+  <rect x="0" y="0" width="1200" height="64" fill="#130e20"/>
+  <line x1="0" y1="64" x2="1200" y2="64" stroke="#3b2b5f" stroke-width="1"/>
+
+  <circle cx="44" cy="32" r="14" fill="#a855f7"/>
+  <text x="44" y="37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">🐾</text>
+  <text x="72" y="37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#f8fafc">Dr. Meoww • Clinic &amp; Pet ERP</text>
+
+  <!-- GPS Geofence Status -->
+  <rect x="940" y="18" width="220" height="28" rx="14" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-opacity="0.4"/>
+  <circle cx="956" cy="32" r="4" fill="#10b981"/>
+  <text x="968" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#34d399">GPS Geofence: Inside Clinic</text>
+
+  <!-- 3 Stats Cards -->
+  <g transform="translate(40, 90)">
+    <!-- Card 1 -->
+    <rect x="0" y="0" width="350" height="110" rx="16" fill="#201738" stroke="#3b2b5f"/>
+    <text x="24" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#94a3b8">MONTHLY PAYROLL DURATION</text>
+    <text x="24" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#f8fafc">3 Minutes</text>
+    <text x="175" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#a855f7">↓ from 2 days paper</text>
+  </g>
+
+  <g transform="translate(425, 90)">
+    <!-- Card 2 -->
+    <rect x="0" y="0" width="350" height="110" rx="16" fill="#201738" stroke="#3b2b5f"/>
+    <text x="24" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#94a3b8">INFRASTRUCTURE HOSTING BILL</text>
+    <text x="24" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#34d399">$0.00 / mo</text>
+    <text x="200" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#64748b">Supabase Free Tier</text>
+  </g>
+
+  <g transform="translate(810, 90)">
+    <!-- Card 3 -->
+    <rect x="0" y="0" width="350" height="110" rx="16" fill="#201738" stroke="#3b2b5f"/>
+    <text x="24" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#94a3b8">OFFLINE-FIRST SYNC STATUS</text>
+    <text x="24" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#38bdf8">100%</text>
+    <text x="130" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#94a3b8">SQLite + Local Queue</text>
+  </g>
+
+  <!-- Clinic Queue & Patient Records Table -->
+  <g transform="translate(40, 230)">
+    <rect x="0" y="0" width="1120" height="470" rx="16" fill="#201738" stroke="#3b2b5f"/>
+    
+    <!-- Table Header -->
+    <text x="32" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#f8fafc">Active Clinic Queue &amp; Inventory Management</text>
+    <line x1="0" y1="70" x2="1120" y2="70" stroke="#3b2b5f" stroke-width="1"/>
+
+    <!-- Column Labels -->
+    <text x="32" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#94a3b8">PATIENT &amp; OWNER</text>
+    <text x="280" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#94a3b8">DIAGNOSIS / PROCEDURE</text>
+    <text x="560" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#94a3b8">STAFF ATTENDING</text>
+    <text x="820" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#94a3b8">MEDICINE BATCH DEDUCTION</text>
+    <text x="1040" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#94a3b8">STATUS</text>
+
+    <!-- Row 1 -->
+    <rect x="16" y="115" width="1088" height="60" rx="10" fill="#2a1f47" stroke="#4a3773"/>
+    <text x="32" y="145" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#f8fafc">Mochi (Scottish Fold)</text>
+    <text x="32" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#94a3b8">Owner: Sarah T.</text>
+    <text x="280" y="145" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#cbd5e1">Rabies &amp; Core Vaccination</text>
+    <text x="560" y="145" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#cbd5e1">Dr. Cindy, Vet</text>
+    <text x="820" y="145" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#38bdf8">-1 Vial (Batch #RAB-2025)</text>
+    <rect x="1030" y="132" width="60" height="24" rx="6" fill="#10b981" fill-opacity="0.2"/>
+    <text x="1060" y="148" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#34d399" text-anchor="middle">DONE</text>
+
+    <!-- Row 2 -->
+    <rect x="16" y="185" width="1088" height="60" rx="10" fill="#201738" stroke="#332454"/>
+    <text x="32" y="215" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#f8fafc">Bruno (Golden Retriever)</text>
+    <text x="32" y="232" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#94a3b8">Owner: David K.</text>
+    <text x="280" y="215" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#cbd5e1">Dental Scaling &amp; Ear Check</text>
+    <text x="560" y="215" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#cbd5e1">Nurse Budi</text>
+    <text x="820" y="215" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#38bdf8">-20ml Antiseptic Wash</text>
+    <rect x="1020" y="202" width="75" height="24" rx="6" fill="#a855f7" fill-opacity="0.2"/>
+    <text x="1057" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#c084fc" text-anchor="middle">IN CLINIC</text>
+
+    <!-- Row 3 -->
+    <rect x="16" y="255" width="1088" height="60" rx="10" fill="#201738" stroke="#332454"/>
+    <text x="32" y="285" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#f8fafc">Luna (Persian Cat)</text>
+    <text x="32" y="302" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#94a3b8">Owner: Rina W.</text>
+    <text x="280" y="285" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#cbd5e1">Post-Surgery Stitch Removal</text>
+    <text x="560" y="285" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#cbd5e1">Dr. Cindy, Vet</text>
+    <text x="820" y="285" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">No Meds Required</text>
+    <rect x="1025" y="272" width="70" height="24" rx="6" fill="#eab308" fill-opacity="0.2"/>
+    <text x="1060" y="288" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#facc15" text-anchor="middle">QUEUED</text>
+  </g>
+</svg>

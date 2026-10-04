@@ -89,6 +89,19 @@ button, summary { cursor: pointer; }
 .sticky-note > div:first-child { flex-wrap: wrap; }
 .sticky-note > div:first-child > span { white-space: normal; overflow-wrap: anywhere; }
 
+/* Shared native dialogs live in the top layer, outside reveal transforms. */
+.studio-dialog { position: fixed; inset: 0; margin: 0; width: 100%; max-width: none; height: 100dvh; max-height: none; padding: 16px; border: 0; background: transparent; color: var(--color-ink); overflow-y: auto; }
+.studio-dialog[open] { display: flex; align-items: center; justify-content: center; }
+.studio-dialog::backdrop { background: rgb(0 0 0 / 55%); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.studio-dialog > * { min-width: 0; }
+.studio-notes button, .studio-dialog button { min-height: 44px; }
+.studio-dialog button[aria-label^="Close"] { min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.studio-dialog input, .studio-dialog textarea { font-size: 16px; }
+.studio-dialog p, .studio-notes p { overflow-wrap: anywhere; }
+.studio-dialog form > .flex.items-center.justify-between { flex-wrap: wrap; gap: 12px; }
+.studio-dialog form button[aria-label^="Select"] { min-width: 36px; }
+.studio-notes a, .studio-notes button { text-underline-offset: 4px; }
+
 .experience-section {
   padding-block: clamp(3.5rem, 7vw, 7rem);
   background: var(--color-surface-soft);
@@ -206,7 +219,6 @@ button, summary { cursor: pointer; }
   .experience-timeline { padding-left: 1.25rem; }
   .experience-entry::before { left: -1.25rem; }
   .experience-more { margin-left: 1.25rem; }
-  .portfolio-hero h2 { font-size: clamp(2.1rem, 7.5vw, 3.5rem); }
   .portfolio-hero .hero-board > div { padding: 1rem; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -333,7 +345,106 @@ button, summary { cursor: pointer; }
 }
 
 .animate-marquee {
-  animation: marquee 32s linear infinite;
+  animation: marquee 60s linear infinite;
   will-change: transform;
 }
 
+.marquee-container:hover .animate-marquee,
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.partner-marquee-logo {
+  filter: grayscale(1);
+  opacity: 0.65;
+  transition: filter 200ms ease-out, opacity 200ms ease-out;
+}
+.partner-marquee-item:is(:hover, :active) .partner-marquee-logo {
+  filter: grayscale(0);
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .partner-marquee-logo { transition: none; }
+}
+
+
+.portfolio-footer a { min-height: 44px; display: inline-flex; align-items: center; }
+.portfolio-footer { padding-bottom: 96px; }
+
+
+/* The studio companion greets pointer and keyboard visitors alike. */
+.studio-owl .owl-face { transform-origin: 60px 48px; transition: transform 180ms var(--ease-arrive); }
+.studio-owl .owl-eyes-happy { display: none; }
+.owl-greeting { opacity: 0; transition: opacity 180ms ease-out; }
+.studio-owl:is(:hover, :focus-visible) .owl-face { transform: rotate(-5deg); }
+.studio-owl:is(:hover, :focus-visible) .owl-eyes-open { display: none; }
+.studio-owl:is(:hover, :focus-visible) .owl-eyes-happy { display: inline; }
+.studio-owl:is(:hover, :focus-visible) .owl-greeting { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .studio-owl .owl-face, .owl-greeting { transition: none; }
+  .studio-owl:is(:hover, :focus-visible) .owl-face { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partner-marquee-track[aria-hidden="true"] { display: none; }
+  .partner-marquee-track { flex-shrink: 1; flex-wrap: wrap; justify-content: center; padding-inline: 1rem; row-gap: 1rem; }
+  .marquee-container { mask-image: none !important; -webkit-mask-image: none !important; }
+}
+
+/* Home section anchors account for the mobile section toolbar. */
+.portfolio-home :is(#intro, #studio, #selected-work, #experience, #notes, #contact) { scroll-margin-top: 132px; }
+@media (min-width: 1024px) {
+  .portfolio-home :is(#intro, #studio, #selected-work, #experience, #notes, #contact) { scroll-margin-top: 88px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.portfolio-home) { scroll-behavior: smooth; }
+}
+
+/* Case studies reuse the demo's hardcover and page stack. */
+.book-cover-front {
+  transform: perspective(1200px) translateX(0) scale(1) rotateY(0);
+  transition: transform 300ms cubic-bezier(.44, 0, .56, 1);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .book-cover[data-interactive="true"]:hover .book-cover-front,
+  .case-book-link:hover .book-cover[data-interactive="true"] .book-cover-front {
+    transform: perspective(1200px) translateX(-16px) scale(1.02) rotateY(-16deg);
+  }
+}
+.case-book-link:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 10px; }
+.case-book-link:focus-visible .book-cover-front {
+  transform: perspective(1200px) translateX(-16px) scale(1.02) rotateY(-16deg);
+}
+.case-book-shelf {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px 26px;
+  padding: 16px 8px 0;
+}
+.case-book-art {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px 16px 24px;
+  color: #20251e;
+  container-type: inline-size;
+}
+.case-book-edition { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px; font-size: 10px; border-bottom: 1px solid #20251e40; padding-bottom: 12px; }
+.case-book-heading { margin-top: 20px; }
+.case-book-category { font-size: clamp(9px, 6cqi, 11px); line-height: 1.5; }
+.case-book-title { margin-top: 10px; font-size: clamp(18px, 14cqi, 28px); font-weight: 650; letter-spacing: -.045em; line-height: 1.08; overflow-wrap: normal; }
+.case-book-subtitle { margin-top: 12px; font-size: clamp(10px, 7cqi, 14px); line-height: 1.45; }
+.case-book-colophon { margin-top: auto; padding-top: 14px; font-size: clamp(9px, 6cqi, 11px); line-height: 1.5; }
+.case-book-caption { margin-top: 28px; }
+.case-book-link:hover .case-book-caption span,
+.case-book-link:focus-visible .case-book-caption span { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 479px) {
+  .case-book-shelf { grid-template-columns: minmax(0, 1fr); gap: 40px; max-width: 300px; margin-inline: auto; }
+  .case-book-shelf .book-cover { max-width: none !important; }
+}
+@media (min-width: 768px) { .case-book-shelf { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px 36px; } }
+@media (min-width: 1200px) { .case-book-shelf { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 32px; } }
+@media (prefers-reduced-motion: reduce) {
+  .book-cover-front { transition: none; }
+  .case-book-link:focus-visible .book-cover-front { transform: none; }
+}

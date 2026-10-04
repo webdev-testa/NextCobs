@@ -7,11 +7,14 @@ import { Footer } from "@/components/Footer";
 import { BackButton } from "@/components/BackButton";
 import { CodeSnippet } from "@/components/CodeSnippet";
 import { ReadingProgress } from "@/components/ReadingProgress";
+import { ProductShowcase } from "@/components/ProductShowcase";
 import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
   Cpu,
+  ExternalLink,
+  Github,
   ShieldAlert,
   Wrench,
 } from "lucide-react";
@@ -42,7 +45,7 @@ export async function ProjectDetailView({
         <article className="flex flex-col gap-10">
           {/* Navigation */}
           <div>
-            <BackButton href="/work" label="Back to Selected Work" />
+            <BackButton href="/work" label="Back to Projects" />
           </div>
 
           {/* Header Info */}
@@ -75,36 +78,81 @@ export async function ProjectDetailView({
               ))}
             </div>
 
-            {/* Project Meta Bar */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 mt-2 border-t border-[#f1f1f1] text-xs">
-              <div>
-                <span className="text-[#666666] font-mono uppercase text-xs block mb-1">
-                  Role
-                </span>
-                <span className="font-semibold text-[#000000]">{project.role}</span>
+            {/* Links and Meta Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-4 mt-2 border-t border-[#f1f1f1] text-xs">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div>
+                  <span className="text-[#666666] font-mono uppercase text-xs block mb-1">
+                    Role
+                  </span>
+                  <span className="font-semibold text-[#000000]">{project.role}</span>
+                </div>
+                <div>
+                  <span className="text-[#666666] font-mono uppercase text-xs block mb-1">
+                    Context
+                  </span>
+                  <span className="font-semibold text-[#000000]">{project.clientOrContext}</span>
+                </div>
+                <div>
+                  <span className="text-[#666666] font-mono uppercase text-xs block mb-1">
+                    Year
+                  </span>
+                  <span className="font-semibold text-[#000000]">{project.year}</span>
+                </div>
               </div>
-              <div>
-                <span className="text-[#666666] font-mono uppercase text-xs block mb-1">
-                  Client / Context
-                </span>
-                <span className="font-semibold text-[#000000]">{project.clientOrContext}</span>
-              </div>
-              <div>
-                <span className="text-[#666666] font-mono uppercase text-xs block mb-1">
-                  Timeline
-                </span>
-                <span className="font-semibold text-[#000000]">{project.year}</span>
-              </div>
+
+              {(project.liveUrl || project.githubUrl) && (
+                <div className="flex items-center gap-3">
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#000000] text-[#ffffff] font-mono text-xs font-semibold hover:bg-[#222222] transition-colors"
+                    >
+                      <span>Live Site</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#f7f7f5] text-[#000000] border border-[#e6e6e6] font-mono text-xs font-semibold hover:bg-[#e6e6e6] transition-colors"
+                    >
+                      <Github className="w-3.5 h-3.5" />
+                      <span>Code</span>
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           </header>
 
+          {/* Primary Product Hero Showcase */}
+          <section id="showcase" className="w-full scroll-mt-28" data-reveal>
+            <ProductShowcase
+              src={project.heroImage || `/images/projects/${project.slug}.svg`}
+              alt={`${project.title} Interface Showcase`}
+              url={`${project.slug}.app`}
+              badge={project.category}
+              aspectRatio="video"
+              type="browser"
+              caption={`${project.title} &bull; Main Interface &bull; ${project.role}`}
+              priority
+            />
+          </section>
+
           <ReadingProgress items={[
+            { id: "showcase", label: "Showcase" },
             { id: "impact", label: "Impact" },
             { id: "overview", label: "Context" },
+            { id: "gallery", label: "Screens" },
             { id: "architecture", label: "Architecture" },
             { id: "decisions", label: "Decisions" },
             ...(project.standoutMoments && project.standoutMoments.length > 0
-              ? [{ id: "standout-moments", label: "Reflections" }]
+              ? [{ id: "standout-moments", label: "Takeaways" }]
               : []),
           ]} />
 
@@ -112,7 +160,7 @@ export async function ProjectDetailView({
           {project.framework && (
             <section id="impact" className="scroll-mt-28 p-6 sm:p-8 rounded-3xl bg-[#f7f7f5] border border-[#e6e6e6]" data-reveal>
               <h2 className="text-sm font-mono uppercase tracking-wider font-bold text-[#000000] mb-4">
-                The Operational Reality &amp; Impact
+                The Breakdown: Problem &amp; Result
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4" data-reveal-group>
@@ -120,7 +168,7 @@ export async function ProjectDetailView({
                   <div className="flex items-center gap-2 mb-1.5">
                     <ShieldAlert className="w-3.5 h-3.5 text-[#cf4444]" />
                     <span className="text-[11px] font-mono uppercase font-bold text-[#cf4444]">
-                      Weight
+                      Problem
                     </span>
                   </div>
                   <p className="text-xs sm:text-sm text-[#333333] leading-relaxed">
@@ -193,7 +241,7 @@ export async function ProjectDetailView({
                 Context &amp; Background
               </span>
               <h2 className="text-2xl font-bold tracking-tight text-[#000000]">
-                Balancing Innovation with Practicality
+                The Story
               </h2>
             </div>
             <p className="text-base sm:text-lg text-[#333333] leading-relaxed">{project.overview}</p>
@@ -201,7 +249,7 @@ export async function ProjectDetailView({
             {project.roleBeyondCode && (
               <div className="p-5 rounded-2xl bg-[#fafaf8] border border-[#e6e6e6] mt-2">
                 <span className="text-[11px] font-mono uppercase tracking-wider text-[#000000] font-bold block mb-1.5">
-                  My Role Beyond Just Writing Code
+                  Working with the Team
                 </span>
                 <p className="text-xs sm:text-sm text-[#444444] leading-relaxed">
                   {project.roleBeyondCode}
@@ -228,6 +276,46 @@ export async function ProjectDetailView({
               <p className="text-xs sm:text-sm text-[#444444] leading-relaxed">
                 {project.solution}
               </p>
+            </div>
+          </section>
+
+          {/* Key Product Screens Showcase Gallery */}
+          <section id="gallery" className="scroll-mt-28 flex flex-col gap-5" data-reveal>
+            <div className="border-b border-[#f1f1f1] pb-3">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1">
+                Product Showcase &amp; Screens
+              </span>
+              <h2 className="text-2xl font-bold tracking-tight text-[#000000]">
+                Key Screens
+              </h2>
+              <p className="text-xs sm:text-sm text-[#555555] mt-1">
+                Visual preview of the core flows and interactive elements.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6">
+              {(project.screenshots && project.screenshots.length > 0
+                ? project.screenshots
+                : [
+                    {
+                      src: project.heroImage || `/images/projects/${project.slug}.svg`,
+                      alt: `${project.title} Screen`,
+                      title: "Core Workflow",
+                      caption: `${project.title} user interface and primary controls.`,
+                    },
+                  ]
+              ).map((shot, idx) => (
+                <div key={idx} className="flex flex-col gap-2">
+                  <ProductShowcase
+                    src={shot.src}
+                    alt={shot.alt}
+                    url={`${project.slug}.app`}
+                    type="browser"
+                    aspectRatio="video"
+                    caption={shot.caption || shot.title}
+                  />
+                </div>
+              ))}
             </div>
           </section>
 
@@ -263,7 +351,7 @@ export async function ProjectDetailView({
           {project.codeSnippet && (
             <section className="flex flex-col gap-3" data-reveal="quiet">
               <h2 className="text-xl font-bold text-[#000000]">
-                Key Implementation Detail
+                Implementation Code
               </h2>
               <CodeSnippet
                 filename={project.codeSnippet.filename}
@@ -278,7 +366,7 @@ export async function ProjectDetailView({
           {project.keyDecisions && project.keyDecisions.length > 0 && (
             <section id="decisions" className="scroll-mt-28 flex flex-col gap-4" data-reveal="quiet">
               <h2 className="text-xl font-bold text-[#000000]">
-                Engineering Trade-Offs &amp; Decisions
+                Trade-offs &amp; Decisions
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" data-reveal-group>
                 {project.keyDecisions.map((kd, idx) => (
@@ -304,10 +392,10 @@ export async function ProjectDetailView({
             <section id="standout-moments" className="scroll-mt-28 flex flex-col gap-4" data-reveal="quiet">
               <div>
                 <span className="text-xs font-mono uppercase tracking-wider text-[#666666] block mb-1">
-                  Reflections &amp; Standout Moments
+                  Lessons Learned
                 </span>
                 <h2 className="text-2xl font-bold tracking-tight text-[#000000]">
-                  What I Learned From This Journey
+                  Takeaways
                 </h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4" data-reveal-group>
@@ -339,7 +427,7 @@ export async function ProjectDetailView({
                 className="group flex flex-col items-start text-left"
               >
                 <span className="text-xs font-mono text-[#888888] flex items-center gap-1 group-hover:text-[#000000]">
-                  <ArrowLeft className="w-3 h-3" /> Previous Case Study
+                  <ArrowLeft className="w-3 h-3" /> Previous Project
                 </span>
                 <span className="text-sm font-semibold text-[#000000] group-hover:underline mt-1">
                   {prevProject.title}
@@ -349,18 +437,20 @@ export async function ProjectDetailView({
               <div />
             )}
 
-            {nextProject && (
+            {nextProject ? (
               <Link
                 href={`/work/${nextProject.slug}`}
                 className="group flex flex-col items-end text-right"
               >
                 <span className="text-xs font-mono text-[#888888] flex items-center gap-1 group-hover:text-[#000000]">
-                  Next Case Study <ArrowRight className="w-3 h-3" />
+                  Next Project <ArrowRight className="w-3 h-3" />
                 </span>
                 <span className="text-sm font-semibold text-[#000000] group-hover:underline mt-1">
                   {nextProject.title}
                 </span>
               </Link>
+            ) : (
+              <div />
             )}
           </nav>
         </article>
@@ -370,5 +460,3 @@ export async function ProjectDetailView({
     </div>
   );
 }
-
-export default ProjectDetailView;

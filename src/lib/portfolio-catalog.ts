@@ -66,13 +66,13 @@ export function getSelectedFlagshipProjects(): {
   lgSmWiki: Project;
   drMeoww: Project;
   byGewa: Project;
-  fleetMetrics: Project;
+  internalMigration: Project;
 } {
   return {
     lgSmWiki: projectBySlugMap.get("lg-sm-wiki") || PROJECTS_DATA[0],
     drMeoww: projectBySlugMap.get("dr-meoww") || PROJECTS_DATA[1],
     byGewa: projectBySlugMap.get("bygewa") || PROJECTS_DATA[2],
-    fleetMetrics: projectBySlugMap.get("automated-fleet-metrics") || PROJECTS_DATA[3],
+    internalMigration: projectBySlugMap.get("internal-microservices-migration") || PROJECTS_DATA[4],
   };
 }
 
